@@ -8,6 +8,7 @@ class CustomText extends StatelessWidget {
   final TextAlign textAlign;
   final TextDecoration decoration;
   final FontStyle fontStyle;
+  final TextDecoration textDecoration;
 
   CustomText({
     required this.text,
@@ -17,6 +18,7 @@ class CustomText extends StatelessWidget {
     this.textAlign = TextAlign.start,
     this.decoration = TextDecoration.none,
     this.fontStyle = FontStyle.normal,
+    this.textDecoration = TextDecoration.none,
   });
 
   @override

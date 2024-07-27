@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:klik/application/core/widgets/CustomElevatedButton.dart';
+import 'package:klik/application/core/widgets/CustomText.dart';
 import 'package:klik/application/core/widgets/customeTypewriterGradientText.dart';
 import 'package:klik/application/core/widgets/custometextformfield.dart';
 import 'package:klik/application/pages/login/login_page.dart';
+import 'package:klik/application/pages/signup_page/register_otp.dart';
 
 import 'package:klik/constants/constants.dart';
 
@@ -21,6 +23,7 @@ class _SignupPageState extends State<SignupPage> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  String email = '';
 
   @override
   void dispose() {
@@ -33,6 +36,10 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final width = size.width;
+    final height = size.height;
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -41,11 +48,14 @@ class _SignupPageState extends State<SignupPage> {
           key: _formKey,
           child: ListView(
             children: <Widget>[
-              const SizedBox(height: 100.0),
-              SizedBox(
-                width: 100,
-                height: 100,
-                child: Image.asset('assets/headline.png'),
+              const SizedBox(height: 50.0),
+              Padding(
+                padding: const EdgeInsets.only(right: 40),
+                child: SizedBox(
+                  width: 100,
+                  height: 100,
+                  child: Image.asset('assets/headline.png'),
+                ),
               ),
               const SizedBox(height: 16.0),
               const Center(
@@ -82,6 +92,7 @@ class _SignupPageState extends State<SignupPage> {
                   if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
                     return 'Please enter a valid email address';
                   }
+                  email = _emailController.text;
                   return null;
                 },
               ),
@@ -137,6 +148,15 @@ class _SignupPageState extends State<SignupPage> {
               CustomElevatedButton(
                 text: "Register",
                 onPressed: () {
+                  print("+++++++++++++++++++++++++++$email");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RegisterOtp(
+                        email: email,
+                      ),
+                    ),
+                  );
                   if (_formKey.currentState!.validate()) {
                     if (_passwordController.text !=
                         _confirmPasswordController.text) {
@@ -154,16 +174,56 @@ class _SignupPageState extends State<SignupPage> {
                             content:
                                 Text('Registration completed sucessufully ')),
                       );
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LoginPage(),
-                        ),
-                      );
                     }
                   }
                 },
-              )
+              ),
+              SizedBox(height: 12.0),
+              Container(
+                width: width * .8,
+                child: Column(
+                  children: [
+                    const Row(
+                      children: [
+                        Expanded(
+                          child: Divider(
+                            color: Colors.white,
+                            thickness: 1,
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Text("Have an account ? then "),
+                        ),
+                        Expanded(
+                          child: Divider(
+                            color: Colors.white,
+                            thickness: 1,
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12.0),
+                    InkWell(
+                      onTap: () {
+                        // Navigate to another page
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => LoginPage()),
+                        );
+                      },
+                      child: CustomText(
+                        text: "Login",
+                        color: Colors.green,
+                        fontSize: 22,
+                        decoration: TextDecoration.none,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 80.0),
             ],
           ),
         ),

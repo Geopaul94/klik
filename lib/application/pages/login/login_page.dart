@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klik/application/core/widgets/CustomElevatedButton.dart';
 import 'package:klik/application/core/widgets/CustomText.dart';
 import 'package:klik/application/core/widgets/custometextformfield.dart';
+import 'package:klik/application/pages/homepage/homepage.dart';
 import 'package:klik/application/pages/login/forgot_password.dart';
 import 'package:klik/application/features/authentication/loginbloc/login_bloc.dart';
 import 'package:klik/application/features/authentication/loginbloc/login_event.dart';
@@ -36,9 +37,9 @@ class _LoginPageState extends State<LoginPage> {
     final height = size.height;
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Login '),
-        ),
+        // appBar: AppBar(
+        //   title: const Text('Login '),
+        // ),
         // body: BlocListener<LoginBloc, LoginState>(
         //   listener: (context, state) {
         //     if (state is LoginSuccess) {
@@ -56,6 +57,7 @@ class _LoginPageState extends State<LoginPage> {
         //
         //
         //
+
         body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Form(
@@ -65,8 +67,19 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Container(
-                      height: height * .2,
+                    // Container(
+                    //   height: height * .2,
+                    // ),
+                    SizedBox(
+                      height: height * .08,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 40),
+                      child: SizedBox(
+                        width: 200,
+                        height: 200,
+                        child: Image.asset('assets/headline.png'),
+                      ),
                     ),
                     CustomTextFormField(
                       labelText: 'Username',
@@ -119,9 +132,16 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(height: height * 0.04),
                     CustomElevatedButton(
                       text: 'Sign in',
-                      onPressed: () {},
+                      onPressed: () {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Homepage(),
+                          ));
+                        }
+                      },
                     ),
                     SizedBox(height: height * 0.04),
+
                     Container(
                       width: width * .8,
                       child: const Row(
@@ -175,12 +195,14 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.grey,
                         ),
                         SizedBox(
-                          width: width * .05,
+                          width: width * .03,
                         ),
                         GestureDetector(
                           child: CustomText(
                             text: "Sign up ",
                             color: Colors.green,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
                           ),
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
