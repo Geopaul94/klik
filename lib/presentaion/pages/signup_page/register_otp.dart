@@ -1,26 +1,39 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:klik/application/core/widgets/CustomElevatedButton.dart';
 import 'package:klik/application/core/widgets/CustomText.dart';
-import 'package:klik/constants/constants.dart';
-import 'package:lottie/lottie.dart';
+import 'package:klik/application/core/widgets/CustomeAppbar.dart';
+import 'package:klik/application/core/constants/constants.dart';
 
 import 'package:otp_text_field/otp_field.dart';
+import 'package:otp_text_field/style.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class ForgotPassword extends StatelessWidget {
-  final emailcontroller = TextEditingController();
-  ForgotPassword({super.key, required emailcontroller});
+class RegisterOtp extends StatelessWidget {
+  final String email;
+  RegisterOtp({
+    super.key,
+    required this.email,
+  });
 
   final otpController = OtpFieldController();
 
   @override
   Widget build(BuildContext context) {
+    print("========================================$email");
+
     final size = MediaQuery.of(context).size;
     final height = size.height;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('OTP Verification'),
-        centerTitle: true,
+      appBar: CustomAppBar(
+        title: 'OTP Verification',
+        leadingIcon: Icons.arrow_back,
+        leadingIconSize: 32.0,
+        cupertinoLeadingIcon: CupertinoIcons.back,
+        isTitleBold: true,
+        titleStyle: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+        startColor: green,
+        endColor: Colors.blue,
       ),
       body: Container(
         child: Padding(
@@ -34,22 +47,19 @@ class ForgotPassword extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.2,
                   child: Stack(
                     children: [
-                      // Grey circular background
                       Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.grey,
                           shape: BoxShape.circle,
                         ),
-                        width: MediaQuery.of(context).size.width * 0.36,
+                        width: MediaQuery.of(context).size.width * 0.4,
                         height: MediaQuery.of(context).size.height * 0.2,
                       ),
-                      // Image on top of the grey background
                       Positioned(
-                        left: MediaQuery.of(context).size.width *
-                            0.006, // 5% from the left
-                        top: MediaQuery.of(context).size.height * 0.015,
-                        child: Lottie.asset(
-                          'assets/otp.json',
+                        left: MediaQuery.of(context).size.width * 0.03,
+                        top: MediaQuery.of(context).size.height * 0.04,
+                        child: Image.asset(
+                          'assets/email.png',
                           width: MediaQuery.of(context).size.width * 0.35,
                           height: MediaQuery.of(context).size.height * 0.15,
                           fit: BoxFit.cover,
@@ -61,13 +71,26 @@ class ForgotPassword extends StatelessWidget {
                 SizedBox(
                   height: height * 0.08,
                 ),
-                CustomText(
-                  text:
-                      "Enter the verification code that was sent to ${emailcontroller.text}",
-                  color: Colors.white,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomText(
+                      text: "Enter the verification code that was sent to ",
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      height: height * 0.02,
+                    ),
+                    CustomText(
+                      text: email,
+                      color: green,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    ),
+                  ],
                 ),
                 SizedBox(
-                  height: height * 0.08,
+                  height: height * 0.06,
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
@@ -89,9 +112,7 @@ class ForgotPassword extends StatelessWidget {
                       selectedFillColor: Colors.blue[100],
                     ),
                     onCompleted: (pin) {
-                      // Handle completed OTP
                       print("Entered OTP: $pin");
-                      // You can add your verification logic here
                     },
                   ),
                 ),

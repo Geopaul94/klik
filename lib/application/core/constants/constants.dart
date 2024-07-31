@@ -5,11 +5,10 @@ const Color login_bg = Color.fromARGB(0, 0, 0, 0);
 const Color signup_bg = Color.fromARGB(0, 31, 112, 24);
 
 const Color green = Colors.green;
-
+const Color white = Colors.white;
 const double defaultpadding = 16.0;
-
+// const String  header =  "Content-Type": "application/json";
 const Duration defaultDuration = Duration(microseconds: 300);
-
 
 const Gradient gradient = LinearGradient(
   colors: [

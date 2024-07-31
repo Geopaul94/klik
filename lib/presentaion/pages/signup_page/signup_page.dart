@@ -3,10 +3,10 @@ import 'package:klik/application/core/widgets/CustomElevatedButton.dart';
 import 'package:klik/application/core/widgets/CustomText.dart';
 import 'package:klik/application/core/widgets/customeTypewriterGradientText.dart';
 import 'package:klik/application/core/widgets/custometextformfield.dart';
-import 'package:klik/application/pages/login/login_page.dart';
-import 'package:klik/application/pages/signup_page/register_otp.dart';
+import 'package:klik/presentaion/pages/login/login_page.dart';
+import 'package:klik/presentaion/pages/signup_page/register_otp.dart';
 
-import 'package:klik/constants/constants.dart';
+import 'package:klik/application/core/constants/constants.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});

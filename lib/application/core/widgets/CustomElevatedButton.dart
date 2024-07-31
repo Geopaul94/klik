@@ -1,58 +1,3 @@
-// // ignore: file_names
-// import 'package:flutter/material.dart';
-
-// class CustomElevatedButton extends StatelessWidget {
-//   final String text;
-//   final VoidCallback onPressed;
-//   final Color color;
-//   final Color textColor;
-//   final double borderRadius;
-//   final double elevation;
-//   final double paddingVertical;
-//   final double paddingHorizontal;
-//   final double height;
-//   final double width;
-
-//   CustomElevatedButton({
-//     required this.text,
-//     required this.onPressed,
-//     this.color = Colors.green,
-//     this.textColor = Colors.white,
-//     this.borderRadius = 8.0,
-//     this.elevation = 2.0,
-//     this.paddingVertical = 12.0,
-//     this.paddingHorizontal = 24.0,
-//     required this.height,
-//     required this.width,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-
-//         final size = MediaQuery.of(context).size;
-//     final width = size.width;
-//     final height = size.height;
-//     return ElevatedButton(
-//       style: ElevatedButton.styleFrom(
-//         foregroundColor: textColor,
-//         backgroundColor: color,
-//         elevation: elevation,
-//         shape: RoundedRectangleBorder(
-//           borderRadius: BorderRadius.circular(borderRadius),
-//         ),
-//         padding: EdgeInsets.symmetric(
-//           vertical: paddingVertical,
-//           horizontal: paddingHorizontal,
-//         ),
-//       ),
-//       onPressed: onPressed,
-//       child: Text(
-//         text,
-//         style: const TextStyle(fontSize: 16),
-//       ),
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
@@ -64,8 +9,10 @@ class CustomElevatedButton extends StatelessWidget {
   final double elevation;
   final double paddingVertical;
   final double paddingHorizontal;
-  final double? heightFactor;
-  final double? widthFactor;
+  final double fontSize;
+  final double? height;
+  final double? width;
+
 
   CustomElevatedButton({
     required this.text,
@@ -76,16 +23,20 @@ class CustomElevatedButton extends StatelessWidget {
     this.elevation = 2.0,
     this.paddingVertical = 12.0,
     this.paddingHorizontal = 24.0,
-    this.heightFactor,
-    this.widthFactor,
+    this.fontSize = 16.0,
+    this.height,
+    this.width,
   });
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final buttonHeight =
-        heightFactor != null ? size.height * heightFactor! : 50.0;
-    final buttonWidth = widthFactor != null ? size.width * widthFactor! : 150.0;
+    final screenWidth = size.width;
+    final screenHeight = size.height;
+
+    // Define the button's height and width based on MediaQuery if not provided
+    final buttonHeight = height ?? screenHeight * 0.08; // 8% of screen height
+    final buttonWidth = width ?? screenWidth * 0.8; // 80% of screen width
 
     return SizedBox(
       height: buttonHeight,
@@ -104,9 +55,13 @@ class CustomElevatedButton extends StatelessWidget {
           ),
         ),
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: const TextStyle(fontSize: 16),
+        child: Row(
+          children: [
+            Text(
+              text,
+              style: TextStyle(fontSize: fontSize),
+            ),
+          ],
         ),
       ),
     );

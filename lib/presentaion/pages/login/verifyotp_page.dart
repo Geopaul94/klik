@@ -1,39 +1,25 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/CustomElevatedButton.dart';
 import 'package:klik/application/core/widgets/CustomText.dart';
-import 'package:klik/application/core/widgets/CustomeAppbar.dart';
-import 'package:klik/constants/constants.dart';
-
+import 'package:klik/presentaion/pages/login/reset_password_page.dart';
+import 'package:lottie/lottie.dart';
 import 'package:otp_text_field/otp_field.dart';
-import 'package:otp_text_field/style.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class RegisterOtp extends StatelessWidget {
-  final String email;
-  RegisterOtp({
-    super.key,
-    required this.email,
-  });
+class VerifyotpPage extends StatelessWidget {
+  VerifyotpPage({super.key, required emailcontroller});
 
   final otpController = OtpFieldController();
-
+  final emailcontroller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    print("========================================$email");
-
     final size = MediaQuery.of(context).size;
     final height = size.height;
     return Scaffold(
-      appBar: CustomAppBar(
-        title: 'OTP Verification',
-        leadingIcon: Icons.arrow_back,
-        leadingIconSize: 32.0,
-        cupertinoLeadingIcon: CupertinoIcons.back,
-        isTitleBold: true,
-        titleStyle: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-        startColor: green,
-        endColor: Colors.blue,
+      appBar: AppBar(
+        title: const Text('OTP Verification'),
+        centerTitle: true,
       ),
       body: Container(
         child: Padding(
@@ -47,19 +33,22 @@ class RegisterOtp extends StatelessWidget {
                   height: MediaQuery.of(context).size.height * 0.2,
                   child: Stack(
                     children: [
+                      // Grey circular background
                       Container(
-                        decoration: const BoxDecoration(
+                        decoration: BoxDecoration(
                           color: Colors.grey,
                           shape: BoxShape.circle,
                         ),
-                        width: MediaQuery.of(context).size.width * 0.4,
+                        width: MediaQuery.of(context).size.width * 0.36,
                         height: MediaQuery.of(context).size.height * 0.2,
                       ),
+                      // Image on top of the grey background
                       Positioned(
-                        left: MediaQuery.of(context).size.width * 0.03,
-                        top: MediaQuery.of(context).size.height * 0.04,
-                        child: Image.asset(
-                          'assets/email.png',
+                        left: MediaQuery.of(context).size.width *
+                            0.006, // 5% from the left
+                        top: MediaQuery.of(context).size.height * 0.015,
+                        child: Lottie.asset(
+                          'assets/otp.json',
                           width: MediaQuery.of(context).size.width * 0.35,
                           height: MediaQuery.of(context).size.height * 0.15,
                           fit: BoxFit.cover,
@@ -71,26 +60,13 @@ class RegisterOtp extends StatelessWidget {
                 SizedBox(
                   height: height * 0.08,
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomText(
-                      text: "Enter the verification code that was sent to ",
-                      color: Colors.white,
-                    ),
-                    SizedBox(
-                      height: height * 0.02,
-                    ),
-                    CustomText(
-                      text: email,
-                      color: green,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
-                  ],
+                CustomText(
+                  text:
+                      "Enter the verification code that was sent to ${emailcontroller.text}",
+                  color: Colors.white,
                 ),
                 SizedBox(
-                  height: height * 0.06,
+                  height: height * 0.08,
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
@@ -121,7 +97,12 @@ class RegisterOtp extends StatelessWidget {
                 ),
                 CustomElevatedButton(
                   text: "Verify",
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ResetPasswordPage()));
+                  },
                 ),
                 SizedBox(
                   height: height * 0.02,

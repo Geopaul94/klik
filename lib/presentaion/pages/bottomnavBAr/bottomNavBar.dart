@@ -1,11 +1,11 @@
 import 'package:cuberto_bottom_bar/internal/cuberto_bottom_bar.dart';
 import 'package:cuberto_bottom_bar/internal/tab_data.dart';
 import 'package:flutter/material.dart';
-import 'package:klik/application/pages/homepage/homepage.dart';
-import 'package:klik/application/pages/notification_page/notification_page.dart';
-import 'package:klik/application/pages/profile_page/profile_page.dart';
-import 'package:klik/application/pages/search_page/Search_page.dart';
-import 'package:klik/application/pages/userpost_page/user_post.dart';
+import 'package:klik/presentaion/pages/homepage/homepage.dart';
+import 'package:klik/presentaion/pages/notification_page/notification_page.dart';
+import 'package:klik/presentaion/pages/profile_page/profile_page.dart';
+import 'package:klik/presentaion/pages/search_page/Search_page.dart';
+import 'package:klik/presentaion/pages/userpost_page/user_post.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});

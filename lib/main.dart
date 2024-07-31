@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:klik/presentaion/bloc/bloc/signup_bloc.dart';
 
-import 'package:klik/application/features/authentication/loginbloc/login_bloc.dart';
-import 'package:klik/application/features/authentication/signup_bloc/signup_bloc.dart';
-import 'package:klik/application/pages/login/login_page.dart';
-import 'package:klik/application/pages/signup_page/signup_page.dart';
+import 'package:klik/presentaion/bloc/loginbloc/login_bloc.dart';
+
+import 'package:klik/presentaion/pages/login/entermailid.dart';
+import 'package:klik/presentaion/pages/login/login_page.dart';
+import 'package:klik/presentaion/pages/login/reset_password_page.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -35,14 +37,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-
-//how to add to the git 
-
-
-// git remote add origin https://github.com/Geopaul94/klik.git
-// git branch -M main
-// git push -u origin main
-
-

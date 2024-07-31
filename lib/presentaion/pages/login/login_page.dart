@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:klik/application/core/widgets/CustomElevatedButton.dart';
 import 'package:klik/application/core/widgets/CustomText.dart';
 import 'package:klik/application/core/widgets/custometextformfield.dart';
-import 'package:klik/application/pages/homepage/homepage.dart';
-import 'package:klik/application/pages/login/forgot_password.dart';
-import 'package:klik/application/features/authentication/loginbloc/login_bloc.dart';
-import 'package:klik/application/features/authentication/loginbloc/login_event.dart';
-import 'package:klik/application/features/authentication/loginbloc/login_state.dart';
-import 'package:klik/application/pages/signup_page/signup_page.dart';
+import 'package:klik/presentaion/pages/homepage/homepage.dart';
+import 'package:klik/presentaion/pages/login/entermailid.dart';
+import 'package:klik/presentaion/pages/login/reset_password_page.dart';
+
+import 'package:klik/presentaion/pages/signup_page/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -37,27 +36,6 @@ class _LoginPageState extends State<LoginPage> {
     final height = size.height;
 
     return Scaffold(
-        // appBar: AppBar(
-        //   title: const Text('Login '),
-        // ),
-        // body: BlocListener<LoginBloc, LoginState>(
-        //   listener: (context, state) {
-        //     if (state is LoginSuccess) {
-        //       Navigator.push(
-        //         context,
-        //         MaterialPageRoute(builder: (context) => SignupPage()),
-        //       );
-        //     } else if (state is LoginFailure) {
-        //       ScaffoldMessenger.of(context).showSnackBar(
-        //         SnackBar(content: Text(state.error)),
-        //       );
-        //     }
-        //   },
-        //   child:
-        //
-        //
-        //
-
         body: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Form(
@@ -115,9 +93,9 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ForgotPassword(
-                                        emailcontroller: emailcontroller,
-                                      )),
+                                  builder: (context) => Entermailid()),
+
+                              //  builder: (context) =>Entermailid())
                             );
                           },
                           child: const Text(
@@ -130,16 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
                     SizedBox(height: height * 0.04),
-                    CustomElevatedButton(
-                      text: 'Sign in',
-                      onPressed: () {
-                        if (_formKey.currentState?.validate() ?? false) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Homepage(),
-                          ));
-                        }
-                      },
-                    ),
+                    signin(context),
                     SizedBox(height: height * 0.04),
 
                     Container(
@@ -229,5 +198,18 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             )));
+  }
+
+  CustomElevatedButton signin(BuildContext context) {
+    return CustomElevatedButton(
+                    text: 'Sign in',
+                    onPressed: () {
+                      if (_formKey.currentState?.validate() ?? false) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => Homepage(),
+                        ));
+                      }
+                    },
+                  );
   }
 }

@@ -7,7 +7,11 @@ final class SignupInitial extends SignupState {}
 
 final class SignupLoadingState extends SignupState {}
 
-final class SignupsuccessState extends SignupState {}
+final class SignupSuccesState extends SignupState {
+
+
+  
+}
 
 final class SignupErrorState extends SignupState {
   final String error;
