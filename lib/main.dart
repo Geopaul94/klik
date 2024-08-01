@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:klik/presentaion/bloc/bloc/signup_bloc.dart';
+import 'package:klik/presentaion/bloc/signup/signup_bloc.dart';
 
 import 'package:klik/presentaion/bloc/loginbloc/login_bloc.dart';
 
-import 'package:klik/presentaion/pages/login/entermailid.dart';
-import 'package:klik/presentaion/pages/login/login_page.dart';
-import 'package:klik/presentaion/pages/login/reset_password_page.dart';
+import 'package:klik/presentaion/pages/signup_page/signup_page.dart';
 
 void main() async {
   runApp(const MyApp());
@@ -31,7 +29,7 @@ class MyApp extends StatelessWidget {
             create: (context) => LoginBloc(),
           ),
         ],
-        child: LoginPage(),
+        child: SignupPage(),
       ),
       themeMode: ThemeMode.system,
     );

@@ -18,7 +18,7 @@ class CustomText extends StatelessWidget {
     this.textAlign = TextAlign.start,
     this.decoration = TextDecoration.none,
     this.fontStyle = FontStyle.normal,
-    this.textDecoration = TextDecoration.none,
+    this.textDecoration = TextDecoration.none, 
   });
 
   @override

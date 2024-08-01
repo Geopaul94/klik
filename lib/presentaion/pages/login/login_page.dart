@@ -174,6 +174,8 @@ class _LoginPageState extends State<LoginPage> {
                             fontWeight: FontWeight.bold,
                           ),
                           onTap: () {
+                            print(
+                                "+++++++++++++++++++++++++++++++++++signup pressed");
                             Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) {
                                 return SignupPage();
@@ -202,14 +204,14 @@ class _LoginPageState extends State<LoginPage> {
 
   CustomElevatedButton signin(BuildContext context) {
     return CustomElevatedButton(
-                    text: 'Sign in',
-                    onPressed: () {
-                      if (_formKey.currentState?.validate() ?? false) {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => Homepage(),
-                        ));
-                      }
-                    },
-                  );
+      text: 'Sign in',
+      onPressed: () {
+        if (_formKey.currentState?.validate() ?? false) {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => Homepage(),
+          ));
+        }
+      },
+    );
   }
 }

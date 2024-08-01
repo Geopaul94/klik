@@ -4,7 +4,7 @@ import 'package:klik/application/core/widgets/CustomElevatedButton.dart';
 import 'package:klik/application/core/widgets/CustomText.dart';
 import 'package:klik/application/core/widgets/custometextformfield.dart';
 import 'package:klik/presentaion/pages/login/reset_password_page.dart';
-import 'package:klik/presentaion/pages/login/verifyotp_page.dart';
+import 'package:klik/presentaion/pages/login/login_otp_page.dart';
 
 class Entermailid extends StatelessWidget {
   final _emailController = TextEditingController();

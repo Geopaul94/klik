@@ -97,6 +97,7 @@ class VerifyotpPage extends StatelessWidget {
                 ),
                 CustomElevatedButton(
                   text: "Verify",
+                  fontSize: 40,
                   onPressed: () {
                     Navigator.push(
                         context,
