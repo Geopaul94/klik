@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "576263923687",
+    "project_id": "klik-4e0ed",
+    "storage_bucket": "klik-4e0ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:576263923687:android:fa9a52d3e7e4ecec5bbf42",
+        "android_client_info": {
+          "package_name": "com.example.klikq"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpNyNKjNiBMWxaUpTu5F9VeNNtYed7Gco"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

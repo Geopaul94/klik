@@ -1,12 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:klik/application/core/url/url_.dart';
 import 'package:klik/application/core/widgets/CustomElevatedButton.dart';
 import 'package:klik/application/core/widgets/CustomText.dart';
 import 'package:klik/application/core/widgets/custometextformfield.dart';
 import 'package:klik/presentaion/pages/login/reset_password_page.dart';
-import 'package:klik/presentaion/pages/login/login_otp_page.dart';
+import 'package:klik/presentaion/pages/login/reserPasswoedOtp.dart';
 
-class Entermailid extends StatelessWidget {
+class EntermailidLogin extends StatelessWidget {
   final _emailController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
@@ -21,6 +22,13 @@ class Entermailid extends StatelessWidget {
         backgroundColor: Colors.black,
         appBar: AppBar(
           backgroundColor: Colors.black,
+          leading: IconButton(
+            icon: Icon(CupertinoIcons.back,
+                color: Colors.white, size: 30.0), // Adjust size here
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -84,8 +92,11 @@ class Entermailid extends StatelessWidget {
                       return null;
                     },
                   ),
-                  const SizedBox(height: 16.0),
+                  SizedBox(
+                    height: screenWidth * .15,
+                  ),
                   CustomElevatedButton(
+                    width: screenWidth * .9,
                     text: "Submit",
                     onPressed: () => _handleSubmit(context),
                   )
@@ -99,13 +110,17 @@ class Entermailid extends StatelessWidget {
   }
 
   void _handleSubmit(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => resetPasswordOtp(emailcontroller: _emailController),
+    ));
     if (_formKey.currentState!.validate()) {
       // final email = _emailController.text;
       // ScaffoldMessenger.of(context).showSnackBar(
       //   SnackBar(content: Text('Email entered: $email')),
       // );
       Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => VerifyotpPage(emailcontroller: _emailController),
+        builder: (context) =>
+            resetPasswordOtp(emailcontroller: _emailController),
       ));
     }
   }

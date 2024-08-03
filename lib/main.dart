@@ -1,12 +1,74 @@
+// import 'package:flutter/material.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
+// import 'package:klik/presentaion/bloc/login/login_bloc.dart';
+// import 'package:klik/presentaion/bloc/signup/signup_bloc.dart';
+
+// import 'package:klik/presentaion/bloc/signupotp/signup_otp_bloc.dart';
+
+// import 'package:klik/presentaion/pages/login/login_page.dart';
+// import 'package:firebase_core/firebase_core.dart';
+// import 'firebase_options.dart';
+
+// void main() async {
+//   WidgetsFlutterBinding.ensureInitialized();
+
+// // ...
+
+//   await Firebase.initializeApp(
+//     options: DefaultFirebaseOptions.currentPlatform,
+//   );
+//   runApp(const MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       title: 'Klik',
+//       theme: ThemeData.light(),
+//       darkTheme: ThemeData.dark(),
+//       home: MultiBlocProvider(
+//         providers: [
+//           BlocProvider(
+//             create: (context) => SignupBloc(),
+//           ),
+//           BlocProvider(
+//             create: (context) => SignupOtpBloc(),
+//           ),
+//           BlocProvider(
+//             create: (context) => LoginBloc(),
+//           ),
+//           BlocProvider(create: (context) => BottomnavigatorCubit()),
+//         ],
+//         child: LoginPage(),
+//       ),
+//       themeMode: ThemeMode.system,
+//     );
+//   }
+// }
+
+
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
+
+import 'package:klik/presentaion/bloc/login/login_bloc.dart';
 import 'package:klik/presentaion/bloc/signup/signup_bloc.dart';
-
-import 'package:klik/presentaion/bloc/loginbloc/login_bloc.dart';
-
-import 'package:klik/presentaion/pages/signup_page/signup_page.dart';
+import 'package:klik/presentaion/bloc/signupotp/signup_otp_bloc.dart';
+import 'package:klik/presentaion/pages/login/login_page.dart';
+import 'firebase_options.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -15,23 +77,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Klik',
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => SignupBloc(),
-          ),
-          BlocProvider(
-            create: (context) => LoginBloc(),
-          ),
-        ],
-        child: SignupPage(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => SignupBloc()),
+        BlocProvider(create: (context) => SignupOtpBloc()),
+        BlocProvider(create: (context) => LoginBloc()),
+        BlocProvider(create: (context) => BottomnavigatorCubit()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Klik',
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
+        home: LoginPage(),
+        themeMode: ThemeMode.system,
       ),
-      themeMode: ThemeMode.system,
     );
   }
 }

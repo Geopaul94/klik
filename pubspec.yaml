@@ -45,6 +45,15 @@ dependencies:
   lottie: ^3.1.2
   cuberto_bottom_bar: ^3.1.0
   loading_animation_widget: ^1.2.1
+  iconly: ^1.0.1
+  intl: ^0.19.0
+  multi_bloc_builder: ^1.0.0
+  shared_preferences: ^2.3.1
+  firebase_core: ^2.24.2
+  firebase_auth: ^4.16.0
+  google_sign_in: ^6.2.1
+  
+
 
 dev_dependencies:
   flutter_test:

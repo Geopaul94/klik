@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:http/http.dart';
 import 'package:klik/domain/model/userModel.dart';
-import 'package:klik/domain/repository/a/signup_repo.dart';
+import 'package:klik/domain/repository/a/authentication_repo.dart';
 import 'package:meta/meta.dart';
 
 part 'signup_event.dart';

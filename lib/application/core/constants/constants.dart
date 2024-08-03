@@ -7,6 +7,11 @@ const Color signup_bg = Color.fromARGB(0, 31, 112, 24);
 const Color green = Colors.green;
 const Color white = Colors.white;
 const Color red = Colors.red;
+const Color blue = Colors.blue;
+const Color purple = Colors.purple;
+
+
+
 const double defaultpadding = 16.0;
 // const String  header =  "Content-Type": "application/json";
 const Duration defaultDuration = Duration(microseconds: 300);
@@ -24,3 +29,25 @@ const TextStyle colorizeTextStyle = TextStyle(
   fontWeight: FontWeight.bold,
   fontFamily: 'Horizon',
 );
+
+
+//auth key
+const authKey = 'UserLoggedIn';
+
+//token key sharedpreference
+const tokenKey = 'userToken';
+
+//userid key sharedpreference
+const userIdKey = 'userId';
+
+//userRole key sharedpreference
+const userRolekey = 'userRole';
+
+//userEmail key sharedpreference
+const userEmailkey = 'userEmail';
+
+//userName key sharedpreference
+const userNamekey = 'userName';
+
+//userProfilepic key sharedpreference
+const userProfilePickey = 'userProfilePic';

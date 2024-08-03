@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:klik/application/core/constants/constants.dart';
 
 import 'package:klik/application/core/widgets/CustomElevatedButton.dart';
 import 'package:klik/application/core/widgets/CustomText.dart';
+import 'package:klik/application/core/widgets/custome_button.dart';
+import 'package:klik/application/core/widgets/custome_snackbar.dart';
 import 'package:klik/application/core/widgets/custometextformfield.dart';
+import 'package:klik/presentaion/bloc/login/login_bloc.dart';
+import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
 import 'package:klik/presentaion/pages/homepage/homepage.dart';
 import 'package:klik/presentaion/pages/login/entermailid.dart';
 import 'package:klik/presentaion/pages/login/reset_password_page.dart';
@@ -19,12 +25,12 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
-  final emailcontroller = TextEditingController();
+  final userNamecontroller = TextEditingController();
   final _passwordController = TextEditingController();
 
   @override
   void dispose() {
-    emailcontroller.dispose();
+    userNamecontroller.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -36,7 +42,22 @@ class _LoginPageState extends State<LoginPage> {
     final height = size.height;
 
     return Scaffold(
-        body: Padding(
+        body: BlocConsumer<LoginBloc, LoginState>(
+      listener: (context, state) {
+        if (state is LogingSucessState) {
+          customSnackbar(context, "Welcome", green);
+
+          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+            builder: (context) {
+              return BottomNavBar();
+            },
+          ), (Route<dynamic> route) => false);
+        } else if (state is LogingLoadingErrorState) {
+          customSnackbar(context, state.error, red);
+        }
+      },
+      builder: (context, state) {
+        return Padding(
             padding: const EdgeInsets.all(16.0),
             child: Form(
               autovalidateMode: AutovalidateMode.always,
@@ -63,7 +84,7 @@ class _LoginPageState extends State<LoginPage> {
                       labelText: 'Username',
                       hintText: 'Enter your username',
                       icon: Icons.person,
-                      controller: emailcontroller,
+                      controller: userNamecontroller,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Please enter your username';
@@ -93,7 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Entermailid()),
+                                  builder: (context) => EntermailidLogin()),
 
                               //  builder: (context) =>Entermailid())
                             );
@@ -108,7 +129,34 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
                     SizedBox(height: height * 0.04),
-                    signin(context),
+
+                    BlocBuilder<LoginBloc, LoginState>(
+                      builder: (context, state) {
+                        if (state is LogingLoadingState) {
+                          return loadingButton(
+                              media: size,
+                              onPressed: () {},
+                              gradientStartColor: green,
+                              gradientEndColor: blue,
+                              loadingIndicatorColor: purple);
+                        }
+
+                        return CustomElevatedButton(
+                          text: 'Login',
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              context.read<LoginBloc>().add(
+                                  onLoginButtonClickedEvent(
+                                      email: userNamecontroller.text,
+                                      password: _passwordController.text));
+                            } else {
+                              customSnackbar(
+                                  context, "Fill all the fields", red);
+                            }
+                          },
+                        );
+                      },
+                    ),
                     SizedBox(height: height * 0.04),
 
                     Container(
@@ -135,24 +183,37 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     SizedBox(height: height * 0.02),
-                    GestureDetector(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'assets/g_logo.png',
-                            width: width * 0.12,
-                            height: height * 0.075,
-                            fit: BoxFit.cover,
+
+                    BlocBuilder<LoginBloc, LoginState>(
+                      builder: (context, state) {
+                        if (state is LogingoogleButtonState) {
+                          return CircularProgressIndicator();
+                        }
+                        return GestureDetector(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/g_logo.png',
+                                width: width * 0.12,
+                                height: height * 0.075,
+                                fit: BoxFit.cover,
+                              ),
+                              SizedBox(width: width * 0.02),
+                              const Text("Sign in with Google"),
+                            ],
                           ),
-                          SizedBox(width: width * 0.02),
-                          const Text("Sign in with Google"),
-                        ],
-                      ),
-                      onTap: () {
-                        print("row pressed");
+                          onTap: () async {
+                            context
+                                .read<LoginBloc>()
+                                .add(onGoogleButtonClickedEvent());
+
+                            print("google button pressed");
+                          },
+                        );
                       },
                     ),
+
                     SizedBox(
                       height: height * .02,
                     ),
@@ -185,33 +246,11 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ],
                     ),
-                    // ElevatedButton(
-                    //     onPressed: () {
-                    // final username = emailcontroller.text;
-                    // final password = _passwordController.text;
-                    // // context.read<LoginBloc>().add(
-                    //       LoginButtonPressed(
-                    //           username: username, password: password),
-                    //     );
-                    //   },
-                    //   child: Text('Login'),
-                    // )
                   ],
                 ),
               ),
-            )));
-  }
-
-  CustomElevatedButton signin(BuildContext context) {
-    return CustomElevatedButton(
-      text: 'Sign in',
-      onPressed: () {
-        if (_formKey.currentState?.validate() ?? false) {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => Homepage(),
-          ));
-        }
+            ));
       },
-    );
+    ));
   }
 }
