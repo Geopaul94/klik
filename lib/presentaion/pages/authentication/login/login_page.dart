@@ -7,13 +7,14 @@ import 'package:klik/application/core/widgets/CustomText.dart';
 import 'package:klik/application/core/widgets/custome_button.dart';
 import 'package:klik/application/core/widgets/custome_snackbar.dart';
 import 'package:klik/application/core/widgets/custometextformfield.dart';
+import 'package:klik/application/core/widgets/validations.dart';
 import 'package:klik/presentaion/bloc/login/login_bloc.dart';
-import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
-import 'package:klik/presentaion/pages/homepage/homepage.dart';
-import 'package:klik/presentaion/pages/login/entermailid.dart';
-import 'package:klik/presentaion/pages/login/reset_password_page.dart';
 
-import 'package:klik/presentaion/pages/signup_page/signup_page.dart';
+import 'package:klik/presentaion/pages/authentication/login/entermailid.dart';
+
+import 'package:klik/presentaion/pages/profile_page/profile_page.dart';
+
+import 'package:klik/presentaion/pages/authentication/signup_page/signup_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -49,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
 
           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
             builder: (context) {
-              return BottomNavBar();
+              return ProfilePage();
             },
           ), (Route<dynamic> route) => false);
         } else if (state is LogingLoadingErrorState) {
@@ -60,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
         return Padding(
             padding: const EdgeInsets.all(16.0),
             child: Form(
-              autovalidateMode: AutovalidateMode.always,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               key: _formKey,
               child: SingleChildScrollView(
                 child: Column(
@@ -94,18 +95,12 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     const SizedBox(height: 16.0),
                     CustomTextFormField(
-                      labelText: 'Password',
-                      hintText: 'Enter your password',
-                      icon: Icons.lock,
-                      controller: _passwordController,
-                      obscureText: true,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your password';
-                        }
-                        return null;
-                      },
-                    ),
+                        labelText: 'Password',
+                        hintText: 'Enter your password',
+                        icon: Icons.lock,
+                        controller: _passwordController,
+                        obscureText: true,
+                        validator: validatePassword),
                     SizedBox(height: height * 0.02),
                     Row(
                       children: [

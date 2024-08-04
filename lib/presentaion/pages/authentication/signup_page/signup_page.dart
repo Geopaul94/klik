@@ -1,7 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:klik/application/core/widgets/CustomElevatedButton.dart';
+
 import 'package:klik/application/core/widgets/CustomText.dart';
 import 'package:klik/application/core/widgets/customeTypewriterGradientText.dart';
 import 'package:klik/application/core/widgets/custome_button.dart';
@@ -10,8 +9,8 @@ import 'package:klik/application/core/widgets/custometextformfield.dart';
 import 'package:klik/application/core/widgets/validations.dart';
 import 'package:klik/domain/model/userModel.dart';
 import 'package:klik/presentaion/bloc/signup/signup_bloc.dart';
-import 'package:klik/presentaion/pages/login/login_page.dart';
-import 'package:klik/presentaion/pages/signup_page/signup_otp.dart';
+import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
+import 'package:klik/presentaion/pages/authentication/signup_page/signup_otp.dart';
 import 'package:klik/application/core/constants/constants.dart';
 
 class SignupPage extends StatefulWidget {
@@ -63,6 +62,8 @@ class _SignupPageState extends State<SignupPage> {
             );
           } else if (state is SignupErrorState) {
             customSnackbar(context, state.error, red);
+
+            print("0000000000000000000000000000===============${state.error}");
           }
         },
         builder: (context, state) {
@@ -149,19 +150,19 @@ class _SignupPageState extends State<SignupPage> {
                         return customButton(
                           color: Colors.green,
                           media: size,
-                          buttonText: 'Register',
+                          buttonText: 'Sign UP',
                           onPressed: () {
                             if (_passwordController.text ==
                                 _confirmPasswordController.text) {
                               if (_formKey.currentState!.validate()) {
                                 context.read<SignupBloc>().add(
-                                  OnRegisterButtonClickedEvent(
-                                    userName: _usernameController.text,
-                                    password: _passwordController.text,
-                                    phoneNumber: _phoneController.text,
-                                    email: _emailController.text,
-                                  ),
-                                );
+                                      OnRegisterButtonClickedEvent(
+                                        userName: _usernameController.text,
+                                        password: _passwordController.text,
+                                        phoneNumber: _phoneController.text,
+                                        email: _emailController.text,
+                                      ),
+                                    );
                               } else {
                                 customSnackbar(context, 'Fill All Fields', red);
                               }

@@ -9,7 +9,7 @@ import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavi
 import 'package:klik/presentaion/bloc/login/login_bloc.dart';
 import 'package:klik/presentaion/bloc/signup/signup_bloc.dart';
 import 'package:klik/presentaion/bloc/signupotp/signup_otp_bloc.dart';
-import 'package:klik/presentaion/pages/login/login_page.dart';
+import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
 import 'firebase_options.dart';
 
 void main() async {

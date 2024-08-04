@@ -20,6 +20,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
         if (response != null && response.statusCode == 200) {
           return emit(LogingSucessState());
+        
         } else if (response != null) {
           final responseData = jsonDecode(response.body);
           return emit(LogingLoadingErrorState(error: responseData["message"]));
@@ -46,8 +47,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         } else {
           return emit(LogingLoadingErrorState(error: "Something went wrong"));
         }
-        }else {
-          emit(LogingLoadingErrorState(error: "account not found "));
+      } else {
+        emit(LogingLoadingErrorState(error: "account not found "));
       }
       // TODO: implement event handler
     });

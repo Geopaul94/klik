@@ -5,7 +5,7 @@ import 'package:klik/application/core/widgets/CustomElevatedButton.dart';
 import 'package:klik/application/core/widgets/CustomLoadingButton.dart';
 import 'package:klik/application/core/widgets/CustomText.dart';
 import 'package:klik/application/core/widgets/custometextformfield.dart';
-import 'package:klik/presentaion/pages/login/login_page.dart';
+import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
 
 class ResetPasswordPage extends StatelessWidget {
   ResetPasswordPage({super.key});

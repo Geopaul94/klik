@@ -17,9 +17,17 @@ class SignupOtpBloc extends Bloc<SignupOtpEvent, SignupOtpState> {
         event.email,
         event.otp,
       );
-
+      print(response!.body);
       if (response != null && response.statusCode == 200) {
         emit(SignupOtpSucessState());
+      } else if (response.statusCode == 401) {
+        final responseData = jsonDecode(response.body);
+
+        print("888888888888888888888888888888888${responseData}");
+
+        return emit(SignupOtpErrorState(
+            error:
+                "You alredy have an account with this mail id please login"));
       } else if (response != null) {
         final responseData = jsonDecode(response.body);
 

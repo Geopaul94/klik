@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/CustomElevatedButton.dart';
 import 'package:klik/application/core/widgets/CustomText.dart';
-import 'package:klik/presentaion/pages/login/reset_password_page.dart';
+import 'package:klik/presentaion/pages/authentication/login/reset_password_page.dart';
 import 'package:lottie/lottie.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
