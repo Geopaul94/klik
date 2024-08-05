@@ -1,9 +1,10 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'package:klik/application/core/constants/constants.dart';
+import 'package:klik/application/core/url/url_.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 
 import 'dart:convert';
 import 'dart:developer';
@@ -12,10 +13,6 @@ import 'package:flutter/foundation.dart';
 
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-
-
-
 
 Future<void> setUserLoggedin(
     {required String token,
@@ -70,14 +67,10 @@ Future<UserCredential?> siginWithGoogle() async {
     UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
     if (kDebugMode) {
-      // print(userCredential.user?.email);
+      print(userCredential.user?.displayName);
     }
-    log(userCredential.toString());
     return userCredential;
   } catch (e) {
-    if (kDebugMode) {
-      print(e);
-    }
     return null;
   }
 }

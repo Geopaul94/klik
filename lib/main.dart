@@ -8,6 +8,7 @@ import 'package:klik/presentaion/bloc/login/login_bloc.dart';
 import 'package:klik/presentaion/bloc/signup/signup_bloc.dart';
 import 'package:klik/presentaion/bloc/signupotp/signup_otp_bloc.dart';
 import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
+import 'package:klik/presentaion/pages/splashscreen/splashscreen.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
         title: 'Klik',
         theme: ThemeData.light(),
         darkTheme: ThemeData.dark(),
-        home: LoginPage(),
+        home: SplashScreen(),
         themeMode: ThemeMode.system,
       ),
     );

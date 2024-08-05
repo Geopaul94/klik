@@ -10,4 +10,8 @@ class onLoginButtonClickedEvent extends LoginEvent {
   onLoginButtonClickedEvent({required this.email, required this.password});
 }
 
-class onGoogleButtonClickedEvent extends LoginEvent {}
+class onGoogleButtonClickedEvent extends LoginEvent {
+
+
+  onGoogleButtonClickedEvent();
+}
