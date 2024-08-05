@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/CustomElevatedButton.dart';
-import 'package:klik/application/core/widgets/CustomLoadingButton.dart';
+
 import 'package:klik/application/core/widgets/CustomText.dart';
 import 'package:klik/application/core/widgets/custometextformfield.dart';
 import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
@@ -78,9 +78,9 @@ class ResetPasswordPage extends StatelessWidget {
             CustomElevatedButton(
               text: "Save",
               onPressed: () => LoginPage(),
-              fontSize: 28.0, // Custom font size
-              height: size.height * .09, // Custom height (optional)
-              width: size.width * 1, // Custom width (optional)
+              fontSize: 28.0, 
+              height: size.height * .09, 
+              width: size.width * 1, 
             ),
           ],
         ),
@@ -88,3 +88,4 @@ class ResetPasswordPage extends StatelessWidget {
     );
   }
 }
+

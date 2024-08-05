@@ -1,10 +1,8 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
+import 'package:klik/presentaion/bloc/login/forgorpassword/forgotpassword_bloc.dart';
 
 import 'package:klik/presentaion/bloc/login/login_bloc.dart';
 import 'package:klik/presentaion/bloc/signup/signup_bloc.dart';
@@ -30,6 +28,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => SignupBloc()),
         BlocProvider(create: (context) => SignupOtpBloc()),
         BlocProvider(create: (context) => LoginBloc()),
+        BlocProvider(create: (context) => ForgotpasswordBloc()),
         BlocProvider(create: (context) => BottomnavigatorCubit()),
       ],
       child: MaterialApp(

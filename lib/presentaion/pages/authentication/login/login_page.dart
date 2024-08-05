@@ -11,8 +11,9 @@ import 'package:klik/application/core/widgets/validations.dart';
 import 'package:klik/presentaion/bloc/login/login_bloc.dart';
 
 import 'package:klik/presentaion/pages/authentication/login/entermailid.dart';
+import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
+import 'package:klik/presentaion/pages/homepage/homepage.dart';
 
-import 'package:klik/presentaion/pages/profile_page/profile_page.dart';
 
 import 'package:klik/presentaion/pages/authentication/signup_page/signup_page.dart';
 
@@ -50,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
 
           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
             builder: (context) {
-              return ProfilePage();
+              return BottomNavBar();
             },
           ), (Route<dynamic> route) => false);
         } else if (state is LogingLoadingErrorState) {
@@ -82,7 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     CustomTextFormField(
-                      labelText: 'Username',
+                      labelText: 'Email id',
                       hintText: 'Enter your username',
                       icon: Icons.person,
                       controller: userNamecontroller,

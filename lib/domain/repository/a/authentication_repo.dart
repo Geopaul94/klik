@@ -149,8 +149,6 @@ class AuthenticationRepo {
     } catch (e) {}
   }
 
-
-
   static Future<Response?> googleLogin(String email) async {
     try {
       // print('9999999');
@@ -178,4 +176,55 @@ class AuthenticationRepo {
       return null;
     }
   }
+
+  static Future<Response?> resetPasswordSentOtp(String email) async {
+    try {
+      Response? response = await client.get(
+        Uri.parse("${Apiurl.baseUrl + Apiurl.forgotPassword}$email"),
+      );
+      debugPrint("{Apiurl.baseUrl + Apiurl.forgotPassword}$email");
+
+      if (kDebugMode) {
+        print(response.body);
+      }
+      return response;
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }
+
+
+
+
+  static Future<Response?> verifyOtpPasswordReset(
+      String email, String otp) async {
+    try {
+      var response = await client.get(Uri.parse(
+          '${Apiurl.baseUrl + Apiurl.verifyOtpReset}$email&otp=$otp'));
+      debugPrint(response.body);
+      debugPrint(
+          '${Apiurl.baseUrl + Apiurl.verifyOtpReset}$email&otp=$otp');
+      return response;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static Future<Response?> updatePassword(String email, String password) async {
+    try {
+      var user = {'email': email, 'password': password};
+      var response = await client.patch(
+          Uri.parse(Apiurl.baseUrl + Apiurl.updatePassword),
+          body: jsonEncode(user),
+          headers: {"Content-Type": 'application/json'});
+      if (kDebugMode) {
+        print(response.body);
+      }
+      return response;
+    } catch (e) {
+      return null;
+    }
+  }
+
 }
