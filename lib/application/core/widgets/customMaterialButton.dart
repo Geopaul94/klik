@@ -7,7 +7,7 @@ Widget customMaterialButton({
   required double width,
   required double height,
   required double borderRadius,
-  TextStyle textStyle = const TextStyle(color: Colors.black),
+  TextStyle textStyle = const TextStyle(color: Colors.white,fontSize: 20),
 }) {
   return MaterialButton(
     onPressed: onPressed,

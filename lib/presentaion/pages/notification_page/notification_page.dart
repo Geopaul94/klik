@@ -7,30 +7,20 @@ class NotificationPage extends StatelessWidget {
    Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search Page'),
+        title: const Text('Search Page'),
       ),
-      body: Center(
-        child: Column(
+      body: const Center(
+        child: const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Welcome to  search page!',
+              'Notification page!',
               style: TextStyle(fontSize: 24),
             ),
 
             SizedBox(height: 20),
 
-            // ElevatedButton(
-
-            //   onPressed: () {
-
-            //     // Add your button press logic here
-
-            //   },
-
-            //   child: Text('Click me!'),
-
-            // ),
+           
           ],
         ),
       ),

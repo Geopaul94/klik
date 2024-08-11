@@ -7,6 +7,7 @@ class CustomeLinearcolor extends StatelessWidget {
   final TextAlign textAlign;
   final TextDecoration textDecoration;
   final List<Color>? gradientColors;
+  
 
   CustomeLinearcolor({
     required this.text,

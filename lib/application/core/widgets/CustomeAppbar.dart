@@ -6,11 +6,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final IconData? leadingIcon;
   final IconData? cupertinoLeadingIcon;
   final double? leadingIconSize;
-  final double? leadingIconPadding; // Add this for leading icon padding
+  final double? leadingIconPadding;
   final String title;
   final TextStyle? titleStyle;
   final bool centerTitle;
   final bool isTitleBold;
+  final bool showBackArrow;
 
   const CustomAppBar({
     Key? key,
@@ -19,41 +20,20 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leadingIcon,
     this.cupertinoLeadingIcon,
     this.leadingIconSize,
-    this.leadingIconPadding, // Add this
+    this.leadingIconPadding,
     required this.title,
     this.titleStyle,
     this.centerTitle = true,
     this.isTitleBold = false,
+    this.showBackArrow = true,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: leadingIcon != null
-          ? ShaderMask(
-              shaderCallback: (Rect rect) {
-                return LinearGradient(
-                  colors: [startColor ?? Colors.blue, endColor ?? Colors.green],
-                  stops: [0.0, 1.0],
-                ).createShader(rect);
-              },
-              child: Row(
-                children: [
-                  SizedBox(
-                      width: leadingIconPadding ?? 20), 
-                  InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      leadingIcon,
-                      size: leadingIconSize,
-                    ),
-                  ),
-                ],
-              ),
-            )
-          : cupertinoLeadingIcon != null
+      automaticallyImplyLeading: false,
+      leading: showBackArrow
+          ? (leadingIcon != null
               ? ShaderMask(
                   shaderCallback: (Rect rect) {
                     return LinearGradient(
@@ -64,12 +44,37 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       stops: [0.0, 1.0],
                     ).createShader(rect);
                   },
-                  child: Icon(
-                    cupertinoLeadingIcon,
-                    size: leadingIconSize,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: leadingIconPadding ?? 20),
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        leadingIcon,
+                        size: leadingIconSize,
+                      ),
+                    ),
                   ),
                 )
-              : null,
+              : cupertinoLeadingIcon != null
+                  ? ShaderMask(
+                      shaderCallback: (Rect rect) {
+                        return LinearGradient(
+                          colors: [
+                            startColor ?? Colors.blue,
+                            endColor ?? Colors.green
+                          ],
+                          stops: [0.0, 1.0],
+                        ).createShader(rect);
+                      },
+                      child: Icon(
+                        cupertinoLeadingIcon,
+                        size: leadingIconSize,
+                      ),
+                    )
+                  : null)
+          : null,
       title: ShaderMask(
         shaderCallback: (Rect rect) {
           return LinearGradient(
@@ -81,8 +86,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           title,
           style: titleStyle ??
               TextStyle(
-                fontSize: MediaQuery.of(context).size.width *
-                    0.05, // Use media query for font size
+                fontSize: MediaQuery.of(context).size.width * 0.05,
                 fontWeight: isTitleBold ? FontWeight.bold : FontWeight.normal,
               ),
         ),
@@ -94,3 +98,4 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
+

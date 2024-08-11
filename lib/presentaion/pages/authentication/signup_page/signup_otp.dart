@@ -126,7 +126,7 @@ class _RegisterOtpState extends State<RegisterOtp> {
                         CustomGradientIcon(
                           icon: CupertinoIcons.back,
                           size: 32.0,
-                          gradientColors: [Colors.blue, Colors.green],
+                          gradientColors: const [Colors.blue, Colors.green],
                         ),
                         SizedBox(
                           width: height * 0.05,
@@ -136,7 +136,7 @@ class _RegisterOtpState extends State<RegisterOtp> {
                           fontSize: 28.0,
                           fontWeight: FontWeight.bold,
                           textAlign: TextAlign.center,
-                          gradientColors: [
+                          gradientColors: const [
                             Colors.green,
                             Colors.blue,
                           ],
