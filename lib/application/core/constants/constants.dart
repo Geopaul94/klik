@@ -9,8 +9,12 @@ const Color white = Colors.white;
 const Color red = Colors.red;
 const Color blue = Colors.blue;
 const Color purple = Colors.purple;
+const lightgrey = Color.fromARGB(255, 210, 210, 210);
+const darkgreymain = Color.fromARGB(255, 21, 21, 22);
 
+const Color black =Colors.black;
 
+const grey = Color.fromARGB(255, 142, 140, 140);
 
 const double defaultpadding = 16.0;
 // const String  header =  "Content-Type": "application/json";
@@ -51,3 +55,47 @@ const userNamekey = 'userName';
 
 //userProfilepic key sharedpreference
 const userProfilePickey = 'userProfilePic';
+
+
+
+
+
+
+
+
+
+
+
+const h5 = SizedBox(
+  height: 5,
+);
+const h10 = SizedBox(
+  height: 10,
+);
+const h20 = SizedBox(
+  height: 20,
+);
+
+const h30 = SizedBox(
+  height: 30,
+);
+
+//widths
+const w40 = SizedBox(
+  width: 40,
+);
+
+const w10 = SizedBox(
+  width: 10,
+);
+const w20 = SizedBox(
+  width: 20,
+);
+
+const w30 = SizedBox(
+  width: 30,
+);
+
+const h40 = SizedBox(
+  height: 40,
+);

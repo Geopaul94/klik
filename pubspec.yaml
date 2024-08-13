@@ -54,6 +54,7 @@ dependencies:
   google_sign_in: ^6.2.1
   splash_screen_view: ^3.0.0
   tbib_splash_screen: ^0.0.1
+  image_picker: ^1.1.2
   
 
 
@@ -83,6 +84,7 @@ flutter:
   assets:
     - assets/
     - assets/user/
+    - assets/animations/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

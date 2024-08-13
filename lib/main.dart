@@ -9,6 +9,7 @@ import 'package:klik/presentaion/bloc/login/otp_verification/otp_verify_bloc.dar
 import 'package:klik/presentaion/bloc/login/resetpassword/resetpassword_bloc.dart';
 import 'package:klik/presentaion/bloc/signup/signup_bloc.dart';
 import 'package:klik/presentaion/bloc/signupotp/signup_otp_bloc.dart';
+import 'package:klik/presentaion/bloc/userpost/user_post_bloc.dart';
 
 import 'package:klik/presentaion/pages/splashscreen/splashscreen.dart';
 import 'package:klik/presentaion/pages/userpost_page/user_post.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ForgotpasswordBloc()),
         BlocProvider(create: (context) => OtpVerifyBloc()),
         BlocProvider(create: (context) => ResetpasswordBloc()),
+        BlocProvider(create: (context) => UserPostBloc()),
         BlocProvider(create: (context) => BottomnavigatorCubit()),
       ],
       child: MaterialApp(

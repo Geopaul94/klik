@@ -36,7 +36,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List screens = [
     Homepage(),
     const Search_page(),
-    const UserPost(),
+     UserPost(),
     const NotificationPage(),
     const ProfilePage()
   ];
