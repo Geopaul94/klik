@@ -9,7 +9,7 @@ import 'package:klik/presentaion/pages/homepage/homepage.dart';
 import 'package:klik/presentaion/pages/notification_page/notification_page.dart';
 import 'package:klik/presentaion/pages/profile_page/profile_page.dart';
 import 'package:klik/presentaion/pages/search_page/Search_page.dart';
-import 'package:klik/presentaion/pages/userpost_page/user_post.dart';
+import 'package:klik/presentaion/pages/addpost_page/add_post.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({super.key});
@@ -36,7 +36,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   final List screens = [
     Homepage(),
     const Search_page(),
-     UserPost(),
+     AddPost(),
     const NotificationPage(),
     const ProfilePage()
   ];

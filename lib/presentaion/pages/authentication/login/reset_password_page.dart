@@ -15,11 +15,12 @@ import 'package:klik/presentaion/bloc/login/otp_verification/otp_verify_bloc.dar
 import 'package:klik/presentaion/bloc/login/resetpassword/resetpassword_bloc.dart';
 import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
 
-class ResetPasswordPage extends StatelessWidget {final String email;
+class ResetPasswordPage extends StatelessWidget {
+  final String email;
   ResetPasswordPage({super.key, required this.email});
 
   final newpasswoedcontroller = TextEditingController();
-  
+
   final confirmpasswoedcontroller = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -40,13 +41,10 @@ class ResetPasswordPage extends StatelessWidget {final String email;
         }
       },
       builder: (context, state) {
-        return 
-        
-        
-          GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
+        return GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
           child: Scaffold(
             backgroundColor: Colors.black,
             body: SafeArea(
@@ -93,8 +91,8 @@ class ResetPasswordPage extends StatelessWidget {final String email;
                     height: size.height * .025,
                   ),
                   Form(
-                              key: _formKey,
-                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                    key: _formKey,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: CustomTextFormField(
                       labelText: "Passowrd",
                       icon: Icons.lock,
@@ -139,22 +137,15 @@ class ResetPasswordPage extends StatelessWidget {final String email;
                         height: size.height * .075,
                         width: size.width * 1,
                         onPressed: () {
-                           if (_formKey.currentState!
-                                              .validate()) {
-                                            context.read<ResetpasswordBloc>().add(
-                                                OnResetPasswordButtonClickedEvent(
-                                                    email: email,
-                                                    password:
-                                                        confirmpasswoedcontroller
-                                                            .text)
-                                                            
-                                                            
-                                                            
-                                                            );
-                                          } else {
-                                            customSnackbar(context,
-                                                'Please fix the errors', red);
-                                          }
+                          if (_formKey.currentState!.validate()) {
+                            context.read<ResetpasswordBloc>().add(
+                                OnResetPasswordButtonClickedEvent(
+                                    email: email,
+                                    password: confirmpasswoedcontroller.text));
+                          } else {
+                            customSnackbar(
+                                context, 'Please fix the errors', red);
+                          }
                         },
                       );
                     },
