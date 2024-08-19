@@ -60,99 +60,104 @@ class PostRepo {
     }
   }
 
-//   //Delete Post
-//   static Future<Response?> deletePost(String postId) async {
-//     try {
-//       final token = await getUsertoken();
-//       var response = await client.delete(
-//           Uri.parse(
-//               '${ApiEndpoints.baseUrl}${ApiEndpoints.deletePost}/$postId'),
-//           headers: {'Authorization': 'Bearer $token'});
-//       debugPrint(response.statusCode.toString());
-//       debugPrint(response.body);
-//       return response;
-//     } catch (e) {
-//       debugPrint(e.toString());
-//       return null;
-//     }
-//   }
+//   Delete Post
+  static Future<Response?> deletePost(String postId) async {
+    try {
+      final token = await getUsertoken();
+      var response = await client.delete(
+          Uri.parse(
+              '${Apiurl.baseUrl}${Apiurl.deletePost}/$postId'),
+          headers: {'Authorization': 'Bearer $token'});
+      debugPrint(response.statusCode.toString());
+      debugPrint(response.body);
+      return response;
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
+  }
 
-// //get post
-//   static Future<Response?> fetchPosts() async {
-//     try {
-//       final token = await getUsertoken();
-//       debugPrint('Token is $token');
-//       var response = await client.get(
-//           Uri.parse('${ApiEndpoints.baseUrl}${ApiEndpoints.getallPost}'),
-//           headers: {'Authorization': 'Bearer $token'});
-//       debugPrint(response.statusCode.toString());
-//       debugPrint(response.body);
-//       return response;
-//     } catch (e) {
-//       log(e.toString());
-//       return null;
-//     }
-//   }
+//get post
 
-//   static Future<Response?> editPost(
-//       {required String description,
-//       required image,
-//       required String postId,
-//       required imageUrl}) async {
-//     dynamic cloudinaryimageUrl;
-//     try {
-//       if (image != '') {
-//         cloudinaryimageUrl = await PostRepo.uploadImage(image);
-//       }
-//       final token = await getUsertoken();
-//       final post = {
-//         'imageUrl': image != '' ? cloudinaryimageUrl : imageUrl,
-//         'description': description,
-//       };
-//       var response = await client.put(
-//           Uri.parse(
-//               '${ApiEndpoints.baseUrl}${ApiEndpoints.updatePost}/$postId'),
-//           body: jsonEncode(post),
-//           headers: {
-//             "Content-Type": 'application/json',
-//             'Authorization': 'Bearer $token'
-//           });
-//       debugPrint(response.statusCode.toString());
-//       debugPrint(response.body);
-//       return response;
-//     } catch (e) {
-//       log(e.toString());
-//       return null;
-//     }
-//   }
+  static Future<Response?> fetchPosts() async {
+    try {
+      final token = await getUsertoken();
+      debugPrint('Token is $token');
+      var response = await client.get(
+          Uri.parse('${Apiurl.baseUrl}${Apiurl.getallPost}'),
+          headers: {'Authorization': 'Bearer $token'});
+      debugPrint(response.statusCode.toString());
+      debugPrint(response.body);
+      return response;
+    } catch (e) {
+      log(e.toString());
+      return null;
+    }
+  }
 
-//   //fetch followers post
-//   static Future getFollowersPost({required int page}) async {
-//     try {
-//       final token = await getUsertoken();
-//       var response = await client.get(
-//           Uri.parse(
-//               '${ApiEndpoints.baseUrl}${ApiEndpoints.allFollowingsPost}?page=$page&pageSize=5'),
-//           headers: {'Authorization': 'Bearer $token'});
 
-//       return response;
-//     } catch (e) {
-//       log(e.toString());
-//     }
-//   }
+  //edit post
 
-// //save post
-//   static Future savePost({required String postId}) async {
-//     try {
-//       final token = await getUsertoken();
-//       var response = await client.post(
-//           Uri.parse('${ApiEndpoints.baseUrl}${ApiEndpoints.savePost}/$postId'),
-//           headers: {'Authorization': 'Bearer $token'});
-//       return response;
-//     } catch (e) {
-//       log(e.toString());
-//     }
-//   }
+  static Future<Response?> editPost(
+      {required String description,
+      required image,
+      required String postId,
+      required imageUrl}) async {
+    dynamic cloudinaryimageUrl;
+    try {
+      if (image != '') {
+        cloudinaryimageUrl = await PostRepo.uploadImage(image);
+      }
+      final token = await getUsertoken();
+      final post = {
+        'imageUrl': image != '' ? cloudinaryimageUrl : imageUrl,
+        'description': description,
+      };
+      var response = await client.put(
+          Uri.parse(
+              '${Apiurl.baseUrl}${Apiurl.updatePost}/$postId'),
+          body: jsonEncode(post),
+          headers: {
+            "Content-Type": 'application/json',
+            'Authorization': 'Bearer $token'
+          });
+      debugPrint(response.statusCode.toString());
+      debugPrint(response.body);
+      return response;
+    } catch (e) {
+      log(e.toString());
+      return null;
+    }
+  }
+
+  //fetch followers post
+  static Future getFollowersPost({required int page}) async {
+    try {
+      final token = await getUsertoken();
+      var response = await client.get(
+          Uri.parse(
+              '${Apiurl.baseUrl}${Apiurl.allFollowingsPost}?page=$page&pageSize=5'),
+          headers: {'Authorization': 'Bearer $token'});
+
+      return response;
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+//save post
+// get saved posts
+  static Future fetchSavedPosts() async {
+    try {
+      final token = await getUsertoken();
+      var response = await client.get(
+          Uri.parse('${Apiurl.baseUrl}${Apiurl.fetchSavedPost}'),
+          headers: {'Authorization': 'Bearer $token'});
+      return response;
+    } catch (e) {
+      log(e.toString());
+    }
+  }
 
 // // remove saved post
 //   static Future removeSavedPost({required String postId}) async {
@@ -160,7 +165,7 @@ class PostRepo {
 //       final token = await getUsertoken();
 //       var response = await client.delete(
 //           Uri.parse(
-//               '${ApiEndpoints.baseUrl}${ApiEndpoints.removeSavedPost}/$postId'),
+//               '${Apiurl.baseUrl}${Apiurl.removeSavedPost}/$postId'),
 //           headers: {'Authorization': 'Bearer $token'});
 //       return response;
 //     } catch (e) {
@@ -173,7 +178,7 @@ class PostRepo {
 //     try {
 //       final token = await getUsertoken();
 //       var response = await client.get(
-//           Uri.parse('${ApiEndpoints.baseUrl}${ApiEndpoints.fetchSavedPost}'),
+//           Uri.parse('${Apiurl.baseUrl}${Apiurl.fetchSavedPost}'),
 //           headers: {'Authorization': 'Bearer $token'});
 //       return response;
 //     } catch (e) {

@@ -3,7 +3,8 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:klik/domain/repository/a/authentication_repo.dart';
+import 'package:klik/domain/repository/auth_repo/authentication_repo.dart';
+
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:meta/meta.dart';
 

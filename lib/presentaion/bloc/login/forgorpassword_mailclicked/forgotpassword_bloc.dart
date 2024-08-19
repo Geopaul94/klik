@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
-import 'package:klik/domain/repository/a/authentication_repo.dart';
+import 'package:klik/domain/repository/auth_repo/authentication_repo.dart';
 import 'package:klik/presentaion/bloc/signupotp/signup_otp_bloc.dart';
 import 'package:meta/meta.dart';
 

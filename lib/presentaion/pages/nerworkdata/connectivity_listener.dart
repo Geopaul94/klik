@@ -34,6 +34,8 @@ class ConnectivityListener extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+
+   
                 Icon(Icons.signal_wifi_off, color: Colors.white),
                 SizedBox(width: 10),
                 Text(

@@ -3,11 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:klik/presentaion/bloc/Connectivity/connectivity_bloc.dart';
 import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
+import 'package:klik/presentaion/bloc/fetch_followers_bloc/fetchfollowers_bloc.dart';
+import 'package:klik/presentaion/bloc/fetch_following_bloc/fetch_following_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
+import 'package:klik/presentaion/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
 import 'package:klik/presentaion/bloc/login/forgorpassword_mailclicked/forgotpassword_bloc.dart';
 import 'package:klik/presentaion/bloc/login/login_bloc.dart';
 import 'package:klik/presentaion/bloc/login/otp_verification/otp_verify_bloc.dart';
 import 'package:klik/presentaion/bloc/login/resetpassword/resetpassword_bloc.dart';
+import 'package:klik/presentaion/bloc/login_user_details/login_user_details_bloc.dart';
 import 'package:klik/presentaion/bloc/signup/signup_bloc.dart';
 import 'package:klik/presentaion/bloc/signupotp/signup_otp_bloc.dart';
 import 'package:klik/presentaion/bloc/add_post/add_post_bloc.dart';
@@ -39,16 +43,20 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ResetpasswordBloc()),
         BlocProvider(create: (context) => AddPostBloc()),
         BlocProvider(create: (context) => BottomnavigatorCubit()),
+        BlocProvider(create: (context) => LoginUserDetailsBloc()),
+        BlocProvider(create: (context) => FetchFollowersBloc()),
+        BlocProvider(create: (context) => FetchFollowersBloc()),
+        BlocProvider(create: (context) => FetchMyPostBloc()),
+        BlocProvider(create: (context) => FetchSavedPostsBloc()),
         BlocProvider(create: (context) => ConnectivityBloc()),
-
-        BlocProvider(create: (context) =>   FetchMyPostBloc()),
+        BlocProvider(create: (context) => FetchFollowingBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Klik',
         darkTheme: ThemeData.dark(),
         themeMode: ThemeMode.dark,
-        home: ConnectivityListener(
+        home: const ConnectivityListener(
           child: SplashScreen(),
         ),
       ),
