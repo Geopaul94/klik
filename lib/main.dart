@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:klik/presentaion/bloc/Connectivity/connectivity_bloc.dart';
 import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
+import 'package:klik/presentaion/bloc/edit_user_profile_bloc/edit_user_profile_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_followers_bloc/fetchfollowers_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_following_bloc/fetch_following_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
@@ -50,6 +51,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => FetchSavedPostsBloc()),
         BlocProvider(create: (context) => ConnectivityBloc()),
         BlocProvider(create: (context) => FetchFollowingBloc()),
+        BlocProvider(create: (context) => EditUserProfileBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

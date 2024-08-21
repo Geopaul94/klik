@@ -14,7 +14,26 @@ const darkgreymain = Color.fromARGB(255, 21, 21, 22);
 
 const Color black =Colors.black;
 
-const grey = Color.fromARGB(255, 142, 140, 140);
+
+
+const kPrimaryColor = Color(0xFF00D1FF);
+const textFieldBorderColor = Color(0xFFCDCDCD);
+const grey = Colors.grey;
+
+const amber = Colors.amber;
+final grey300 = Colors.grey[300];
+final grey100 = Colors.grey[100];
+const kwhiteColor = Colors.white;
+const Color oceanGreen = Color(0xFF48A9A6);
+const blueAccent = Colors.blueAccent;
+
+
+const Color customIconColor = Color(0xFFA1824A);
+
+
+
+
+
 
 const double defaultpadding = 16.0;
 // const String  header =  "Content-Type": "application/json";
@@ -108,3 +127,59 @@ const profilecolumnStyle = TextStyle(
   fontSize: 18,
   fontWeight: FontWeight.w800,
 );
+
+
+
+
+const coloredBold24 =
+    TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: kPrimaryColor);
+const greyMeduim = TextStyle(
+  fontSize: 16,
+  color: grey,
+);
+const showdialogueHeadingstyle = TextStyle(
+  fontWeight: FontWeight.bold,
+  fontSize: 20,
+);
+const showdialogueContentStyle = TextStyle(
+  fontSize: 16,
+);
+
+const showDialogueButtonStyle = TextStyle(
+  color: red,
+  fontSize: 16,
+);
+const showDialogueButtonStyle2 = TextStyle(
+  color: green,
+  fontSize: 16,
+);
+
+
+const kheight16 = SizedBox(height: 16.0);
+const kwidth = SizedBox(
+  width: 10,
+);
+const kheight = SizedBox(
+  height: 10,
+);
+const kheight20 = SizedBox(
+  height: 20,
+);
+const kheight15 = SizedBox(
+  height: 15,
+);
+
+const kheight50 = SizedBox(
+  height: 50,
+);
+const kheight80 = SizedBox(
+  height: 80,
+);
+const kheight100 = SizedBox(
+  height: 100,
+);
+// border radiusfinal
+BorderRadius kradius10 = BorderRadius.circular(10);
+BorderRadius kradius30 = BorderRadius.circular(30);
+BorderRadius kradius20 = BorderRadius.circular(20.0);
+BorderRadius kradius100 = BorderRadius.circular(100);

@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
       onTap: () {
         FocusScope.of(context).unfocus();
       },
-      child: Scaffold(
+      child: Scaffold(backgroundColor: black,
           body: BlocConsumer<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LogingSucessState) {

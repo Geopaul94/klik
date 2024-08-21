@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
 
 class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Scaffold(backgroundColor: black,
       appBar: AppBar(
         title: const Text('Home Page'),
       ),

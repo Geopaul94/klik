@@ -95,7 +95,7 @@ class _RegisterOtpState extends State<RegisterOtp> {
     final signUpBloc = context.read<SignupBloc>();
     final size = MediaQuery.of(context).size;
     final height = size.height;
-    return Scaffold(
+    return Scaffold(backgroundColor: black,
       body: BlocConsumer<SignupOtpBloc, SignupOtpState>(
         listener: (context, state) {
           if (state is SignupOtpSucessState) {

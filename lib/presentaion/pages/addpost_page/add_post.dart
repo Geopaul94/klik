@@ -62,7 +62,7 @@ class _AddPostState extends State<AddPost> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => ProfilePage()),
+                                  builder: (context) => ScreenProfile()),
                             );
 
                             context

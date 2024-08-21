@@ -1,8 +1,15 @@
-
+// import 'package:buzz_buddy/model/my_post_model/my_post_model.dart';
+// import 'package:buzz_buddy/utils/constants.dart';
+// import 'package:buzz_buddy/view/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
+// import 'package:buzz_buddy/view/pages/commonwidget/funtionwidgets/loading_animation_widget.dart';
+// import 'package:buzz_buddy/view/pages/profile/my_post/screen_my_post.dart';
+// import 'package:buzz_buddy/view/pages/profile/saved_post/screen_saved_post.dart';
+// import 'package:cached_network_image/cached_network_image.dart';
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:klik/application/core/constants/constants.dart';
 // import 'package:klik/domain/model/my_post_model.dart';
+// import 'package:klik/presentaion/pages/profile_page/screen_my_post.dart';
 // import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 // class MyPostsGrid extends StatelessWidget {
@@ -16,11 +23,11 @@
 //       return const Center(
 //         child: Text(
 //           'No posts available',
-//           style:  TextStyle(
+//           style: TextStyle(
 //   fontSize: 16,
-//   color: grey,),
+//   color: grey,
 //         ),
-//       );
+//          )   );
 //     }
 //     return GridView.builder(
 //       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

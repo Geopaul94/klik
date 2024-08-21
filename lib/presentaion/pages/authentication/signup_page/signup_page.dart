@@ -42,7 +42,7 @@ class _SignupPageState extends State<SignupPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return Scaffold(
+    return Scaffold(backgroundColor: black,
       body: BlocConsumer<SignupBloc, SignupState>(
         listener: (context, state) {
           if (state is SignupSuccesState) {
