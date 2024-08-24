@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/url/url_.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -112,4 +113,18 @@ String formatDate(String inputDate) {
   } else {
     return outputFormat.format(dateTime);
   }
+  
+
+
 }
+
+
+Future<void> pickImage(ValueNotifier<String> imageNotifier) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? pickedFile =
+        await picker.pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      imageNotifier.value = pickedFile.path;
+    }
+  }

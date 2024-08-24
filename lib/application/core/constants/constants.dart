@@ -120,7 +120,7 @@ const h40 = SizedBox(
 );
 
 const appBarTitleStyle = TextStyle(
-  fontSize: 18,
+  fontSize: 22,
   fontWeight: FontWeight.w500,
 );
 const profilecolumnStyle = TextStyle(

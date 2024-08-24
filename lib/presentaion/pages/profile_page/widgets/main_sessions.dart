@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/customMaterialButton.dart';
+import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
 import 'package:klik/presentaion/bloc/fetch_followers_bloc/fetchfollowers_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_following_bloc/fetch_following_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
+import 'package:klik/presentaion/pages/addpost_page/add_post.dart';
 import 'package:klik/presentaion/pages/profile_page/profile_succes_dummy_container.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/repeated_column.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/saved_and_post_grid.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/user_and_bio_tile.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:lottie/lottie.dart';
 
 class ProfileSession1 extends StatelessWidget {
   final Size media;
@@ -36,31 +39,67 @@ class ProfileSession1 extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         profileContainer(media, profileImage, coverImage),
-        const SizedBox(height: 15),
+        const SizedBox(height: 8),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Padding(
-              padding: const EdgeInsets.only(right: 20),
-              child: customMaterialButton(
-                  color: kPrimaryColor,
-                  onPressed: onEditProfile,
-                  text: 'Edit Profile',
-                  width: media.height * 0.12,
-                  height: media.height * 0.05,
-                  textStyle: const TextStyle(fontSize: 16),
-                  borderRadius: 20),
+              padding: const EdgeInsets.symmetric(vertical:1, horizontal: 10),
+             child: 
+              
+              Row(
+                children: [
+                  customMaterialButton(
+                      color: green,
+                      onPressed: onEditProfile,
+                      text: 'Edit Profile',
+                      width: media.height * 0.11,
+                      height: media.height * 0.05,
+                      textStyle: const TextStyle(fontSize: 16),
+                      borderRadius: 5),SizedBox(width: 8),
+
+GestureDetector(onTap: () {debugPrint("navigation to add post pressed ");
+ context.read<BottomnavigatorCubit>().bottomNavigatorButtonClicked(index: 2);
+
+},
+  child: Container(
+             width: media.height * 0.08,
+                        height: media.height * 0.05,
+              decoration: BoxDecoration(
+                color: Colors.blueAccent, 
+                borderRadius: BorderRadius.circular(4.0), 
+              ),
+              child: Lottie.asset(
+                'assets/animations/camera_klik.json',
+                fit: BoxFit.contain, 
+              ),
+            ),
+),
+
+
+
+                ],
+              ),
             ),
           ],
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal:15),
           child: userNameAndBio(userName, bio),
         ),
       ],
     );
   }
 }
+
+
+
+
+
+
+
+
+
 
 class ProfileSession2 extends StatelessWidget {
   final VoidCallback onPostsTap;
@@ -91,7 +130,7 @@ class ProfileSession2 extends StatelessWidget {
                       onTap: onPostsTap,
                     )
                   : customTextColumn(
-                      text1: '',
+                      text1: '0',
                       text2: 'Posts',
                       textStyle: profilecolumnStyle,
                       onTap: () {});

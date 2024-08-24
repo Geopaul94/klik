@@ -13,6 +13,8 @@ class CustomElevatedButton extends StatelessWidget {
   final double? fontSize;
   final double? height;
   final double? width;
+    final FontWeight? fontWeight; 
+    final Color? fontcolor;
 
   CustomElevatedButton({
     required this.text,
@@ -25,7 +27,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.paddingHorizontal,
     this.fontSize,
     this.height,
-    this.width,
+    this.width, this.fontWeight,this.fontcolor,
   });
 
   @override
@@ -62,7 +64,7 @@ class CustomElevatedButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           text,
-          style: TextStyle(fontSize: fontSize ?? defaultFontSize),
+          style: TextStyle(fontSize: fontSize ?? defaultFontSize  ,fontWeight: fontWeight,color:fontcolor),
         ),
       ),
     );

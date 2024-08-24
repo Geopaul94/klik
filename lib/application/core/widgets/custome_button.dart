@@ -23,7 +23,7 @@ MaterialButton loadingButton({
   required VoidCallback onPressed,
   required Color gradientStartColor,
   required Color gradientEndColor,
-  required Color loadingIndicatorColor,
+  required Color loadingIndicatorColor, 
 }) {
   return MaterialButton(
     onPressed: onPressed,

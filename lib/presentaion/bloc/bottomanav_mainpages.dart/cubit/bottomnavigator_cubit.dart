@@ -6,7 +6,7 @@ part 'bottomnavigator_state.dart';
 class BottomnavigatorCubit extends Cubit<BottomnavigatorState> {
   BottomnavigatorCubit() : super(BottomnavigatorInitialState(index: 0));
 
-  void bottomNavigatorButtonClicked( {required int index}) {
-    emit(BottomnavigatorInitialState(index: index));
+  void bottomNavigatorButtonClicked({required int index}) {
+    emit(BottomnavigatorNavigateState(index: index));
   }
 }
