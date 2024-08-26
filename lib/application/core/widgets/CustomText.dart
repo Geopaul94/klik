@@ -83,7 +83,7 @@ class CustomTextField extends StatelessWidget {
                   const BorderSide(color: textFieldBorderColor, width: 2.0),
               borderRadius: kradius20),
           focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: kPrimaryColor, width: 2.0),
+              borderSide: const BorderSide(color: green, width: 1.0),
               borderRadius: kradius20),
           errorBorder: OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.red, width: 2.0),

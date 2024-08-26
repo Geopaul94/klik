@@ -95,7 +95,7 @@ class ResetPasswordPage extends StatelessWidget {
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: CustomTextFormField(
                       labelText: "Passowrd",
-                      icon: Icons.lock,
+                      icon: Icons.lock,obscureText: true,
                       controller: newpasswoedcontroller,
                       validator: validatePassword,
                     ),
@@ -105,7 +105,7 @@ class ResetPasswordPage extends StatelessWidget {
                   ),
                   CustomTextFormField(
                     labelText: "Confirm passowrd",
-                    icon: Icons.lock,
+                    icon: Icons.lock,obscureText: true,
                     hintText: 'Re-enter new password',
                     controller: confirmpasswoedcontroller,
                     validator: (value) {

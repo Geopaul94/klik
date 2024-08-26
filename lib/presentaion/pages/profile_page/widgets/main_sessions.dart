@@ -146,7 +146,7 @@ class ProfileSession2 extends StatelessWidget {
                       onTap: onFollowersTap,
                     )
                   : customTextColumn(
-                      text1: '',
+                      text1: '0',
                       text2: 'Followers',
                       textStyle: profilecolumnStyle,
                       onTap: onFollowersTap,
@@ -163,7 +163,7 @@ class ProfileSession2 extends StatelessWidget {
                       onTap: onFollowingTap,
                     )
                   : customTextColumn(
-                      text1: '',
+                      text1: '0',
                       text2: 'Following',
                       textStyle: profilecolumnStyle,
                       onTap: onFollowingTap,

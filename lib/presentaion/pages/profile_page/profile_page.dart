@@ -11,10 +11,12 @@ import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
 import 'package:klik/presentaion/bloc/login_user_details/login_user_details_bloc.dart';
 import 'package:klik/presentaion/pages/profile_page/screen_edit_profile.dart';
+import 'package:klik/presentaion/pages/profile_page/screen_my_post.dart';
 
 import 'package:klik/presentaion/pages/profile_page/screen_settings.dart';
 import 'package:klik/presentaion/pages/profile_page/simmer_widget.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/main_sessions.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:shimmer/shimmer.dart';
 
 String logginedUserProfileImage = '';
@@ -86,8 +88,8 @@ class _ScreenProfileState extends State<ScreenProfile> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                            builder: (context) => const ScreenSettings(),
+                          PageTransition(type: PageTransitionType.rightToLeftJoined,childCurrent: widget,duration:Duration(milliseconds: 400),
+                          child:  ScreenSettings(),
                           ),
                         );
                       },
@@ -156,16 +158,16 @@ class _ScreenProfileState extends State<ScreenProfile> {
                           onPostsTap: () {
                             if (context.read<FetchMyPostBloc>().state
                                 is FetchMyPostSuccesState) {
-                              // Navigator.of(context).push(
-                              //   MaterialPageRoute(
-                              //     builder: (context) => ScreenMyPost(
-                              //       index: 0,
-                              //       post: (context.read<FetchMyPostBloc>().state
-                              //               as FetchMyPostSuccesState)
-                              //           .posts,
-                              //     ),
-                              //   ),
-                              // );
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => ScreenMyPost(
+                                    index: 0,
+                                    post: (context.read<FetchMyPostBloc>().state
+                                            as FetchMyPostSuccesState)
+                                        .posts,
+                                  ),
+                                ),
+                              );
                             }
                           },
                           onFollowersTap: () {
@@ -231,7 +233,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
   child: Stack(
     clipBehavior: Clip.none, children: [
       Container(
-        color: Colors.green,
+        color: green,
         width: double.infinity,
         height: 250,
       ),

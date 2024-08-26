@@ -75,8 +75,8 @@ String? validateBio(String? bio) {
   if (bio == null || bio.isEmpty) {
     return 'Please enter a bio.';
   }
-  if (bio.length < 10) {
-    return 'Bio must be at least 10 characters long.';
+  if (bio.length < 5) {
+    return 'Bio must be at least 5 characters long.';
   }
   if (bio.length > 150) {
     return 'Bio must not exceed 150 characters.';

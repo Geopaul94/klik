@@ -1,35 +1,39 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:klik/application/core/constants/constants.dart';
-import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
 
 class Homepage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(backgroundColor: black,
+    final size = MediaQuery.of(context).size;
+    final width = size.width;
+    final height = size.height;
+
+    return Scaffold(
+      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('Home Page'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Welcome to  home page!',
-              style: TextStyle(fontSize: 24),
+        backgroundColor: Colors.black,
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            height: height * 0.09,  
+            width: width * 0.04,  
+            child: Image.asset(
+              'assets/headline.png',
+              fit: BoxFit.contain,  
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) {
-                    return const LoginPage();
-                  }),
-                );
-              },
-              child: const Text("Logout"),
-            )
-          ],
+          ),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Icon(
+              CupertinoIcons.person_add_solid,
+              size: height * 0.04, 
+            ),
+          ),
+        ],
       ),
+      body: Center(child: Text('Hello, World!')),
     );
   }
 }

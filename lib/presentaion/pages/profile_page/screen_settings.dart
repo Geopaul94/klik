@@ -1,14 +1,3 @@
-// import 'package:buzz_buddy/utils/constants.dart';
-// import 'package:buzz_buddy/utils/functions.dart';
-
-// import 'package:buzz_buddy/view/pages/commonwidget/funtionwidgets/showdialogue.dart';
-// import 'package:buzz_buddy/view/pages/login/screen_login.dart';
-// import 'package:buzz_buddy/view/pages/main_page/screen_main.dart';
-// import 'package:buzz_buddy/view/pages/profile/about_us/screen_about_us.dart';
-// import 'package:buzz_buddy/view/pages/profile/settings_page/privacy_policy/screen_privacy_policies.dart';
-// import 'package:buzz_buddy/view/pages/profile/terms_and_conditions/screen_terms_and_conditions.dart';
-// import 'package:buzz_buddy/view/pages/profile/widgets/custom_settings_list_tile.dart';
-// import 'package:flutter/material.dart';
 
 // class ScreenSettings extends StatelessWidget {
 //   const ScreenSettings({super.key});
@@ -127,13 +116,378 @@
 // }
 
 
+
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:klik/application/core/constants/constants.dart';
+import 'package:klik/application/core/widgets/CustomeAppbar.dart';
+import 'package:klik/infrastructure/functions/serUserloggedin.dart';
+import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
+import 'package:klik/presentaion/pages/profile_page/screen_settings/about_us_page.dart';
+
+import 'screen_settings/privacy_and_policypage.dart';
+import 'screen_settings/terms_and_condition_page.dart';
 
 class ScreenSettings extends StatelessWidget {
   const ScreenSettings({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: const CustomAppBar(
+        title: "Settings", 
+        leadingIcon: CupertinoIcons.back,
+        leadingIconPadding: 0,
+      ),
+      body: Column(
+        children: [
+          Divider(color: grey100, thickness: 1),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: CustomIconTextIconList(),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
+
+class CustomIconTextIconList extends StatelessWidget {
+
+  @override
+
+  Widget build(BuildContext context) {
+
+    final List<ListItem> items = [
+
+      ListItem(
+
+        startIcon: Icons.info_outline,
+
+        text: 'About Us',
+
+        endIcon: CupertinoIcons.forward,
+
+        textColor: Colors.white,
+
+        startIconColor: Colors.white,
+
+        endIconColor: Colors.white,
+
+        iconSize: 24.0,
+
+        textSize: 24.0,
+
+        onTap: () {
+
+          // Navigate to About Us page
+
+          Navigator.push(
+
+            context,
+
+            MaterialPageRoute(builder: (context) => AboutUsPage()),
+
+          );
+
+        },
+
+      ),
+
+      ListItem(
+
+        startIcon: Icons.privacy_tip,
+
+        text: 'Privacy Policies',
+
+        endIcon: CupertinoIcons.forward,
+
+        textColor: Colors.white,
+
+        startIconColor: Colors.white,
+
+        endIconColor: Colors.white,
+
+        iconSize: 24.0,
+
+        textSize: 24.0,
+
+        onTap: () {
+
+         
+
+          Navigator.push(
+
+            context,
+
+            MaterialPageRoute(builder: (context) => PrivacyPoliciesPage()),
+
+          );
+
+        },
+
+      ),
+
+      ListItem(
+
+        startIcon: Icons.forum,
+
+        text: 'Terms & Condition',
+
+        endIcon: CupertinoIcons.forward,
+
+        textColor: Colors.white,
+
+        startIconColor: Colors.white,
+
+        endIconColor: Colors.white,
+
+        iconSize: 24.0,
+
+        textSize: 24.0,
+
+        onTap: () {
+
+        
+
+          Navigator.push(
+
+            context,
+
+            MaterialPageRoute(builder: (context) =>TermsAndConditionsPage()),
+
+          );
+
+        },
+
+      ),
+
+      ListItem(
+
+        startIcon: Icons.logout,
+
+        text: 'Logout',
+
+        endIcon: CupertinoIcons.forward,
+
+        textColor: Colors.white,
+
+        startIconColor: Colors.red,
+
+        endIconColor: Colors.white,
+
+        iconSize: 24.0,
+
+        textSize: 24.0,
+
+        onTap: () {
+
+        
+
+          showDialog(
+
+            context: context,
+
+            builder: (context) {
+
+              return alertBox(context);
+
+            },
+
+          );
+
+        },
+
+      ),
+
+    ];
+
+
+    return ListView.builder(
+
+      itemCount: items.length,
+
+      itemBuilder: (context, index) {
+
+        final item = items[index];
+
+        return CustomListItemWidget(item: item);
+
+      },
+
+    );
+
+  }
+
+  AlertDialog alertBox(BuildContext context) {
+    return AlertDialog(
+
+              shape: RoundedRectangleBorder(
+
+                borderRadius: BorderRadius.circular(10),
+
+              ),
+
+              elevation: 5,
+
+              title: const Text(
+
+                "Logout Confirmation",
+
+                style: TextStyle(
+
+                  fontSize: 18,
+
+                  fontWeight: FontWeight.bold,
+
+                ),
+
+              ),
+
+              content: const Text(
+
+                "Are you sure you want to logout?",
+
+                style: TextStyle(
+
+                  fontSize: 16,
+
+                ),
+
+              ),
+
+              actions: [
+
+                ElevatedButton(
+
+                  style: ElevatedButton.styleFrom(
+
+                    backgroundColor: Colors.grey,
+
+                  ),
+
+                  onPressed: () {
+
+                    Navigator.pop(context);
+
+                  },
+
+                  child: const Text("Cancel"),
+
+                ),
+
+                ElevatedButton(
+
+                  style: ElevatedButton.styleFrom(
+
+                    backgroundColor: Colors.red,
+
+                  ),
+
+                  onPressed: () async {
+
+                    await clearUserSession();
+
+                    await googleSignOut();
+
+                    if (context.mounted) {
+
+                      Navigator.pushAndRemoveUntil(
+
+                        context,
+
+                        MaterialPageRoute(builder: (context) {
+
+                          return LoginPage();
+
+                        }),
+
+                        (Route<dynamic> route) => false,
+
+                      );
+
+                    }
+
+                  },
+
+                  child: const Text("Logout"),
+
+                ),
+
+              ],
+
+            );
+  }
+
+}
+
+class CustomListItemWidget extends StatelessWidget {
+  final ListItem item;
+
+  const CustomListItemWidget({Key? key, required this.item}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: item.onTap,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            Icon(
+              item.startIcon,
+              color: item.startIconColor,
+              size: item.iconSize,
+            ),
+            SizedBox(width: MediaQuery.of(context).size.width * .04),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+              child: Text(
+                item.text,
+                style: TextStyle(
+                  fontSize: item.textSize,
+                  color: item.textColor,
+                ),
+              ),
+            ),
+            const Spacer(),
+            Icon(
+              item.endIcon,
+              color: item.endIconColor,
+              size: item.iconSize,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ListItem {
+  final IconData startIcon;
+  final String text;
+  final IconData endIcon;
+  final Color textColor;
+  final Color startIconColor;
+  final Color endIconColor;
+  final double iconSize;
+  final double textSize;
+  final VoidCallback? onTap;
+
+  ListItem({
+    required this.startIcon,
+    required this.text,
+    required this.endIcon,
+    required this.textColor,
+    required this.startIconColor,
+    required this.endIconColor,
+    required this.iconSize,
+    required this.textSize,
+    this.onTap,
+  });
+}
+
+

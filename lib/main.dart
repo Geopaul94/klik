@@ -8,6 +8,7 @@ import 'package:klik/presentaion/bloc/fetch_followers_bloc/fetchfollowers_bloc.d
 import 'package:klik/presentaion/bloc/fetch_following_bloc/fetch_following_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
+import 'package:klik/presentaion/bloc/get_comments_bloc/get_comments_bloc.dart';
 import 'package:klik/presentaion/bloc/login/forgorpassword_mailclicked/forgotpassword_bloc.dart';
 import 'package:klik/presentaion/bloc/login/login_bloc.dart';
 import 'package:klik/presentaion/bloc/login/otp_verification/otp_verify_bloc.dart';
@@ -17,7 +18,7 @@ import 'package:klik/presentaion/bloc/signup/signup_bloc.dart';
 import 'package:klik/presentaion/bloc/signupotp/signup_otp_bloc.dart';
 import 'package:klik/presentaion/bloc/add_post/add_post_bloc.dart';
 import 'package:klik/presentaion/pages/nerworkdata/connectivity_listener.dart';
-import 'package:klik/presentaion/pages/addpost_page/add_post.dart';
+
 import 'package:klik/presentaion/pages/splashscreen/splashscreen.dart';
 import 'firebase_options.dart';
 
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => FetchSavedPostsBloc()),
         BlocProvider(create: (context) => ConnectivityBloc()),
         BlocProvider(create: (context) => FetchFollowingBloc()),
+        BlocProvider(create: (context) => GetCommentsBloc()),
         BlocProvider(create: (context) => EditUserProfileBloc()),
       ],
       child: MaterialApp(
