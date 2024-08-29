@@ -78,14 +78,14 @@ class _ScreenMyPostState extends State<ScreenMyPost> {
                   commentCount: '2', // need to add
                   likeButtonPressed: () {},
                   commentButtonPressed: () {
-                    context.read<GetCommentsBloc>().add(
-                        CommentsFetchEvent(postId: postItem.id.toString()));
-                    commentBottomSheet(context, postItem, commentController,
-                        formkey: _formkey,
-                        // userName: profileuserName,
-                        // profiePic: logginedUserProfileImage,
-                        comments: _comments,
-                        id: postItem.id.toString());
+                    // context.read<GetCommentsBloc>().add(
+                    //     CommentsFetchEvent(postId: postItem.id.toString()));
+                    // commentBottomSheet(context, postItem, commentController,
+                    //     formkey: _formkey,
+                    //     // userName: profileuserName,
+                    //     // profiePic: logginedUserProfileImage,ad
+                    //     comments: _comments,
+                    //     id: postItem.id.toString());
                   },
                   index: index,
                 );

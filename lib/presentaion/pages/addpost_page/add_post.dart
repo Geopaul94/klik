@@ -8,8 +8,11 @@ import 'package:klik/application/core/widgets/custome_button.dart';
 import 'package:klik/application/core/widgets/custome_snackbar.dart';
 import 'package:klik/presentaion/bloc/add_post/add_post_bloc.dart';
 import 'package:klik/presentaion/bloc/add_post/add_post_state.dart';
+import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
+import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
 import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
 import 'package:klik/presentaion/pages/addpost_page/addphoto.dart';
+import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
 import 'package:klik/presentaion/pages/profile_page/profile_page.dart';
 
 class AddPost extends StatefulWidget {
@@ -59,11 +62,16 @@ class _AddPostState extends State<AddPost> {
                             BlocProvider.of<AddPostBloc>(context)
                                 .add(ClearImage());
 
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ScreenProfile()),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //       builder: (context) =>  BottomNavBar(),)
+                            // );
+
+  
+context.read<BottomnavigatorCubit>().bottomNavigatorButtonClicked(index: 4);
+
+
 
                             context
                                 .read<FetchMyPostBloc>()

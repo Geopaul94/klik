@@ -63,6 +63,8 @@ dependencies:
   page_transition: ^2.1.0
   readmore: ^3.0.0
   timeago: ^3.7.0
+  any_animated_button: ^0.0.4
+  async_button_builder: ^3.0.0+1
   
 
 

@@ -51,7 +51,7 @@ class AddPhotoContainer extends StatelessWidget {
                       color: Colors.grey,
                       size: 50,
                     ),
-                    SizedBox(height: 5), // Replaced h5 with SizedBox
+                    SizedBox(height: 5), 
                     Text(
                       'Add Image....',
                       style: TextStyle(

@@ -1,123 +1,3 @@
-
-// class ScreenSettings extends StatelessWidget {
-//   const ScreenSettings({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         centerTitle: true,
-//         title: const Text(
-//           'Settings',
-//           style: appBarTitleStyle,
-//         ),
-//         automaticallyImplyLeading: true,
-//         // backgroundColor: kPrimaryColor,
-//       ),
-//       body: Column(
-//         children: [
-//           customSettingsListTile(
-//             onTap: () {
-//               Navigator.push(
-//                 context,
-//                 MaterialPageRoute(
-//                   builder: (context) => const ScreenTermsAndConditions(),
-//                 ),
-//               );
-//             },
-//             leading: const Icon(Icons.receipt_long),
-//             title: "Terms and conditions ",
-//             trailing: const Icon(
-//               Icons.arrow_forward_ios,
-//               size: 20,
-//             ),
-//           ),
-//           customSettingsListTile(
-//             onTap: () {
-//               Navigator.push(
-//                 context,
-//                 MaterialPageRoute(
-//                   builder: (context) => const PrivacyPolicyPage(),
-//                 ),
-//               );
-//             },
-//             leading: const Icon(Icons.privacy_tip_outlined),
-//             title: "Privacy Policies",
-//             trailing: const Icon(
-//               Icons.arrow_forward_ios,
-//               size: 20,
-//             ),
-//           ),
-//           customSettingsListTile(
-//             onTap: () {
-//               Navigator.push(
-//                 context,
-//                 MaterialPageRoute(
-//                   builder: (context) => const ScreenAboutUs(),
-//                 ),
-//               );
-//             },
-//             leading: const Icon(Icons.info_outline),
-//             title: "About us",
-//             trailing: const Icon(
-//               Icons.arrow_forward_ios,
-//               size: 20,
-//             ),
-//           ),
-//           customSettingsListTile(
-//             onTap: () async {
-//               showConfirmationDialog(
-//                 context: context,
-//                 title: 'Log out!',
-//                 content: 'Are you sure..?',
-//                 confirmButtonText: "confirm",
-//                 cancelButtonText: "cancel",
-//                 onConfirm: () async {
-//                   await clearUserSession();
-//                   await googleSignOut();
-//                   currentPage.value = 0;
-//                   if (context.mounted) {
-//                     Navigator.pushAndRemoveUntil(
-//                       context,
-//                       MaterialPageRoute(builder: (context) {
-//                         return ScreenLogin();
-//                       }),
-//                       (Route<dynamic> route) => false,
-//                     );
-//                   }
-//                 },
-//               );
-//             },
-//             leading: const Icon(Icons.logout),
-//             title: "Logout",
-//             trailing: const Icon(
-//               Icons.arrow_forward_ios,
-//               size: 20,
-//             ),
-//           ),
-//           // Spacer to push the version info to the bottom
-//           const Spacer(),
-//           // Version and app name
-//           const Padding(
-//             padding: EdgeInsets.all(16.0),
-//             child: Text(
-//               'Buzz Buddy\nVersion 1.0.4',
-//               textAlign: TextAlign.center,
-//               style: TextStyle(
-//                 fontSize: 15,
-//                 color: kPrimaryColor,
-//               ),
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:klik/application/core/constants/constants.dart';
@@ -136,7 +16,7 @@ class ScreenSettings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const CustomAppBar(
-        title: "Settings", 
+        title: "Settings",
         leadingIcon: CupertinoIcons.back,
         leadingIconPadding: 0,
       ),
@@ -156,272 +36,150 @@ class ScreenSettings extends StatelessWidget {
 }
 
 class CustomIconTextIconList extends StatelessWidget {
-
   @override
-
   Widget build(BuildContext context) {
-
     final List<ListItem> items = [
-
       ListItem(
-
         startIcon: Icons.info_outline,
-
         text: 'About Us',
-
         endIcon: CupertinoIcons.forward,
-
         textColor: Colors.white,
-
         startIconColor: Colors.white,
-
         endIconColor: Colors.white,
-
         iconSize: 24.0,
-
         textSize: 24.0,
-
         onTap: () {
-
           // Navigate to About Us page
 
           Navigator.push(
-
             context,
-
             MaterialPageRoute(builder: (context) => AboutUsPage()),
-
           );
-
         },
-
       ),
-
       ListItem(
-
         startIcon: Icons.privacy_tip,
-
         text: 'Privacy Policies',
-
         endIcon: CupertinoIcons.forward,
-
         textColor: Colors.white,
-
         startIconColor: Colors.white,
-
         endIconColor: Colors.white,
-
         iconSize: 24.0,
-
         textSize: 24.0,
-
         onTap: () {
-
-         
-
           Navigator.push(
-
             context,
-
             MaterialPageRoute(builder: (context) => PrivacyPoliciesPage()),
-
           );
-
         },
-
       ),
-
       ListItem(
-
         startIcon: Icons.forum,
-
         text: 'Terms & Condition',
-
         endIcon: CupertinoIcons.forward,
-
         textColor: Colors.white,
-
         startIconColor: Colors.white,
-
         endIconColor: Colors.white,
-
         iconSize: 24.0,
-
         textSize: 24.0,
-
         onTap: () {
-
-        
-
           Navigator.push(
-
             context,
-
-            MaterialPageRoute(builder: (context) =>TermsAndConditionsPage()),
-
+            MaterialPageRoute(builder: (context) => TermsAndConditionsPage()),
           );
-
         },
-
       ),
-
       ListItem(
-
         startIcon: Icons.logout,
-
         text: 'Logout',
-
         endIcon: CupertinoIcons.forward,
-
-        textColor: Colors.white,
-
+        textColor: white,
         startIconColor: Colors.red,
-
         endIconColor: Colors.white,
-
         iconSize: 24.0,
-
         textSize: 24.0,
-
         onTap: () {
-
-        
-
           showDialog(
-
             context: context,
-
             builder: (context) {
-
               return alertBox(context);
-
             },
-
           );
-
         },
-
       ),
-
     ];
 
-
     return ListView.builder(
-
       itemCount: items.length,
-
       itemBuilder: (context, index) {
-
         final item = items[index];
 
         return CustomListItemWidget(item: item);
-
       },
-
     );
-
   }
 
   AlertDialog alertBox(BuildContext context) {
-    return AlertDialog(
+    return AlertDialog(backgroundColor: Color.fromARGB(255, 26, 24, 24),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      elevation: 5,
+      title: const Text(
+        "Logout Confirmation",
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      content: const Text(
+        "Are you sure you want to logout?",
+        style: TextStyle(
+          fontSize: 16,
+        ),
+      ),
+      actions: [
+     ElevatedButton(
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.green,
+    foregroundColor: Colors.black, // Use Colors.black for foregroundColor
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(6), // Adjust the radius as needed
+    ),
+  ),
+  onPressed: () {
+    Navigator.pop(context);
+  },
+  child: const Text("Cancel"),
+),
 
-              shape: RoundedRectangleBorder(
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.red,
+            foregroundColor: white,shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(6), // Adjust the radius as needed
+    ),
+          ),
+          onPressed: () async {
+            await clearUserSession();
 
-                borderRadius: BorderRadius.circular(10),
+            await googleSignOut();
 
-              ),
-
-              elevation: 5,
-
-              title: const Text(
-
-                "Logout Confirmation",
-
-                style: TextStyle(
-
-                  fontSize: 18,
-
-                  fontWeight: FontWeight.bold,
-
-                ),
-
-              ),
-
-              content: const Text(
-
-                "Are you sure you want to logout?",
-
-                style: TextStyle(
-
-                  fontSize: 16,
-
-                ),
-
-              ),
-
-              actions: [
-
-                ElevatedButton(
-
-                  style: ElevatedButton.styleFrom(
-
-                    backgroundColor: Colors.grey,
-
-                  ),
-
-                  onPressed: () {
-
-                    Navigator.pop(context);
-
-                  },
-
-                  child: const Text("Cancel"),
-
-                ),
-
-                ElevatedButton(
-
-                  style: ElevatedButton.styleFrom(
-
-                    backgroundColor: Colors.red,
-
-                  ),
-
-                  onPressed: () async {
-
-                    await clearUserSession();
-
-                    await googleSignOut();
-
-                    if (context.mounted) {
-
-                      Navigator.pushAndRemoveUntil(
-
-                        context,
-
-                        MaterialPageRoute(builder: (context) {
-
-                          return LoginPage();
-
-                        }),
-
-                        (Route<dynamic> route) => false,
-
-                      );
-
-                    }
-
-                  },
-
-                  child: const Text("Logout"),
-
-                ),
-
-              ],
-
-            );
+            if (context.mounted) {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) {
+                  return LoginPage();
+                }),
+                (Route<dynamic> route) => false,
+              );
+            }
+          },
+          child: const Text("Logout",selectionColor:black,),
+        ),
+      ],
+    );
   }
-
 }
 
 class CustomListItemWidget extends StatelessWidget {
@@ -489,5 +247,3 @@ class ListItem {
     this.onTap,
   });
 }
-
-

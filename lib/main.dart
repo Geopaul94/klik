@@ -54,6 +54,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => FetchFollowingBloc()),
         BlocProvider(create: (context) => GetCommentsBloc()),
         BlocProvider(create: (context) => EditUserProfileBloc()),
+   
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

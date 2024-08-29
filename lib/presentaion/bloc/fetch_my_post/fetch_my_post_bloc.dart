@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:klik/domain/model/my_post_model.dart';
@@ -17,6 +18,7 @@ class FetchMyPostBloc extends Bloc<FetchMyPostEvent, FetchMyPostState> {
       emit(FetchMyPostLoadingState());
       final response =await UserRepo.fetchUserPosts();
       if (response !=null&& response.statusCode ==200) {
+        log(response.body);
         final responseBody =await response.body;
         final List<MyPostModel>posts =parsePostsFromJson(responseBody);
 

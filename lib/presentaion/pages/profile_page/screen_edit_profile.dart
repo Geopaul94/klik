@@ -12,6 +12,7 @@ import 'package:klik/application/core/widgets/custome_snackbar.dart';
 import 'package:klik/application/core/widgets/validations.dart';
 import 'package:klik/domain/model/edit_details.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
+import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
 import 'package:klik/presentaion/bloc/edit_user_profile_bloc/edit_user_profile_bloc.dart';
 import 'dart:io';
 import 'package:klik/presentaion/bloc/login_user_details/login_user_details_bloc.dart';
@@ -158,10 +159,15 @@ class _ScreenEditProfileState extends State<ScreenEditProfile> {
                       .read<LoginUserDetailsBloc>()
                       .add(OnLoginedUserDataFetchEvent());
 
-                  Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => ScreenProfile()),
-                    (route) => false,
-                  );
+                  // Navigator.of(context).pushAndRemoveUntil(
+                  //   MaterialPageRoute(builder: (context) => ScreenProfile()),
+                  //   (route) => false,
+
+                  // );
+
+                  context
+                      .read<BottomnavigatorCubit>()
+                      .bottomNavigatorButtonClicked(index: 4);
                 } else if (state is EditUserProfileErrorState) {
                   customSnackbar(context, state.error, Colors.red);
                 }
