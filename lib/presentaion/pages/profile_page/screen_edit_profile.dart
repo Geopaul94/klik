@@ -107,6 +107,8 @@ class _ScreenEditProfileState extends State<ScreenEditProfile> {
                           color: Color.fromARGB(255, 12, 106, 15),
                           fontcolor: white,
                           onPressed: () {
+                            FocusScope.of(context).unfocus();
+
                             if (_formKey.currentState!.validate()) {
                               final userDetailsState =
                                   context.read<LoginUserDetailsBloc>().state;
@@ -164,6 +166,7 @@ class _ScreenEditProfileState extends State<ScreenEditProfile> {
                   //   (route) => false,
 
                   // );
+                //  Navigator.of(context).pop();
 
                   context
                       .read<BottomnavigatorCubit>()

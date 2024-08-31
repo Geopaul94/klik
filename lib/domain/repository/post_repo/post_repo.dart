@@ -1,3 +1,4 @@
+
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -7,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:klik/application/core/url/url_.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
+
 
 class PostRepo {
   static var client = http.Client();
@@ -65,8 +67,7 @@ class PostRepo {
     try {
       final token = await getUsertoken();
       var response = await client.delete(
-          Uri.parse(
-              '${Apiurl.baseUrl}${Apiurl.deletePost}/$postId'),
+          Uri.parse('${Apiurl.baseUrl}${Apiurl.deletePost}/$postId'),
           headers: {'Authorization': 'Bearer $token'});
       debugPrint(response.statusCode.toString());
       debugPrint(response.body);
@@ -95,6 +96,63 @@ class PostRepo {
     }
   }
 
+//get all usesr post
+
+  static Future<Response?> getAllPosts() async {
+    try {
+      final token = await getUsertoken();
+      final response = await client.get(
+        Uri.parse('${Apiurl.baseUrl}${Apiurl.getallPost}'),
+        headers: {'Authorization': 'Bearer $token'},
+      );
+
+      log(response.statusCode.toString());
+      debugPrint(response.body);
+
+      checkStatusCode(response.statusCode);
+    } catch (e) {
+      log(e.toString());
+      return null;
+    }
+  }
+
+
+
+
+
+
+// get followers post
+
+  static Future<Response?> getFollowersPost(int page, int pageSize) async {
+    try {
+      final token = await getUsertoken();
+      final response = await client.get(
+        Uri.parse(
+          '${Apiurl.baseUrl}${Apiurl.allFollowingsPost}?page=$page&pageSize=$pageSize',
+        ),
+        headers: {
+          'Authorization': 'Bearer $token'
+        }, // Replace with actual token
+      );
+
+      log('Status Code: ${response.statusCode}');
+      debugPrint(response.body);
+
+      // Handle different status codes
+
+      checkStatusCode(response.statusCode);
+    } catch (e) {
+      log('Error: $e');
+      return null;
+    }
+  }
+
+
+
+
+
+
+
 
   //edit post
 
@@ -114,8 +172,7 @@ class PostRepo {
         'description': description,
       };
       var response = await client.put(
-          Uri.parse(
-              '${Apiurl.baseUrl}${Apiurl.updatePost}/$postId'),
+          Uri.parse('${Apiurl.baseUrl}${Apiurl.updatePost}/$postId'),
           body: jsonEncode(post),
           headers: {
             "Content-Type": 'application/json',
@@ -131,19 +188,20 @@ class PostRepo {
   }
 
   //fetch followers post
-  static Future getFollowersPost({required int page}) async {
-    try {
-      final token = await getUsertoken();
-      var response = await client.get(
-          Uri.parse(
-              '${Apiurl.baseUrl}${Apiurl.allFollowingsPost}?page=$page&pageSize=5'),
-          headers: {'Authorization': 'Bearer $token'});
 
-      return response;
-    } catch (e) {
-      log(e.toString());
-    }
-  }
+  // static Future getFollowersPost({required int page}) async {
+  //   try {
+  //     final token = await getUsertoken();
+  //     var response = await client.get(
+  //         Uri.parse(
+  //             '${Apiurl.baseUrl}${Apiurl.allFollowingsPost}?page=$page&pageSize=5'),
+  //         headers: {'Authorization': 'Bearer $token'});
+
+  //     return response;
+  //   } catch (e) {
+  //     log(e.toString());
+  //   }
+  // }
 
 //save post
 // get saved posts
@@ -164,8 +222,7 @@ class PostRepo {
     try {
       final token = await getUsertoken();
       var response = await client.delete(
-          Uri.parse(
-              '${Apiurl.baseUrl}${Apiurl.removeSavedPost}/$postId'),
+          Uri.parse('${Apiurl.baseUrl}${Apiurl.removeSavedPost}/$postId'),
           headers: {'Authorization': 'Bearer $token'});
       return response;
     } catch (e) {
@@ -214,8 +271,7 @@ class PostRepo {
         'content': content
       };
       var response = await client.post(
-          Uri.parse(
-              '${Apiurl.baseUrl}${Apiurl.commentPost}/$postId'),
+          Uri.parse('${Apiurl.baseUrl}${Apiurl.commentPost}/$postId'),
           body: jsonEncode(comment),
           headers: {
             'Authorization': 'Bearer $token',
@@ -235,8 +291,7 @@ class PostRepo {
     try {
       final token = await getUsertoken();
       var response = await client.get(
-          Uri.parse(
-              '${Apiurl.baseUrl}${Apiurl.getAllComments}/$postId'),
+          Uri.parse('${Apiurl.baseUrl}${Apiurl.getAllComments}/$postId'),
           headers: {'Authorization': 'Bearer $token'});
       debugPrint(response.statusCode.toString());
 
@@ -251,8 +306,7 @@ class PostRepo {
     try {
       final token = await getUsertoken();
       var response = await client.delete(
-          Uri.parse(
-              '${Apiurl.baseUrl}${Apiurl.deleteComments}/$commentId'),
+          Uri.parse('${Apiurl.baseUrl}${Apiurl.deleteComments}/$commentId'),
           headers: {'Authorization': 'Bearer $token'});
       debugPrint(response.statusCode.toString());
       debugPrint(response.body);
@@ -280,12 +334,59 @@ class PostRepo {
     try {
       final token = await getUsertoken();
       var response = await client.patch(
-          Uri.parse(
-              '${Apiurl.baseUrl}${Apiurl.unlikePost}/$postId'),
+          Uri.parse('${Apiurl.baseUrl}${Apiurl.unlikePost}/$postId'),
           headers: {'Authorization': 'Bearer $token'});
       return response;
     } catch (e) {
       log(e.toString());
     }
   }
- }
+
+
+//suggessions
+
+
+
+static Future<Response?> suggestions() async {
+  try {
+    final token = await getUsertoken();
+    final response = await client.get(
+      Uri.parse('${Apiurl.baseUrl}${Apiurl.suggessions}'),
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    log('Status code: ${response.statusCode}');
+    debugPrint('User suggestions: ${response.body}');
+
+    checkStatusCode(response.statusCode);
+
+    return response;
+  } catch (e) {
+    log('Error in suggestions: ${e.toString()}');
+    return null;
+  }
+}
+
+
+
+
+
+
+
+
+}
+
+void checkStatusCode(int statusCode) {
+  if (statusCode == 200) {
+  } else if (statusCode == 404) {
+    throw Exception('Resource not found');
+  } else if (statusCode == 500) {
+    throw Exception('Internal server error');
+  } else if (statusCode == 401) {
+    throw Exception('Unauthorized access');
+  } else if (statusCode == 403) {
+    throw Exception('Forbidden access');
+  } else {
+    throw Exception('Failed with status code $statusCode');
+  }
+}

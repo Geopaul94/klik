@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:http/http.dart';
 import 'package:klik/domain/repository/post_repo/post_repo.dart';
-import 'package:klik/presentaion/bloc/login_user_details/login_user_details_bloc.dart';
+
 import 'package:meta/meta.dart';
 
 part 'logined_user_fetch_post_event.dart';

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:klik/firebase_options.dart';
 import 'package:klik/presentaion/bloc/Connectivity/connectivity_bloc.dart';
+import 'package:klik/presentaion/bloc/add_post/add_post_bloc.dart';
+import 'package:klik/presentaion/bloc/allusers_post/all_user_s_post_bloc.dart';
 import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
 import 'package:klik/presentaion/bloc/edit_user_profile_bloc/edit_user_profile_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_followers_bloc/fetchfollowers_bloc.dart';
@@ -16,11 +19,9 @@ import 'package:klik/presentaion/bloc/login/resetpassword/resetpassword_bloc.dar
 import 'package:klik/presentaion/bloc/login_user_details/login_user_details_bloc.dart';
 import 'package:klik/presentaion/bloc/signup/signup_bloc.dart';
 import 'package:klik/presentaion/bloc/signupotp/signup_otp_bloc.dart';
-import 'package:klik/presentaion/bloc/add_post/add_post_bloc.dart';
+import 'package:klik/presentaion/bloc/suggessions_bloc/suggessions_bloc.dart';
 import 'package:klik/presentaion/pages/nerworkdata/connectivity_listener.dart';
-
 import 'package:klik/presentaion/pages/splashscreen/splashscreen.dart';
-import 'firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,8 +54,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ConnectivityBloc()),
         BlocProvider(create: (context) => FetchFollowingBloc()),
         BlocProvider(create: (context) => GetCommentsBloc()),
+        BlocProvider(create: (context) => AllUserSPostBloc()),
         BlocProvider(create: (context) => EditUserProfileBloc()),
-   
+        BlocProvider(create: (context) => SuggessionsBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

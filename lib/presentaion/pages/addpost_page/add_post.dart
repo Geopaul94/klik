@@ -55,28 +55,31 @@ class _AddPostState extends State<AddPost> {
                             customSnackbar(context, state.error, red);
                           } else if (state is ImageUploadErrorState) {
                             customSnackbar(context, state.error, red);
-                          } else if (state is ImageUploadedState) {
-                            customSnackbar(
-                                context, "Image uploaded successfully!", green);
+                          }
+                          
+                          
+                           else if (state is ImageUploadedState) {
+                        
                             _noteController.clear();
-                            BlocProvider.of<AddPostBloc>(context)
-                                .add(ClearImage());
+                        
 
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //       builder: (context) =>  BottomNavBar(),)
-                            // );
+                           
 
   
-context.read<BottomnavigatorCubit>().bottomNavigatorButtonClicked(index: 4);
+  context.read<BottomnavigatorCubit>().bottomNavigatorButtonClicked(index: 4);
 
 
 
                             context
                                 .read<FetchMyPostBloc>()
                                 .add(FetchAllMyPostsEvent());
-                          }
+
+    BlocProvider.of<AddPostBloc>(context)
+                                .add(ClearImage());
+
+                                 customSnackbar(
+                                context, "Image uploaded successfully!", green);    
+                        print("==================+++11") ; }
                         },
                         builder: (context, state) {
                           return Column(
@@ -112,7 +115,7 @@ context.read<BottomnavigatorCubit>().bottomNavigatorButtonClicked(index: 4);
                               SizedBox(height: size.height * 0.02),
                               BlocBuilder<AddPostBloc, AddPostState>(
                                 builder: (context, state) {
-                                  if (state is ImageUploadingState) {
+                                  if (state is ImageUploadingState) {    FocusScope.of(context).unfocus();
                                     return loadingButton(
                                       media: size,
                                       onPressed: () {},

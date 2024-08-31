@@ -3,7 +3,7 @@ import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/custome_linear%20colorgradient.dart';
 import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
 import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
-
+import 'package:klik/presentaion/pages/test_pages/testpage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -37,7 +37,7 @@ class _SplashScreenState extends State<SplashScreen> {
                 width: 45,
               ),
               Container(
-                height: 225,
+                height: 200,
                 width: 251,
                 child: Image.asset(
                   ("assets/headline.png"),
