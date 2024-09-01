@@ -6,6 +6,11 @@ import 'package:klik/domain/repository/post_repo/post_repo.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:convert';
+import 'dart:developer'; // for log
+import 'package:flutter/material.dart'; // for debugPrint
+import 'package:http/http.dart' as http;
+ import 'package:http/src/response.dart';
 
 class UserRepo {
   static var client = http.Client();
@@ -40,6 +45,9 @@ class UserRepo {
       
       
       headers:  {"Authorization" :"Bearer $token"});
+
+
+
  return response;   } catch (e) {
       log(e.toString());
 return null;    }
@@ -66,6 +74,8 @@ return null;    }
       var response = client.get(
           Uri.parse('${Apiurl.baseUrl}${Apiurl.getFollowing}'),
           headers: {'Authorization': 'Bearer $token'});
+
+        
       return response;
     } catch (e) {
       log(e.toString());
@@ -74,43 +84,133 @@ return null;    }
 
 
 
-  static Future editProfile(
-      {required String image,
-    required  String name,
-     required String bio,
-    required  String imageUrl,
-    required  String bgImageUrl,
-      required String bgImage}) async {
+//   static Future editProfile(
+//       {required String image,
+//     required  String name,
+//      required String bio,
+//     required  String imageUrl,
+//     required  String bgImageUrl,
+//       required String bgImage}) async {
+//     try {
+//       dynamic cloudinaryimageUrl;
+//       dynamic cloudinarybgimageUrl;
+//       if (image != '') {
+//         cloudinaryimageUrl = await PostRepo.uploadImage(image);
+//       }
+//       if (bgImage != '') {
+//         cloudinarybgimageUrl = await PostRepo.uploadImage(bgImage);
+//       }
+//       final token = await getUsertoken();
+//       final details = {
+//         "name": name ,
+//         "bio": bio ,
+//         "image": image != '' ? cloudinaryimageUrl : imageUrl,
+//         "backGroundImage": bgImage != '' ? cloudinarybgimageUrl : bgImageUrl
+//       };
+//       var response = await client.put(
+//           Uri.parse('${Apiurl.baseUrl}${Apiurl.editProfile}'),
+//           body: jsonEncode(details),
+//           headers: {
+//             'Authorization': 'Bearer $token',
+//             'Content-Type': 'application/json'
+//           });
+//       debugPrint(response.statusCode.toString());
+//       debugPrint(response.body);
+
+
+
+//       checkStatusCode(response.statusCode);
+//       return response;
+//     } catch (e) {
+//       log(e.toString());
+//     }
+//     // final image
+//   }
+
+
+// void checkStatusCode(int statusCode) {
+//   if (statusCode == 200) {
+//   } else if (statusCode == 404) {
+//     throw Exception('Resource not found');
+//   } else if (statusCode == 500) {
+//     throw Exception('Internal server error');
+//   } else if (statusCode == 401) {
+//     throw Exception('Unauthorized access');
+//   } else if (statusCode == 403) {
+//     throw Exception('Forbidden access');
+//   } else {
+//     throw Exception('Failed with status code $statusCode');
+//   }}
+
+// }
+
+
+   static Future<http.Response> editProfile({
+    required String image,
+    required String name,
+    required String bio,
+    required String imageUrl,
+    required String bgImageUrl,
+    required String bgImage,
+  }) async {
     try {
-      dynamic cloudinaryimageUrl;
-      dynamic cloudinarybgimageUrl;
-      if (image != '') {
-        cloudinaryimageUrl = await PostRepo.uploadImage(image);
+      String? cloudinaryImageUrl;
+      String? cloudinaryBgImageUrl;
+
+      // Upload images if they are provided
+      if (image.isNotEmpty) {
+        cloudinaryImageUrl = await PostRepo.uploadImage(image);
       }
-      if (bgImage != '') {
-        cloudinarybgimageUrl = await PostRepo.uploadImage(bgImage);
+      if (bgImage.isNotEmpty) {
+        cloudinaryBgImageUrl = await PostRepo.uploadImage(bgImage);
       }
+
       final token = await getUsertoken();
+
+      // Construct profile details
       final details = {
-        "name": name ,
-        "bio": bio ,
-        "image": image != '' ? cloudinaryimageUrl : imageUrl,
-        "backGroundImage": bgImage != '' ? cloudinarybgimageUrl : bgImageUrl
+        "name": name,
+        "bio": bio,
+        "image": image.isNotEmpty ? cloudinaryImageUrl : imageUrl,
+        "backGroundImage": bgImage.isNotEmpty ? cloudinaryBgImageUrl : bgImageUrl,
       };
-      var response = await client.put(
-          Uri.parse('${Apiurl.baseUrl}${Apiurl.editProfile}'),
-          body: jsonEncode(details),
-          headers: {
-            'Authorization': 'Bearer $token',
-            'Content-Type': 'application/json'
-          });
-      debugPrint(response.statusCode.toString());
-      debugPrint(response.body);
+
+      // Send PUT request
+      final response = await http.put(
+        Uri.parse('${Apiurl.baseUrl}${Apiurl.editProfile}'),
+        body: jsonEncode(details),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      );
+
+      debugPrint('Response status code: ${response.statusCode}');
+      debugPrint('Response body: ${response.body}');
+
+      // Check for HTTP status codes
+      checkStatusCode(response.statusCode);
+
       return response;
     } catch (e) {
-      log(e.toString());
+      log('Error in editProfile: ${e.toString()}');
+      throw Exception('Failed to edit profile'); // Ensure a non-null response or throw
     }
-    // final image
   }
 
+  static void checkStatusCode(int statusCode) {
+    if (statusCode == 200) {
+      // Success, no action needed
+    } else if (statusCode == 404) {
+      throw Exception('Resource not found');
+    } else if (statusCode == 500) {
+      throw Exception('Internal server error');
+    } else if (statusCode == 401) {
+      throw Exception('Unauthorized access');
+    } else if (statusCode == 403) {
+      throw Exception('Forbidden access');
+    } else {
+      throw Exception('Failed with status code $statusCode');
+    }
+  }
 }

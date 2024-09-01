@@ -36,7 +36,7 @@ context.read<SuggessionsBloc>().add(onSuggessionsIconclickedEvent());
       appBar: const CustomAppBar(
         title: "Suggessions",
         backgroundColor: black,
-        cupertinoLeadingIcon: CupertinoIcons.back,
+        cupertinoLeadingIcon: CupertinoIcons.back,  showBackArrow: true,
       ),
       body: SafeArea(
         child: ListView(

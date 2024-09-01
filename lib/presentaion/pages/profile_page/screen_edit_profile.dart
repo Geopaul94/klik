@@ -166,11 +166,11 @@ class _ScreenEditProfileState extends State<ScreenEditProfile> {
                   //   (route) => false,
 
                   // );
-                //  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
 
-                  context
-                      .read<BottomnavigatorCubit>()
-                      .bottomNavigatorButtonClicked(index: 4);
+                  // context
+                  //     .read<BottomnavigatorCubit>()
+                  //     .bottomNavigatorButtonClicked(index: 4);
                 } else if (state is EditUserProfileErrorState) {
                   customSnackbar(context, state.error, Colors.red);
                 }

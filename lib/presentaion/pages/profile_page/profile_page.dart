@@ -1,4 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +17,7 @@ import 'package:klik/presentaion/pages/profile_page/screen_settings.dart';
 import 'package:klik/presentaion/pages/profile_page/simmer_widget.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/main_sessions.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:shimmer/shimmer.dart';
+
 
 String logginedUserProfileImage = '';
 String profilepageUserId = '';
@@ -78,7 +78,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
               return PreferredSize(
                 preferredSize: const Size.fromHeight(kToolbarHeight),
                 child: CustomAppBar(
-                  title: state.userModel.name ?? state.userModel.userName,
+                  title: "Profile",
                   startColor: green,
                   backgroundColor: black,
                   endColor: blue,
@@ -101,7 +101,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
               return const PreferredSize(
                 preferredSize: Size.fromHeight(kToolbarHeight),
                 child: CustomAppBar(
-                  title: 'Loading...',
+                  title: 'Profile...',
                   startColor: green,
                   backgroundColor: black,
                   endColor: blue,
