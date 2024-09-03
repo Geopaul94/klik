@@ -69,7 +69,10 @@ class _ScreenProfileState extends State<ScreenProfile> {
             preferredSize: Size.fromHeight(kToolbarHeight),
             child: BlocBuilder<LoginUserDetailsBloc, LoginUserDetailsState>(
               builder: (context, state) {
-                if (state is LoginUserDetailsDataFetchSuccessState) {
+                if (state is LoginUserDetailsDataFetchSuccessState)
+                
+                
+                 {
                   return PreferredSize(
                     preferredSize: const Size.fromHeight(kToolbarHeight),
                     child: CustomAppBar(

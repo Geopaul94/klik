@@ -17,7 +17,7 @@ class LoginedUserFetchPostBloc extends Bloc<LoginedUserFetchPostEvent, LoginedUs
   
   Future <void>homeInitialDatafetchEvent(LoginedUserFetchPostEvent event, Emitter<LoginedUserFetchPostState>emit)async{
 
-    emit(LoginedUserFetchPostLoadingState()); final Response? response = await PostRepo.fetchPosts();  if (response != null && response.statusCode == 200) {
+    emit(LoginedUserFetchPostLoadingState()); final Response? response = await PostRepo.getAllPosts();  if (response != null && response.statusCode == 200) {
       return emit(LoginedUserFetchPostSuccessState());
     }if (response != null) { 
       final responseBody = jsonDecode(response.body);

@@ -47,12 +47,12 @@ class PostRepo {
         ..fields['upload_preset'] = 'vlbl4hxd'
         ..files.add(await http.MultipartFile.fromPath('file', file.path));
       final response = await request.send();
-      debugPrint(response.statusCode.toString());
+      // debugPrint(response.statusCode.toString());
       if (response.statusCode == 200) {
         final responseData = await response.stream.toBytes();
         final responseString = String.fromCharCodes(responseData);
         final jsonMap = jsonDecode(responseString);
-        log(jsonMap['url']);
+        // log(jsonMap['url']);
         return jsonMap['url'];
       }
     } catch (e) {
@@ -69,6 +69,8 @@ class PostRepo {
           headers: {'Authorization': 'Bearer $token'});
       debugPrint(response.statusCode.toString());
       debugPrint(response.body);
+ debugPrint('DELETE post API called ++++++++ ${response.statusCode.toString()}');
+ checkStatusCode(response.statusCode);
       return response;
     } catch (e) {
       debugPrint(e.toString());
@@ -78,21 +80,21 @@ class PostRepo {
 
 //get post
 
-  static Future<Response?> fetchPosts() async {
-    try {
-      final token = await getUsertoken();
-      debugPrint('Token is $token');
-      var response = await client.get(
-          Uri.parse('${Apiurl.baseUrl}${Apiurl.getallPost}'),
-          headers: {'Authorization': 'Bearer $token'});
-      debugPrint(response.statusCode.toString());
-      debugPrint(response.body);
-      return response;
-    } catch (e) {
-      log(e.toString());
-      return null;
-    }
-  }
+  // static Future<Response?> fetchPosts() async {
+  //   try {
+  //     final token = await getUsertoken();
+  //     debugPrint('Token is $token');
+  //     var response = await client.get(
+  //         Uri.parse('${Apiurl.baseUrl}${Apiurl.getallPost}'),
+  //         headers: {'Authorization': 'Bearer $token'});
+  //     debugPrint(response.statusCode.toString());
+  //     debugPrint(response.body);
+  //     return response;
+  //   } catch (e) {
+  //     log(e.toString());
+  //     return null;
+  //   }
+  // }
 
 //get all usesr post
 
@@ -104,10 +106,11 @@ class PostRepo {
         headers: {'Authorization': 'Bearer $token'},
       );
 
-      log(response.statusCode.toString());
-      debugPrint(response.body);
+      // log(response.statusCode.toString());
+      // debugPrint(response.body);
 
       checkStatusCode(response.statusCode);
+      return response;
     } catch (e) {
       log(e.toString());
       return null;
@@ -128,8 +131,8 @@ class PostRepo {
         }, // Replace with actual token
       );
 
-      log('Status Code: ${response.statusCode}');
-      debugPrint(response.body);
+      // log('Status Code: ${response.statusCode}');
+      // debugPrint(response.body);
 
       // Handle different status codes
 
@@ -164,8 +167,8 @@ class PostRepo {
             "Content-Type": 'application/json',
             'Authorization': 'Bearer $token'
           });
-      debugPrint(response.statusCode.toString());
-      debugPrint(response.body);
+      // debugPrint(response.statusCode.toString());
+      // debugPrint(response.body);
       return response;
     } catch (e) {
       log(e.toString());
@@ -173,23 +176,6 @@ class PostRepo {
     }
   }
 
-  //fetch followers post
-
-  // static Future getFollowersPost({required int page}) async {
-  //   try {
-  //     final token = await getUsertoken();
-  //     var response = await client.get(
-  //         Uri.parse(
-  //             '${Apiurl.baseUrl}${Apiurl.allFollowingsPost}?page=$page&pageSize=5'),
-  //         headers: {'Authorization': 'Bearer $token'});
-
-  //     return response;
-  //   } catch (e) {
-  //     log(e.toString());
-  //   }
-  // }
-
-//save post
 // get saved posts
   static Future fetchSavedPosts() async {
     try {
@@ -204,24 +190,11 @@ class PostRepo {
   }
 
 // remove saved post
-  static Future removeSavedPost({required String postId}) async {
-    try {
-      final token = await getUsertoken();
-      var response = await client.delete(
-          Uri.parse('${Apiurl.baseUrl}${Apiurl.removeSavedPost}/$postId'),
-          headers: {'Authorization': 'Bearer $token'});
-      return response;
-    } catch (e) {
-      log(e.toString());
-    }
-  }
-
-// get saved posts
-  // static Future fetchSavedPosts() async {
+  // static Future removeSavedPost({required String postId}) async {
   //   try {
   //     final token = await getUsertoken();
-  //     var response = await client.get(
-  //         Uri.parse('${Apiurl.baseUrl}${Apiurl.fetchSavedPost}'),
+  //     var response = await client.delete(
+  //         Uri.parse('${Apiurl.baseUrl}${Apiurl.removeSavedPost}/$postId'),
   //         headers: {'Authorization': 'Bearer $token'});
   //     return response;
   //   } catch (e) {
@@ -229,57 +202,48 @@ class PostRepo {
   //   }
   // }
 
-//   //fetch explore post
-//   static Future fetchExplorePosts() async {
-//     try {
-//       final token = await getUsertoken();
-//       var response = await client.get(
-//           Uri.parse('${Apiurl.baseUrl}${Apiurl.explorePosts}'),
-//           headers: {'Authorization': 'Bearer $token'});
-//       return response;
-//     } catch (e) {
-//       log(e.toString());
-//     }
-//   }
+
 
   //comment post
-  static Future commentPost(
-      {required String postId,
-      required String userName,
-      required String content}) async {
-    try {
-      final userId = await getUserId();
-      final token = await getUsertoken();
-      final comment = {
-        'userId': userId,
-        'userName': userName,
-        'postId': postId,
-        'content': content
-      };
-      var response = await client.post(
-          Uri.parse('${Apiurl.baseUrl}${Apiurl.commentPost}/$postId'),
-          body: jsonEncode(comment),
-          headers: {
-            'Authorization': 'Bearer $token',
-            'Content-Type': 'application/json'
-          });
-      // final responseBody = jsonDecode(response.body);
-      debugPrint(response.statusCode.toString());
-      debugPrint(response.body);
-      return response;
-    } catch (e) {
-      log(e.toString());
-    }
-  }
+  // static Future commentPost(
+  //     {required String postId,
+  //     required String userName,
+  //     required String content}) async {
+  //   try {
+  //     final userId = await getUserId();
+  //     final token = await getUsertoken();
+  //     final comment = {
+  //       'userId': userId,
+  //       'userName': userName,
+  //       'postId': postId,
+  //       'content': content
+  //     };
+  //     var response = await client.post(
+  //         Uri.parse('${Apiurl.baseUrl}${Apiurl.commentPost}/$postId'),
+  //         body: jsonEncode(comment),
+  //         headers: {
+  //           'Authorization': 'Bearer $token',
+  //           'Content-Type': 'application/json'
+  //         });
+  //     // final responseBody = jsonDecode(response.body);
+  //     // debugPrint(response.statusCode.toString());
+  //     // debugPrint(response.body);
+  //     return response;
+  //   } catch (e) {
+  //     log(e.toString());
+  //   }
+  // }
 
-//Get All comments
+// Get All comments
+
+
   static Future getAllComments({required String postId}) async {
     try {
       final token = await getUsertoken();
       var response = await client.get(
           Uri.parse('${Apiurl.baseUrl}${Apiurl.getAllComments}/$postId'),
           headers: {'Authorization': 'Bearer $token'});
-      debugPrint(response.statusCode.toString());
+      // debugPrint(response.statusCode.toString());
 
       return response;
     } catch (e) {
@@ -288,45 +252,48 @@ class PostRepo {
   }
 
 //Delete comments
-  static Future deleteComment({required String commentId}) async {
-    try {
-      final token = await getUsertoken();
-      var response = await client.delete(
-          Uri.parse('${Apiurl.baseUrl}${Apiurl.deleteComments}/$commentId'),
-          headers: {'Authorization': 'Bearer $token'});
-      debugPrint(response.statusCode.toString());
-      debugPrint(response.body);
-      return response;
-    } catch (e) {
-      log(e.toString());
-    }
-  }
+
+  // static Future deleteComment({required String commentId}) async {
+  //   try {
+  //     final token = await getUsertoken();
+  //     var response = await client.delete(
+  //         Uri.parse('${Apiurl.baseUrl}${Apiurl.deleteComments}/$commentId'),
+  //         headers: {'Authorization': 'Bearer $token'});
+  //     // debugPrint(response.statusCode.toString());
+  //     // debugPrint(response.body);
+  //     return response;
+  //   } catch (e) {
+  //     log(e.toString());
+  //   }
+  // }
 
   //Like post
-  static Future likePost({required String postId}) async {
-    try {
-      final token = await getUsertoken();
-      var response = await client.patch(
-          Uri.parse('${Apiurl.baseUrl}${Apiurl.likePost}/$postId'),
-          headers: {'Authorization': 'Bearer $token'});
-      return response;
-    } catch (e) {
-      log(e.toString());
-    }
-  }
+
+  // static Future likePost({required String postId}) async {
+  //   try {
+  //     final token = await getUsertoken();
+  //     var response = await client.patch(
+  //         Uri.parse('${Apiurl.baseUrl}${Apiurl.likePost}/$postId'),
+  //         headers: {'Authorization': 'Bearer $token'});
+  //     return response;
+  //   } catch (e) {
+  //     log(e.toString());
+  //   }
+  // }
 
 //unlike post
-  static Future unlikePost({required String postId}) async {
-    try {
-      final token = await getUsertoken();
-      var response = await client.patch(
-          Uri.parse('${Apiurl.baseUrl}${Apiurl.unlikePost}/$postId'),
-          headers: {'Authorization': 'Bearer $token'});
-      return response;
-    } catch (e) {
-      log(e.toString());
-    }
-  }
+
+  // static Future unlikePost({required String postId}) async {
+  //   try {
+  //     final token = await getUsertoken();
+  //     var response = await client.patch(
+  //         Uri.parse('${Apiurl.baseUrl}${Apiurl.unlikePost}/$postId'),
+  //         headers: {'Authorization': 'Bearer $token'});
+  //     return response;
+  //   } catch (e) {
+  //     log(e.toString());
+  //   }
+  // }
 
 //suggessions
 
@@ -338,10 +305,11 @@ class PostRepo {
         headers: {'Authorization': 'Bearer $token'},
       );
 
-      log('Status code: ${response.statusCode}');
-      debugPrint('User suggestions: ${response.body}');
+     
 
       checkStatusCode(response.statusCode);
+       // log('Status code: ${response.statusCode}');
+      // debugPrint('User suggestions: ${response.body}');
 
       return response;
     } catch (e) {
@@ -357,10 +325,12 @@ class PostRepo {
       final response = await client.get(
           Uri.parse("${Apiurl.baseUrl}${Apiurl.getPostByUserId}/$userid"),
           headers: {'Authorization': 'Bearer $userid'});
-      log('Status code of fetchpostby user: ${response.statusCode}');
-      debugPrint('user posts suggestions: ${response.body}');
+     
 
       checkStatusCode(response.statusCode);
+
+       // log('Status code of fetchpostby user: ${response.statusCode}');
+      // debugPrint('user posts suggestions: ${response.body}');
       return response;
     } catch (e) {
       log("error in fetching userposr ${e.toString()}");
