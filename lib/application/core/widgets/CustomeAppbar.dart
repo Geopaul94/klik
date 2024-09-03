@@ -12,6 +12,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final TextStyle? titleStyle;
   final bool centerTitle;
+  
   final bool isTitleBold;
   final bool showBackArrow;
   final Color? backgroundColor;
@@ -59,6 +60,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     padding: EdgeInsets.only(left: leadingIconPadding ?? 20),
                     child: InkWell(
                       onTap: () {
+
+
                         Navigator.pop(context);
                       },
                       child: Icon(

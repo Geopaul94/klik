@@ -20,6 +20,7 @@ import 'package:klik/presentaion/bloc/login_user_details/login_user_details_bloc
 import 'package:klik/presentaion/bloc/signup/signup_bloc.dart';
 import 'package:klik/presentaion/bloc/signupotp/signup_otp_bloc.dart';
 import 'package:klik/presentaion/bloc/suggessions_bloc/suggessions_bloc.dart';
+import 'package:klik/presentaion/bloc/unfollow_user_bloc/unfollow_user_bloc.dart';
 import 'package:klik/presentaion/pages/nerworkdata/connectivity_listener.dart';
 import 'package:klik/presentaion/pages/splashscreen/splashscreen.dart';
 
@@ -57,6 +58,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => AllUserSPostBloc()),
         BlocProvider(create: (context) => EditUserProfileBloc()),
         BlocProvider(create: (context) => SuggessionsBloc()),
+
+      BlocProvider(create: (context) =>    UnfollowUserBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

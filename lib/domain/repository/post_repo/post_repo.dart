@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
@@ -8,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:klik/application/core/url/url_.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
-
 
 class PostRepo {
   static var client = http.Client();
@@ -116,11 +114,6 @@ class PostRepo {
     }
   }
 
-
-
-
-
-
 // get followers post
 
   static Future<Response?> getFollowersPost(int page, int pageSize) async {
@@ -146,13 +139,6 @@ class PostRepo {
       return null;
     }
   }
-
-
-
-
-
-
-
 
   //edit post
 
@@ -342,82 +328,45 @@ class PostRepo {
     }
   }
 
-
-
-// unfollow user 
-static Future<Response?> unFollowUser({required String followeesId}) async {
-  try {
-    final token = await getUsertoken();
- final response = await client.post(
-      Uri.parse('${Apiurl.baseUrl}${Apiurl.unfollowUser}/$followeesId'),
-      headers: {'Authorization': 'Bearer $token'},
-    );
-
-    log('Unfollow User Status Code: ${response.statusCode}');
-    log('Unfollow User Response Body ======================: ${response.body}');
-
-    checkStatusCode(response.statusCode);
-
-    return response;
-  } catch (e) {
-    log('Error in unFollowUser: ${e.toString()}');
-    return null;
-  }
-}
-
-
-
-
-static Future<Response?> followUser({required String followeesId}) async {
-  try {
-    final token = await getUsertoken();
-    final response = await http.post(
-      Uri.parse('${Apiurl.baseUrl}${Apiurl.followUser}/$followeesId'),
-      headers: {'Authorization': 'Bearer $token'},
-    );
-
-    log('Follow User Status Code: ${response.statusCode}');
-    log('Follow User Response Body: ${response.body}');
-
-    checkStatusCode(response.statusCode);
-
-    return response;
-  } catch (e) {
-    log('Error in followUser: ${e.toString()}');
-    return null;
-  }
-}
 //suggessions
 
+  static Future<Response?> suggestions() async {
+    try {
+      final token = await getUsertoken();
+      final response = await client.get(
+        Uri.parse('${Apiurl.baseUrl}${Apiurl.suggessions}'),
+        headers: {'Authorization': 'Bearer $token'},
+      );
 
+      log('Status code: ${response.statusCode}');
+      debugPrint('User suggestions: ${response.body}');
 
-static Future<Response?> suggestions() async {
-  try {
-    final token = await getUsertoken();
-    final response = await client.get(
-      Uri.parse('${Apiurl.baseUrl}${Apiurl.suggessions}'),
-      headers: {'Authorization': 'Bearer $token'},
-    );
+      checkStatusCode(response.statusCode);
 
-    log('Status code: ${response.statusCode}');
-    debugPrint('User suggestions: ${response.body}');
-
-    checkStatusCode(response.statusCode);
-
-    return response;
-  } catch (e) {
-    log('Error in suggestions: ${e.toString()}');
-    return null;
+      return response;
+    } catch (e) {
+      log('Error in suggestions: ${e.toString()}');
+      return null;
+    }
   }
-}
 
+  static Future<Response?> fetchpostbyuser() async {
+    try {
+      final userid = await getUserId();
 
+      final response = await client.get(
+          Uri.parse("${Apiurl.baseUrl}${Apiurl.getPostByUserId}/$userid"),
+          headers: {'Authorization': 'Bearer $userid'});
+      log('Status code of fetchpostby user: ${response.statusCode}');
+      debugPrint('user posts suggestions: ${response.body}');
 
-
-
-
-
-
+      checkStatusCode(response.statusCode);
+      return response;
+    } catch (e) {
+      log("error in fetching userposr ${e.toString()}");
+      return null;
+    }
+  }
 }
 
 void checkStatusCode(int statusCode) {

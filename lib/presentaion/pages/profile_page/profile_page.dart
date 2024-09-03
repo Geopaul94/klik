@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +17,6 @@ import 'package:klik/presentaion/pages/profile_page/simmer_widget.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/main_sessions.dart';
 import 'package:page_transition/page_transition.dart';
 
-
 String logginedUserProfileImage = '';
 String profilepageUserId = '';
 String profileuserName = '';
@@ -37,12 +35,10 @@ LoginUserModel userdetails = LoginUserModel(
     updatedAt: DateTime(20242024 - 06 - 24),
     profilePic: '',
     backGroundImage: '');
-class ScreenProfile extends StatefulWidget {
 
-     final String profileImage =
-       'https://example.com/path/to/profile_image.jpg';
-   final String coverImage =
-      'https://example.com/path/to/cover_image.jpg';
+class ScreenProfile extends StatefulWidget {
+  final String profileImage = 'https://example.com/path/to/profile_image.jpg';
+  final String coverImage = 'https://example.com/path/to/cover_image.jpg';
 
   const ScreenProfile({super.key});
 
@@ -63,208 +59,204 @@ class _ScreenProfileState extends State<ScreenProfile> {
 
   @override
   Widget build(BuildContext context) {
-  
-     final Size media = MediaQuery.of(context).size;
+    final Size media = MediaQuery.of(context).size;
     return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(kToolbarHeight),
-          child:BlocBuilder<LoginUserDetailsBloc, LoginUserDetailsState>(
-          builder: (context, state) {
-            if (state is LoginUserDetailsDataFetchSuccessState) {
-              return PreferredSize(
-                preferredSize: const Size.fromHeight(kToolbarHeight),
-                child: CustomAppBar(
-                  title: "Profile",
-                  startColor: green,
-                  backgroundColor: black,
-                  endColor: blue,
-                  actions: [
-                    IconButton(
-                      icon: const Icon(CupertinoIcons.ellipsis_vertical),
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          PageTransition(type: PageTransitionType.rightToLeftJoined,childCurrent: widget,duration:Duration(milliseconds: 400),
-                          child:  ScreenSettings(),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              );
-            } else {
-              return const PreferredSize(
-                preferredSize: Size.fromHeight(kToolbarHeight),
-                child: CustomAppBar(
-                  title: 'Profile...',
-                  startColor: green,
-                  backgroundColor: black,
-                  endColor: blue,
-                  actions: [],
-                ),
-              );
-            }
-          },
-        ),
-        ),
-        backgroundColor: Colors.black,
-
-
-
-        body: SafeArea(
-
-          child:DefaultTabController(length: 2,
-       child: BlocBuilder<LoginUserDetailsBloc, LoginUserDetailsState>(
-            builder: (context, state) {
-               if (state is LoginUserDetailsDataFetchSuccessState) {
-                 profileuserName =
-                     state.userModel.name ?? state.userModel.userName;
-                 logginedUserProfileImage = state.userModel.profilePic;
-
-
-                profilepageUserId = state.userModel.id;
-                userdetails = state.userModel;
-                coverImageUrl = state.userModel.backGroundImage;
-
-                return NestedScrollView(
-                  headerSliverBuilder: (context, innerBoxIsScrolled) {
-                    return [
-                      SliverToBoxAdapter(
-                        child: ProfileSession1(
-                          media: media,
-                          profileImage: logginedUserProfileImage,
-                          coverImage: coverImageUrl,
-                         userName: profileuserName,
-                          bio: state.userModel.bio ?? '',
-                          onEditProfile: () {
-                            Navigator.of(context).push(  
-                              MaterialPageRoute(
-                                builder: (ctx) => ScreenEditProfile(
-                                  cvImage: coverImageUrl,
-                                  prImage: logginedUserProfileImage,
-                                ),
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Scaffold(
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(kToolbarHeight),
+            child: BlocBuilder<LoginUserDetailsBloc, LoginUserDetailsState>(
+              builder: (context, state) {
+                if (state is LoginUserDetailsDataFetchSuccessState) {
+                  return PreferredSize(
+                    preferredSize: const Size.fromHeight(kToolbarHeight),
+                    child: CustomAppBar(
+                      title: "Profile",
+                      startColor: green,
+                      backgroundColor: black,
+                      endColor: blue,
+                      actions: [
+                        IconButton(
+                          icon: const Icon(CupertinoIcons.ellipsis_vertical),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              PageTransition(
+                                type: PageTransitionType.rightToLeftJoined,
+                                childCurrent: widget,
+                                duration: Duration(milliseconds: 400),
+                                child: ScreenSettings(),
                               ),
                             );
                           },
                         ),
-                      ),
-                      SliverToBoxAdapter(
-                        child: ProfileSession2(
-                          onPostsTap: () {
-                            if (context.read<FetchMyPostBloc>().state
-                                is FetchMyPostSuccesState) {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => ScreenMyPost(
-                                    index: 0,
-                                    post: (context.read<FetchMyPostBloc>().state
-                                            as FetchMyPostSuccesState)
-                                        .posts,
-                                  ),
-                                ),
-                              );
-                            }
-                          },
-                          onFollowersTap: () {
-                            if (context.read<FetchFollowersBloc>().state
-                                is FetchFollowersSuccesState) {
-                              // Navigator.of(context).push(
-                              //   MaterialPageRoute(
-                              //     builder: (ctx) => ScreenFollowers(
-                              //       model: (context
-                              //               .read<FetchFollowersBloc>()
-                              //               .state as FetchFollowersSuccesState)
-                              //           .followersModel,
-                              //     ),
-                              //   ),
-                              // );
-                            }
-                          },
-                          onFollowingTap: () {
-                            if (context.read<FetchFollowingBloc>().state
-                                is FetchFollowingSuccesState) {
-                              // Navigator.of(context).push(
-                              //   MaterialPageRoute(
-                              //     builder: (ctx) => const ScreenFollowing(),
-                              //   ),
-                              // );
-                            }
-                          },
-                        ),
-                      ),
-                    ];
-                  },
-                  body: const ProfileSession3(),
-                );
-              } else if (state is LoginUserDetailsDataFetchLoadingState) {
-                return profileImageShimmerContainer(context);
-              } else {
-                return const Center(child: Text('Failed to load profile'));
-              }
-            },
+                      ],
+                    ),
+                  );
+                } else {
+                  return const PreferredSize(
+                    preferredSize: Size.fromHeight(kToolbarHeight),
+                    child: CustomAppBar(
+                      title: 'Profile...',
+                      startColor: green,
+                      backgroundColor: black,
+                      endColor: blue,
+                      actions: [],
+                    ),
+                  );
+                }
+              },
+            ),
           ),
-        ),
-      ),
-     ) );
-  }
-}
+          backgroundColor: Colors.black,
+          body: SafeArea(
+            child: DefaultTabController(
+              length: 2,
+              child: BlocBuilder<LoginUserDetailsBloc, LoginUserDetailsState>(
+                builder: (context, state) {
+                  if (state is LoginUserDetailsDataFetchSuccessState) {
+                    profileuserName =
+                        state.userModel.name ?? state.userModel.userName;
+                    logginedUserProfileImage = state.userModel.profilePic;
 
+                    profilepageUserId = state.userModel.id;
+                    userdetails = state.userModel;
+                    coverImageUrl = state.userModel.backGroundImage;
 
-
-  Widget build(BuildContext context) {
-    var media = MediaQuery.of(context).size;
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: Scaffold(
-        appBar: CustomAppBar(title: "username", backgroundColor: Colors.black),
-        backgroundColor: Colors.black,
-        body: SafeArea(
-          child: Column(
-            children: [
-            Container(
-  padding: EdgeInsets.only(bottom: 25),
-  child: Stack(
-    clipBehavior: Clip.none, children: [
-      Container(
-        color: green,
-        width: double.infinity,
-        height: 250,
-      ),
-      Positioned(
-        bottom: 0, 
-        left: 20,
-        child: Container(
-          width: 150,
-          height: 250,
-          child: OverflowBox(
-            maxWidth: 150,
-            maxHeight: 250,
-            child: Container(
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.red,
-                border: Border.all(width: 2, color: Colors.white),
+                    return NestedScrollView(
+                      headerSliverBuilder: (context, innerBoxIsScrolled) {
+                        return [
+                          SliverToBoxAdapter(
+                            child: ProfileSession1(
+                              media: media,
+                              profileImage: logginedUserProfileImage,
+                              coverImage: coverImageUrl,
+                              userName: profileuserName,
+                              bio: state.userModel.bio ?? '',
+                              onEditProfile: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (ctx) => ScreenEditProfile(
+                                      cvImage: coverImageUrl,
+                                      prImage: logginedUserProfileImage,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          SliverToBoxAdapter(
+                            child: ProfileSession2(
+                              onPostsTap: () {
+                                if (context.read<FetchMyPostBloc>().state
+                                    is FetchMyPostSuccesState) {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (context) => ScreenMyPost(
+                                        index: 0,
+                                        post: (context
+                                                    .read<FetchMyPostBloc>()
+                                                    .state
+                                                as FetchMyPostSuccesState)
+                                            .posts,
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                              onFollowersTap: () {
+                                if (context.read<FetchFollowersBloc>().state
+                                    is FetchFollowersSuccesState) {
+                                  // Navigator.of(context).push(
+                                  //   MaterialPageRoute(
+                                  //     builder: (ctx) => ScreenFollowers(
+                                  //       model: (context
+                                  //               .read<FetchFollowersBloc>()
+                                  //               .state as FetchFollowersSuccesState)
+                                  //           .followersModel,
+                                  //     ),
+                                  //   ),
+                                  // );
+                                }
+                              },
+                              onFollowingTap: () {
+                                if (context.read<FetchFollowingBloc>().state
+                                    is FetchFollowingSuccesState) {
+                                  // Navigator.of(context).push(
+                                  //   MaterialPageRoute(
+                                  //     builder: (ctx) => const ScreenFollowing(),
+                                  //   ),
+                                  // );
+                                }
+                              },
+                            ),
+                          ),
+                        ];
+                      },
+                      body: const ProfileSession3(),
+                    );
+                  } else if (state is LoginUserDetailsDataFetchLoadingState) {
+                    return profileImageShimmerContainer(context);
+                  } else {
+                    return const Center(child: Text('Failed to load profile'));
+                  }
+                },
               ),
             ),
           ),
-        ),
-      ),
-    ],
-  ),
-),
-            ],
-          ),
-        ),
-      ),
-    );
+        ));
   }
+}
 
-
-
+Widget build(BuildContext context) {
+  var media = MediaQuery.of(context).size;
+  return GestureDetector(
+    onTap: () {
+      FocusScope.of(context).unfocus();
+    },
+    child: Scaffold(
+      appBar: CustomAppBar(title: "username", backgroundColor: Colors.black),
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+              padding: EdgeInsets.only(bottom: 25),
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Container(
+                    color: green,
+                    width: double.infinity,
+                    height: 250,
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 20,
+                    child: Container(
+                      width: 150,
+                      height: 250,
+                      child: OverflowBox(
+                        maxWidth: 150,
+                        maxHeight: 250,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Colors.red,
+                            border: Border.all(width: 2, color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
+}

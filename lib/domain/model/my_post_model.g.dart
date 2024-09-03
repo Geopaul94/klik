@@ -28,7 +28,7 @@ MyPostModel _$MyPostModelFromJson(Map<String, dynamic> json) => MyPostModel(
           : DateTime.parse(json['updatedAt'] as String),
       v: (json['__v'] as num?)?.toInt(),
       editedTime: json['editedTime'] == null
-          ? DateTime.parse(json['createdAt'] as String)
+          ? null
           : DateTime.parse(json['editedTime'] as String),
     );
 

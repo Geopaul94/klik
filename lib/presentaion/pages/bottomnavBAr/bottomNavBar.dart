@@ -38,9 +38,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
    HomePage(),
     const Search_page(),
-    AddPost(),
+    const AddPost(),
     const NotificationPage(),
-    ScreenProfile()
+    const ScreenProfile()
   ];
 
   int currentIndex = 0;

@@ -198,6 +198,50 @@ return null;    }
     }
   }
 
+// unfollow user 
+static Future<Response?> unFollowUser({required String followeesId}) async {
+  try {
+    final token = await getUsertoken();
+ final response = await client.post(
+      Uri.parse('${Apiurl.baseUrl}${Apiurl.unfollowUser}/$followeesId'),
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    log('Unfollow User Status Code: ${response.statusCode}');
+    log('Unfollow User Response Body ======================: ${response.body}');
+
+    checkStatusCode(response.statusCode);
+
+    return response;
+  } catch (e) {
+    log('Error in unFollowUser: ${e.toString()}');
+    return null;
+  }
+}
+
+
+
+
+static Future<Response?> followUser({required String followeesId}) async {
+  try {
+    final token = await getUsertoken();
+    final response = await http.post(
+      Uri.parse('${Apiurl.baseUrl}${Apiurl.followUser}/$followeesId'),
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    log('Follow User Status Code: ${response.statusCode}');
+    log('Follow User Response Body: ${response.body}');
+
+    checkStatusCode(response.statusCode);
+
+    return response;
+  } catch (e) {
+    log('Error in followUser: ${e.toString()}');
+    return null;
+  }
+}
+
   static void checkStatusCode(int statusCode) {
     if (statusCode == 200) {
       // Success, no action needed

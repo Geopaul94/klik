@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-
-import 'user_id.dart';
+import 'package:klik/domain/model/user_id.dart';
 
 part 'my_post_model.g.dart';
 
@@ -37,12 +36,11 @@ class MyPostModel {
     this.createdAt,
     this.updatedAt,
     this.v,
-    this.editedTime
+    this.editedTime,
   });
 
-  factory MyPostModel.fromJson(Map<String, dynamic> json) {
-    return _$MyPostModelFromJson(json);
-  }
+  factory MyPostModel.fromJson(Map<String, dynamic> json) =>
+      _$MyPostModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$MyPostModelToJson(this);
 }

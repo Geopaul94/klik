@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klik/application/core/constants/constants.dart';
+import 'package:klik/application/core/widgets/CustomeAppbar.dart';
 import 'package:klik/application/core/widgets/post_listing_page.dart';
 import 'package:klik/domain/model/comment_model.dart';
 import 'package:klik/domain/model/my_post_model.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
-import 'package:klik/presentaion/bloc/get_comments_bloc/get_comments_bloc.dart';
 import 'package:klik/presentaion/pages/profile_page/simmer_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -36,12 +36,7 @@ class _ScreenMyPostState extends State<ScreenMyPost> {
     var media = MediaQuery.of(context).size;
 
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('My Posts'),
-        automaticallyImplyLeading: true,
-        // backgroundColor: kPrimaryColor,
-      ),
+      appBar:CustomAppBar(title: "My Posts"),
       body: BlocBuilder<FetchMyPostBloc, FetchMyPostState>(
         builder: (context, state) {
           if (state is FetchMyPostLoadingState) {

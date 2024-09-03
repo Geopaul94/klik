@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/custome_linear%20colorgradient.dart';
+import 'package:klik/presentaion/pages/addpost_page/add_post.dart';
 import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
 import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
-import 'package:klik/presentaion/pages/test_pages/testpage.dart';
+import 'package:klik/presentaion/pages/homepage/homepage.dart';
+import 'package:klik/presentaion/pages/profile_page/screen_my_post.dart';
+import 'package:klik/presentaion/pages/profile_page/specific_upload_page.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -66,7 +71,7 @@ Future<void> checkUserLogin(context) async {
   } else {
     await Future.delayed(const Duration(seconds: 6));
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => BottomNavBar(),
+      builder: (context) => MyPostsScreen(),
     ));
   }
 }

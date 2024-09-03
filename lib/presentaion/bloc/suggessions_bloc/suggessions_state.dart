@@ -11,10 +11,8 @@ final class UserSuggessionsErrorState extends SuggessionsState {
 
   final String error;
   UserSuggessionsErrorState({required this.error});
-}
-
-final class UserSuggessionsSuccessState extends SuggessionsState {
-  final SuggessionUsers Suggessions;
+}final class UserSuggessionsSuccessState extends SuggessionsState {
+  final List<dynamic> Suggessions;
 
   UserSuggessionsSuccessState({required this.Suggessions});
 }

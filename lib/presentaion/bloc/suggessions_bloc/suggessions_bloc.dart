@@ -15,29 +15,62 @@ class SuggessionsBloc extends Bloc<SuggessionsEvent, SuggessionsState> {
     on<onSuggessionsIconclickedEvent>(_getUserSuggestions);
   }
 
-  Future<void> _getUserSuggestions(
-    onSuggessionsIconclickedEvent event,
-    Emitter<SuggessionsState> emit
-  ) async {
-    emit(UserSuggessionsloadingState());
-    try {
-      final Response? result = await PostRepo.suggestions();
-      if (result != null) {
-        if (result.statusCode == 200) {
-          final Map<String, dynamic> responseBody = jsonDecode(result.body);
-          final SuggessionUsers suggestionUsers = SuggessionUsers.fromJson(responseBody);
-          log(result.body);
-          emit(UserSuggessionsSuccessState(Suggessions: suggestionUsers));
-        } else if (result.statusCode == 500) {
-          emit( UserSuggessionsErrorState(error: "Server not responding"));
-        } else {
-          emit( UserSuggessionsErrorState(error: "Unexpected status code: ${result.statusCode}"));
-        }
+//   Future<void> _getUserSuggestions(
+//     onSuggessionsIconclickedEvent event,
+//     Emitter<SuggessionsState> emit
+//   ) async {
+//     emit(UserSuggessionsloadingState());
+//     try {
+//       final Response? result = await PostRepo.suggestions();
+//       if (result != null) {
+//         if (result.statusCode == 200) {
+//           final List<dynamic> responseBody = jsonDecode(result.body);
+//         final List<SuggessionUsers> suggestionUsers = responseBody.map((user) {
+//           return SuggessionUsers.fromJson(user);
+//         }).toList();
+//         log(result.body);
+//         emit(UserSuggessionsSuccessState(suggessions: suggestionUsers));
+//         } else if (result.statusCode == 500) {
+//           emit( UserSuggessionsErrorState(error: "Server not responding"));
+//         } else {
+//           emit( UserSuggessionsErrorState(error: "Unexpected status code: ${result.statusCode}"));
+//         }
+//       } else {
+//         emit( UserSuggessionsErrorState(error: "No response from server"));
+//       }
+//     } catch (e) {
+//       emit(UserSuggessionsErrorState(error: "An error occurred: ${e.toString()}"));
+//     }
+//   }
+// }
+
+
+Future<void> _getUserSuggestions(
+  onSuggessionsIconclickedEvent event,
+  Emitter<SuggessionsState> emit
+) async {
+  emit(UserSuggessionsloadingState());
+  try {
+    final Response? result = await PostRepo.suggestions();
+    if (result != null) {
+      if (result.statusCode == 200) {
+        final List<dynamic> responseBody = jsonDecode(result.body)['data'];
+final List<SuggessionUsers> suggestionUsers = responseBody.map((userJson) {
+  return SuggessionUsers.fromJson(userJson as Map<String, dynamic>);
+}).toList();
+
+        log(result.body);
+        emit(UserSuggessionsSuccessState(Suggessions: suggestionUsers));
+      } else if (result.statusCode == 500) {
+        emit(UserSuggessionsErrorState(error: "Server not responding"));
       } else {
-        emit( UserSuggessionsErrorState(error: "No response from server"));
+        emit(UserSuggessionsErrorState(error: "Unexpected status code: ${result.statusCode}"));
       }
-    } catch (e) {
-      emit(UserSuggessionsErrorState(error: "An error occurred: ${e.toString()}"));
+    } else {
+      emit(UserSuggessionsErrorState(error: "No response from server"));
     }
+  } catch (e) {
+    emit(UserSuggessionsErrorState(error: "An error occurred: ${e.toString()}"));
   }
+}
 }

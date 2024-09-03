@@ -12,8 +12,7 @@ import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavi
 import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
 import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
 import 'package:klik/presentaion/pages/addpost_page/addphoto.dart';
-import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
-import 'package:klik/presentaion/pages/profile_page/profile_page.dart';
+
 
 class AddPost extends StatefulWidget {
   const AddPost({super.key});
@@ -37,7 +36,7 @@ class _AddPostState extends State<AddPost> {
         appBar: CustomAppBar(
           title: "New Post",
           titleFontSize:24,
-          //titleFontWeight: FontWeight.bold,
+       
           backgroundColor: Colors.black,
         ),
         backgroundColor: Colors.black,
