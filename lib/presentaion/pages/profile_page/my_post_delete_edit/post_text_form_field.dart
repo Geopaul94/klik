@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:klik/application/core/constants/constants.dart';
 
 class PostTextFormField extends StatelessWidget {
   final TextEditingController controller;
@@ -35,39 +34,39 @@ class PostTextFormField extends StatelessWidget {
           color: Colors.grey[600],
         ),
         filled: true,
-        fillColor: lightgrey,
+        fillColor: Colors.grey[200],
         contentPadding: const EdgeInsets.symmetric(
           vertical: 15.0,
           horizontal: 15.0,
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(7.0),
+          borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide(
             color: Colors.grey[400]!,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(7.0),
+          borderRadius: BorderRadius.circular(15.0),
           borderSide: const BorderSide(
-            color:green,
-            width: 3.0,
+            color: Colors.blue,
+            width: 2.0,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(7.0),
+          borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide(
             color: Colors.grey[400]!,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(7.0),
+          borderRadius: BorderRadius.circular(15.0),
           borderSide: const BorderSide(
             color: Colors.red,
             width: 2.0,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5.0),
+          borderRadius: BorderRadius.circular(15.0),
           borderSide: const BorderSide(
             color: Colors.red,
             width: 2.0,

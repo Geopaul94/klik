@@ -7,7 +7,8 @@ import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/show_dialogue.dart';
 import 'package:klik/domain/model/my_post_model.dart';
 import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
-import 'package:klik/presentaion/pages/profile_page/screen_update_user_post.dart';
+import 'package:klik/presentaion/pages/profile_page/my_post_delete_edit/screen_update_user_post.dart';
+
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:readmore/readmore.dart';
 

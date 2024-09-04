@@ -8,7 +8,8 @@ import 'package:klik/presentaion/bloc/fetch_followers_bloc/fetchfollowers_bloc.d
 import 'package:klik/presentaion/bloc/fetch_following_bloc/fetch_following_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
 import 'package:klik/presentaion/pages/addpost_page/add_post.dart';
-import 'package:klik/presentaion/pages/profile_page/profile_succes_dummy_container.dart';
+import 'package:klik/presentaion/pages/profile_page/profilesession_pages/profile_succes_dummy_container.dart';
+
 import 'package:klik/presentaion/pages/profile_page/widgets/repeated_column.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/saved_and_post_grid.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/user_and_bio_tile.dart';

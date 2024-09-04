@@ -9,10 +9,10 @@ import 'package:klik/presentaion/bloc/fetch_following_bloc/fetch_following_bloc.
 import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
 import 'package:klik/presentaion/bloc/login_user_details/login_user_details_bloc.dart';
-import 'package:klik/presentaion/pages/profile_page/screen_edit_profile.dart';
-import 'package:klik/presentaion/pages/profile_page/screen_my_post.dart';
+import 'package:klik/presentaion/pages/profile_page/my_post_delete_edit/screen_my_post.dart';
+import 'package:klik/presentaion/pages/profile_page/profilesession_pages/screen_edit_profile.dart';
+import 'package:klik/presentaion/pages/profile_page/screen_settings/screen_settings.dart';
 
-import 'package:klik/presentaion/pages/profile_page/screen_settings.dart';
 import 'package:klik/presentaion/pages/profile_page/simmer_widget.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/main_sessions.dart';
 import 'package:page_transition/page_transition.dart';

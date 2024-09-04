@@ -6,8 +6,8 @@ import 'package:klik/application/core/widgets/customMaterialButton.dart';
 import 'package:klik/presentaion/bloc/fetch_followers_bloc/fetchfollowers_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_following_bloc/fetch_following_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
-import 'package:klik/presentaion/pages/profile_page/profile_succes_dummy_container.dart';
-import 'package:klik/presentaion/pages/profile_page/saved_and_post_grid.dart';
+import 'package:klik/presentaion/pages/profile_page/profilesession_pages/profile_succes_dummy_container.dart';
+
 import 'package:klik/presentaion/pages/profile_page/widgets/saved_and_post_grid.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 

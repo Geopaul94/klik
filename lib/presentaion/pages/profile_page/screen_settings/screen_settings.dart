@@ -5,9 +5,10 @@ import 'package:klik/application/core/widgets/CustomeAppbar.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
 import 'package:klik/presentaion/pages/profile_page/screen_settings/about_us_page.dart';
+import 'package:klik/presentaion/pages/profile_page/screen_settings/privacy_and_policypage.dart';
+import 'package:klik/presentaion/pages/profile_page/screen_settings/terms_and_condition_page.dart';
 
-import 'screen_settings/privacy_and_policypage.dart';
-import 'screen_settings/terms_and_condition_page.dart';
+
 
 class ScreenSettings extends StatelessWidget {
   const ScreenSettings({super.key});

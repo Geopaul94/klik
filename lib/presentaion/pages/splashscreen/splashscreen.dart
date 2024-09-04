@@ -6,8 +6,8 @@ import 'package:klik/presentaion/pages/addpost_page/add_post.dart';
 import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
 import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
 import 'package:klik/presentaion/pages/homepage/homepage.dart';
-import 'package:klik/presentaion/pages/profile_page/my_post_page.dart';
-import 'package:klik/presentaion/pages/profile_page/screen_my_post.dart';
+import 'package:klik/presentaion/pages/profile_page/my_post_delete_edit/my_post_page.dart';
+
 
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -70,7 +70,7 @@ Future<void> checkUserLogin(context) async {
   } else {
     await Future.delayed(const Duration(seconds: 6));
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => BottomNavBar(),
+      builder: (context) => MyPostsScreen(),
     ));
   }
 }

@@ -134,7 +134,7 @@ class PostRepo {
       // log('Status Code: ${response.statusCode}');
       // debugPrint(response.body);
 
-      // Handle different status codes
+   
 
       checkStatusCode(response.statusCode);
     } catch (e) {
@@ -167,8 +167,8 @@ class PostRepo {
             "Content-Type": 'application/json',
             'Authorization': 'Bearer $token'
           });
-      // debugPrint(response.statusCode.toString());
-      // debugPrint(response.body);
+      log(response.statusCode.toString());
+      log(response.body);
       return response;
     } catch (e) {
       log(e.toString());

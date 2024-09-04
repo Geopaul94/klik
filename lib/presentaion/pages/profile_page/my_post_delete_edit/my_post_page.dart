@@ -12,6 +12,7 @@ import 'package:klik/domain/model/my_post_model.dart';
 
 import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
 import 'package:klik/presentaion/bloc/login_user_details/login_user_details_bloc.dart';
+import 'package:klik/presentaion/pages/profile_page/my_post_delete_edit/screen_update_user_post.dart';
 
 import 'package:readmore/readmore.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -227,7 +228,14 @@ void showPopupMenu(BuildContext context, Offset tapPosition, String postId) {
     ],
   ).then((value) {
     if (value == 'edit') {
-      // Perform edit action
+
+Navigator.of(context).push(
+  MaterialPageRoute(
+    builder: (context) => ScreenUpdateUserPost(model: post,),
+  ),
+);
+
+      
     } else if (value == 'delete') {
       // Show confirmation dialog
       showDialog(
