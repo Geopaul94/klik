@@ -4,10 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:klik/application/core/constants/constants.dart';
+import 'package:klik/application/core/widgets/customeAppbar_row.dart';
 
 import 'package:klik/application/core/widgets/custome_icons.dart';
 import 'package:klik/application/core/widgets/custome_linear%20colorgradient.dart';
 import 'package:klik/application/core/widgets/custome_snackbar.dart';
+import 'package:klik/application/core/widgets/userPost_row_name_and_date.dart';
 import 'package:klik/domain/model/my_post_model.dart';
 
 import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
@@ -18,9 +20,11 @@ import 'package:readmore/readmore.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
-
 class MyPostsScreen extends StatefulWidget {
+  final int index;
+  final List<MyPostModel> post;
+
+  MyPostsScreen({super.key, required this.index, required this.post});
   @override
   _MyPostsScreenState createState() => _MyPostsScreenState();
 }
@@ -105,7 +109,8 @@ class Myposts_card extends StatelessWidget {
               userName: post.userId!.userName.toString(),
               date: _formatDate(post.updatedAt),
               onIconTap: (TapDownDetails details) {
-                showPopupMenu(context, details.globalPosition, post.id.toString());
+                showPopupMenu(
+                    context, details.globalPosition, post.id.toString());
               },
               imageRadius: width * 0.08,
               userNameColor: Colors.white,
@@ -189,220 +194,97 @@ class Myposts_card extends StatelessWidget {
     );
   }
 
-void showPopupMenu(BuildContext context, Offset tapPosition, String postId) {
-  showMenu(
-    surfaceTintColor: Colors.black,
-    shadowColor: Colors.black,
-    color: darkgreymain, // Ensure darkgreymain is defined
-    context: context,
-    position: RelativeRect.fromLTRB(
-      tapPosition.dx,
-      tapPosition.dy,
-      tapPosition.dx + 10,
-      tapPosition.dy + 10,
-    ),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.circular(12), // Adjust the radius as needed
-    ),
-    items: const [
-      PopupMenuItem(
-        value: 'edit',
-        child: Row(
-          children: [
-            Icon(Icons.edit, color: Colors.blue),
-            SizedBox(width: 8),
-            Text('Edit'),
-          ],
-        ),
+  void showPopupMenu(BuildContext context, Offset tapPosition, String postId) {
+    showMenu(
+      surfaceTintColor: Colors.black,
+      shadowColor: Colors.black,
+      color: darkgreymain,
+      context: context,
+      position: RelativeRect.fromLTRB(
+        tapPosition.dx,
+        tapPosition.dy,
+        tapPosition.dx + 10,
+        tapPosition.dy + 10,
       ),
-      PopupMenuItem(
-        value: 'delete',
-        child: Row(
-          children: [
-            Icon(Icons.delete, color: Colors.red),
-            SizedBox(width: 8),
-            Text('Delete'),
-          ],
-        ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
       ),
-    ],
-  ).then((value) {
-    if (value == 'edit') {
-
-Navigator.of(context).push(
-  MaterialPageRoute(
-    builder: (context) => ScreenUpdateUserPost(model: post,),
-  ),
-);
-
-      
-    } else if (value == 'delete') {
-      // Show confirmation dialog
-      showDialog(
-        context: context,
-        builder: (context) {
-          return BlocListener<FetchMyPostBloc, FetchMyPostState>(
-            listener: (context, state) {
-              if (state is OnDeleteButtonClickedLoadingState) {
-                // Show loading indicator, if needed
-              } else if (state is OnDeleteButtonClickedSuccesState) {
-                customSnackbar(
-                    context, "Your Post Deleted Successfully", Colors.green);
-                Navigator.of(context).pop(); // Close the dialog
-              } else if (state is OnDeleteButtonClickedErrrorState) {
-                customSnackbar(context, state.error, Colors.red);
-              }
-            },
-            child: AlertDialog(
-              content: const Text("Are you sure you want to delete this post?"),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(); // Close the dialog
-                  },
-                  child: const Text("Cancel"),
-                ),
-                TextButton(
-                  onPressed: () {
-                    // Trigger the delete action
-                    context.read<FetchMyPostBloc>().add(OnMyPostDeleteButtonPressedEvent(postId: post.id.toString()));
-
-
-context.read<FetchMyPostBloc>().add(FetchAllMyPostsEvent());
-    Navigator.of(context).pop();
-                  },
-                  child: const Text("Delete"),
-                ),
-              ],
-            ),
-          );
-        },
-      );
-    }
-  });
-}
-}
-
-class UserRowWidget extends StatelessWidget {
-  final String profileImageUrl;
-  final String userName;
-  final String date;
-  final double imageRadius;
-  final Function(TapDownDetails) onIconTap;
-  final Color userNameColor;
-  final Color dateColor;
-  final double userNameFontSize;
-  final double dateFontSize;
-
-  const UserRowWidget({
-    Key? key,
-    required this.profileImageUrl,
-    required this.userName,
-    required this.date,
-    required this.onIconTap,
-    this.imageRadius = 30.0,
-    this.userNameColor = Colors.white,
-    this.dateColor = Colors.grey,
-    this.userNameFontSize = 18.0,
-    this.dateFontSize = 14.0,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CircleAvatar(
-          radius: imageRadius,
-          backgroundImage: NetworkImage(profileImageUrl),
+      items: const [
+        PopupMenuItem(
+          value: 'edit',
+          child: Row(
+            children: [
+              Icon(Icons.edit, color: Colors.blue),
+              SizedBox(width: 8),
+              Text('Edit'),
+            ],
+          ),
         ),
-        const SizedBox(width: 10),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              userName,
-              style: TextStyle(
-                color: userNameColor,
-                fontSize: userNameFontSize,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              date,
-              style: TextStyle(
-                color: dateColor,
-                fontSize: dateFontSize,
-              ),
-            ),
-          ],
-        ),
-        Spacer(),
-        GestureDetector(
-          onTapDown: onIconTap,
-          child: Icon(
-            CupertinoIcons.ellipsis_vertical,
-            color: Colors.white,
+        PopupMenuItem(
+          value: 'delete',
+          child: Row(
+            children: [
+              Icon(Icons.delete, color: Colors.red),
+              SizedBox(width: 8),
+              Text('Delete'),
+            ],
           ),
         ),
       ],
-    );
-  }
-}
+    ).then((value) {
+      if (value == 'edit') {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => ScreenUpdateUserPost(
+              model: post,
+            ),
+          ),
+        );
+      } else if (value == 'delete') {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return BlocListener<FetchMyPostBloc, FetchMyPostState>(
+              listener: (context, state) {
+                if (state is OnDeleteButtonClickedLoadingState) {
+                  // Show loading indicator, if needed
+                } else if (state is OnDeleteButtonClickedSuccesState) {
+                  customSnackbar(
+                      context, "Your Post Deleted Successfully", Colors.green);
+                  Navigator.of(context).pop();
+                } else if (state is OnDeleteButtonClickedErrrorState) {
+                  customSnackbar(context, state.error, Colors.red);
+                }
+              },
+              child: AlertDialog(
+                content:
+                    const Text("Are you sure you want to delete this post?"),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Cancel"),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      context.read<FetchMyPostBloc>().add(
+                          OnMyPostDeleteButtonPressedEvent(
+                              postId: post.id.toString()));
 
-class CustomeAppbarRow extends StatelessWidget implements PreferredSizeWidget {
-  final double height;
-  final double width;
-  final String title;
-  final Function() onBackButtonPressed;
-  final List<Color> gradientColors;
-  final Color backgroundColor;
-  final Color? iconColor;
-
-  const CustomeAppbarRow({
-    Key? key,
-    required this.height,
-    required this.width,
-    required this.title,
-    required this.onBackButtonPressed,
-    this.gradientColors = const [Colors.blue, Colors.green],
-    this.backgroundColor = Colors.black,
-    this.iconColor,
-  }) : super(key: key);
-
-  @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight);
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      surfaceTintColor: backgroundColor,
-      automaticallyImplyLeading: false,
-      backgroundColor: backgroundColor,
-      title: Row(
-        children: [
-          GestureDetector(
-            onTap: onBackButtonPressed,
-            child: SizedBox(
-              height: height * 0.05,
-              width: width * 0.34,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: CustomGradientIcon(
-                  icon: CupertinoIcons.back,
-                ),
+                      context
+                          .read<FetchMyPostBloc>()
+                          .add(FetchAllMyPostsEvent());
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Delete"),
+                  ),
+                ],
               ),
-            ),
-          ),
-          Center(
-            child: CustomeLinearcolor(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              text: title,
-              gradientColors: gradientColors,
-            ),
-          ),
-        ],
-      ),
-    );
+            );
+          },
+        );
+      }
+    });
   }
 }
