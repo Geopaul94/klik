@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klik/application/core/constants/constants.dart';
@@ -7,7 +6,7 @@ import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavi
 import 'package:klik/presentaion/bloc/fetch_followers_bloc/fetchfollowers_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_following_bloc/fetch_following_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
-import 'package:klik/presentaion/pages/addpost_page/add_post.dart';
+
 import 'package:klik/presentaion/pages/profile_page/profilesession_pages/profile_succes_dummy_container.dart';
 
 import 'package:klik/presentaion/pages/profile_page/widgets/repeated_column.dart';
@@ -45,10 +44,8 @@ class ProfileSession1 extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical:1, horizontal: 10),
-             child: 
-              
-              Row(
+              padding: const EdgeInsets.symmetric(vertical: 1, horizontal: 10),
+              child: Row(
                 children: [
                   customMaterialButton(
                       color: green,
@@ -57,50 +54,41 @@ class ProfileSession1 extends StatelessWidget {
                       width: media.height * 0.11,
                       height: media.height * 0.05,
                       textStyle: const TextStyle(fontSize: 16),
-                      borderRadius: 5),SizedBox(width: 8),
-
-GestureDetector(onTap: () {debugPrint("navigation to add post pressed ");
- context.read<BottomnavigatorCubit>().bottomNavigatorButtonClicked(index: 2);
-
-},
-  child: Container(
-             width: media.height * 0.08,
-                        height: media.height * 0.05,
-              decoration: BoxDecoration(
-                color: Colors.blueAccent, 
-                borderRadius: BorderRadius.circular(4.0), 
-              ),
-              child: Lottie.asset(
-                'assets/animations/camera_klik.json',
-                fit: BoxFit.contain, 
-              ),
-            ),
-),
-
-
-
+                      borderRadius: 5),
+                  SizedBox(width: 8),
+                  GestureDetector(
+                    onTap: () {
+                      debugPrint("navigation to add post pressed ");
+                      context
+                          .read<BottomnavigatorCubit>()
+                          .bottomNavigatorButtonClicked(index: 2);
+                    },
+                    child: Container(
+                      width: media.height * 0.08,
+                      height: media.height * 0.05,
+                      decoration: BoxDecoration(
+                        color: Colors.blueAccent,
+                        borderRadius: BorderRadius.circular(4.0),
+                      ),
+                      child: Lottie.asset(
+                        'assets/animations/camera_klik.json',
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
           ],
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal:15),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
           child: userNameAndBio(userName, bio),
         ),
       ],
     );
   }
 }
-
-
-
-
-
-
-
-
-
 
 class ProfileSession2 extends StatelessWidget {
   final VoidCallback onPostsTap;

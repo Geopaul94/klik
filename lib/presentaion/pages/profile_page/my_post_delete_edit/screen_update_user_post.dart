@@ -88,33 +88,33 @@ class ScreenUpdateUserPost extends StatelessWidget {
                                     : Image.file(File(value),
                                         fit: BoxFit.cover),
                               ),
-                              Positioned(
-                                bottom: 16,
-                                right: 16,
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    final ImagePicker picker = ImagePicker();
-                                    final XFile? file = await picker.pickImage(
-                                      source: ImageSource.gallery,
-                                    );
-                                    if (file != null) {
-                                      pickNewImage.value = file.path;
-                                    }
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.all(8),
-                                    decoration: BoxDecoration(
-                                      color: Colors.black.withOpacity(0.5),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: const Icon(
-                                      Icons.camera_alt,
-                                      color: white,
-                                      size: 24,
-                                    ),
-                                  ),
-                                ),
-                              ),
+                              // Positioned(
+                              //   bottom: 16,
+                              //   right: 16,
+                              //   child: GestureDetector(
+                              //     onTap: () async {
+                              //       final ImagePicker picker = ImagePicker();
+                              //       final XFile? file = await picker.pickImage(
+                              //         source: ImageSource.gallery,
+                              //       );
+                              //       if (file != null) {
+                              //         pickNewImage.value = file.path;
+                              //       }
+                              //     },
+                              //     child: Container(
+                              //       padding: const EdgeInsets.all(8),
+                              //       decoration: BoxDecoration(
+                              //         color: Colors.black.withOpacity(0.5),
+                              //         shape: BoxShape.circle,
+                              //       ),
+                              //       child: const Icon(
+                              //         Icons.camera_alt,
+                              //         color: white,
+                              //         size: 24,
+                              //       ),
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           );
                         },

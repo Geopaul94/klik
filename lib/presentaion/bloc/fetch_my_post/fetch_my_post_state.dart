@@ -11,8 +11,9 @@ final class FetchMyPostInitial extends FetchMyPostState {}
 
 final class FetchMyPostSuccesState extends FetchMyPostState {
   final List<MyPostModel> posts;
+  
 
-  FetchMyPostSuccesState({required this.posts});
+  FetchMyPostSuccesState({required this.posts ,});
 }
 
 final class FetchMyPostLoadingState extends FetchMyPostState {}

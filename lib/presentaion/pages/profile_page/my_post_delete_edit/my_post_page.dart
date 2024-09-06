@@ -6,8 +6,6 @@ import 'package:intl/intl.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/customeAppbar_row.dart';
 
-import 'package:klik/application/core/widgets/custome_icons.dart';
-import 'package:klik/application/core/widgets/custome_linear%20colorgradient.dart';
 import 'package:klik/application/core/widgets/custome_snackbar.dart';
 import 'package:klik/application/core/widgets/userPost_row_name_and_date.dart';
 import 'package:klik/domain/model/my_post_model.dart';
@@ -16,8 +14,6 @@ import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
 import 'package:klik/presentaion/bloc/login_user_details/login_user_details_bloc.dart';
 import 'package:klik/presentaion/pages/profile_page/my_post_delete_edit/screen_update_user_post.dart';
 
-import 'package:readmore/readmore.dart';
-import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MyPostsScreen extends StatefulWidget {
@@ -30,11 +26,19 @@ class MyPostsScreen extends StatefulWidget {
 }
 
 class _MyPostsScreenState extends State<MyPostsScreen> {
+  final ScrollController _scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
     context.read<LoginUserDetailsBloc>().add(OnLoginedUserDataFetchEvent());
     context.read<FetchMyPostBloc>().add(FetchAllMyPostsEvent());
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -60,11 +64,21 @@ class _MyPostsScreenState extends State<MyPostsScreen> {
           if (state is FetchMyPostLoadingState) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is FetchMyPostSuccesState) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              if (_scrollController.hasClients) {
+                _scrollController.jumpTo(widget.index * 535);
+              }
+            });
+
             return ListView.builder(
+              controller: _scrollController,
               itemCount: state.posts.length,
               itemBuilder: (context, index) {
                 final post = state.posts[index];
-                return Myposts_card(post: post);
+                return Myposts_card(
+                  post: post,
+                  index: index,
+                );
               },
             );
           } else if (state is FetchMyPostErrorState) {
@@ -81,7 +95,8 @@ class _MyPostsScreenState extends State<MyPostsScreen> {
 class Myposts_card extends StatelessWidget {
   final MyPostModel post;
 
-  Myposts_card({required this.post});
+  final int index;
+  Myposts_card({required this.post, required this.index});
 
   String _formatDate(DateTime? date) {
     if (date == null) return 'Unknown date';
@@ -242,49 +257,85 @@ class Myposts_card extends StatelessWidget {
         );
       } else if (value == 'delete') {
         showDialog(
-          context: context,
-          builder: (context) {
-            return BlocListener<FetchMyPostBloc, FetchMyPostState>(
-              listener: (context, state) {
-                if (state is OnDeleteButtonClickedLoadingState) {
-                  // Show loading indicator, if needed
-                } else if (state is OnDeleteButtonClickedSuccesState) {
-                  customSnackbar(
-                      context, "Your Post Deleted Successfully", Colors.green);
-                  Navigator.of(context).pop();
-                } else if (state is OnDeleteButtonClickedErrrorState) {
-                  customSnackbar(context, state.error, Colors.red);
-                }
-              },
-              child: AlertDialog(
-                content:
-                    const Text("Are you sure you want to delete this post?"),
-                actions: [
-                  TextButton(
-                    onPressed: () {
+            context: context,
+            builder: (context) {
+              return BlocListener<FetchMyPostBloc, FetchMyPostState>(
+                  listener: (context, state) {
+                    if (state is OnDeleteButtonClickedLoadingState) {
+                      // Show loading indicator, if needed
+                    } else if (state is OnDeleteButtonClickedSuccesState) {
+                      customSnackbar(context, "Your Post Deleted Successfully",
+                          Colors.green);
                       Navigator.of(context).pop();
-                    },
-                    child: const Text("Cancel"),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      context.read<FetchMyPostBloc>().add(
-                          OnMyPostDeleteButtonPressedEvent(
-                              postId: post.id.toString()));
-
-                      context
-                          .read<FetchMyPostBloc>()
-                          .add(FetchAllMyPostsEvent());
-                      Navigator.of(context).pop();
-                    },
-                    child: const Text("Delete"),
-                  ),
-                ],
-              ),
-            );
-          },
-        );
+                    } else if (state is OnDeleteButtonClickedErrrorState) {
+                      customSnackbar(context, state.error, Colors.red);
+                    }
+                  },
+                  child: alertDialogueBox(context));
+            });
       }
     });
+  }
+
+  AlertDialog alertDialogueBox(BuildContext context) {
+    return AlertDialog(
+      backgroundColor: const Color.fromARGB(255, 26, 24, 24),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      elevation: 5,
+      title: const Text(
+        "Delete confirmation",
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+      content: const Text(
+        "Are you sure you want to delete this post? It will not recover again!",
+        style: TextStyle(
+          fontSize: 16,
+          color: Colors.white70,
+        ),
+      ),
+      actions: [
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.green,
+            foregroundColor: Colors.black,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(6),
+            ),
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text("Cancel"),
+        ),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.red,
+            foregroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(6),
+            ),
+          ),
+          onPressed: () {
+            context.read<FetchMyPostBloc>().add(
+                  OnMyPostDeleteButtonPressedEvent(postId: post.id.toString()),
+                );
+
+            context.read<FetchMyPostBloc>().add(FetchAllMyPostsEvent());
+
+            Navigator.of(context).pop();
+          },
+          child: const Text(
+            "Delete",
+            style: TextStyle(color: Colors.white),
+          ),
+        ),
+      ],
+    );
   }
 }

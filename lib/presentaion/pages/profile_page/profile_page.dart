@@ -46,6 +46,7 @@ class ScreenProfile extends StatefulWidget {
   @override
   State<ScreenProfile> createState() => _ScreenProfileState();
 }
+
 int? index;
 
 class _ScreenProfileState extends State<ScreenProfile> {
@@ -72,10 +73,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
             preferredSize: Size.fromHeight(kToolbarHeight),
             child: BlocBuilder<LoginUserDetailsBloc, LoginUserDetailsState>(
               builder: (context, state) {
-                if (state is LoginUserDetailsDataFetchSuccessState)
-                
-                
-                 {
+                if (state is LoginUserDetailsDataFetchSuccessState) {
                   return PreferredSize(
                     preferredSize: const Size.fromHeight(kToolbarHeight),
                     child: CustomAppBar(
@@ -160,8 +158,8 @@ class _ScreenProfileState extends State<ScreenProfile> {
                                     is FetchMyPostSuccesState) {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
-                                      builder: (context) => MyPostsScreen(
-                                        index: 0,
+                                      builder: (context) => MyPostsScreen(index: 0,
+                                    
                                         post: (context
                                                     .read<FetchMyPostBloc>()
                                                     .state
@@ -214,55 +212,4 @@ class _ScreenProfileState extends State<ScreenProfile> {
           ),
         ));
   }
-}
-
-Widget build(BuildContext context) {
-  var media = MediaQuery.of(context).size;
-  return GestureDetector(
-    onTap: () {
-      FocusScope.of(context).unfocus();
-    },
-    child: Scaffold(
-      appBar: CustomAppBar(title: "username", backgroundColor: Colors.black),
-      backgroundColor: Colors.black,
-      body: SafeArea(
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.only(bottom: 25),
-              child: Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  Container(
-                    color: green,
-                    width: double.infinity,
-                    height: 250,
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    left: 20,
-                    child: Container(
-                      width: 150,
-                      height: 250,
-                      child: OverflowBox(
-                        maxWidth: 150,
-                        maxHeight: 250,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.red,
-                            border: Border.all(width: 2, color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    ),
-  );
 }
