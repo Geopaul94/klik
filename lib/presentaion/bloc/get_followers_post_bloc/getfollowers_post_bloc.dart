@@ -58,7 +58,7 @@ Future<void> _getFollowersPosts(
 
 
       final List<AllPostsModel> posts = AllPostsModel.fromJsonList(postsJson);
-      emit(GetfollowersPostSuccessState(posts: posts, hasMore: posts.length == 10));
+      emit(GetfollowersPostSuccessState(HomePagePosts: posts, hasMore: posts.length == 10));
     } else {
       emit(GetfollowersPostErrorState(error: 'Failed to load posts.'));
     }
@@ -86,7 +86,7 @@ Future<void> _getFollowersPosts(
         hasMore = posts.length == 10; // Check if more posts are available
 
         _posts.addAll(posts); // Append more posts to the list
-        emit(GetfollowersPostSuccessState(posts: _posts, hasMore: hasMore));
+        emit(GetfollowersPostSuccessState(HomePagePosts: _posts, hasMore: hasMore));
       } else {
         emit(GetfollowersPostErrorState(error: 'Failed to load more posts.'));
       }

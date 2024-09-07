@@ -17,10 +17,10 @@ final class GetfollowersPostErrorState extends GetfollowersPostState {
 }
 
 final class GetfollowersPostSuccessState extends GetfollowersPostState {
- final List<AllPostsModel> posts;
+ final List<AllPostsModel> HomePagePosts;
   final bool hasMore;
 
-  GetfollowersPostSuccessState({required this.posts, required this.hasMore});
+  GetfollowersPostSuccessState({required this.HomePagePosts, required this.hasMore});
   
 
 
