@@ -11,18 +11,18 @@ class UserModel {
       required this.emailId});
 
 
-// factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-//         emailId: json['email']  ,
-//         userName: json['userName'],
-//         phoneNumber: json['phone'],
-//         password: json['password'],
-//       );
+factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
+        emailId: json['email']  ,
+        userName: json['userName'],
+        phoneNumber: json['phone'],
+        password: json['password'],
+      );
 
-//   Map<String, dynamic> toJson() => {
-//         'email': emailId,
-//         'userName': userName,
-//         'phone': phoneNumber,
-//         'password': password,
-//       };
+  Map<String, dynamic> toJson() => {
+        'email': emailId,
+        'userName': userName,
+        'phone': phoneNumber,
+        'password': password,
+      };
 }
 

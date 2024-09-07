@@ -10,7 +10,6 @@ import 'package:meta/meta.dart';
 part 'unfollow_user_event.dart';
 part 'unfollow_user_state.dart';
 
-
 class UnfollowUserBloc extends Bloc<UnfollowUserEvent, UnfollowUserState> {
   UnfollowUserBloc() : super(UnfollowUserInitial()) {
     on<FollowUserButtonClickEvent>(_followUser);
@@ -18,12 +17,11 @@ class UnfollowUserBloc extends Bloc<UnfollowUserEvent, UnfollowUserState> {
   }
 
   Future<void> _followUser(
-    FollowUserButtonClickEvent event,
-    Emitter<UnfollowUserState> emit
-  ) async {
+      FollowUserButtonClickEvent event, Emitter<UnfollowUserState> emit) async {
     emit(UnfollowUserLoadingState());
     try {
-      final Response? response = await UserRepo.followUser(followeesId: event.followersId);
+      final Response? response =
+          await UserRepo.followUser(followeesId: event.followersId);
 
       debugPrint('follow statuscode-${response?.statusCode}');
       if (response != null && response.statusCode == 200) {
@@ -36,13 +34,12 @@ class UnfollowUserBloc extends Bloc<UnfollowUserEvent, UnfollowUserState> {
     }
   }
 
-  Future<void> _unfollowUser(
-    UnFollowUserButtonClickEvent event,
-    Emitter<UnfollowUserState> emit
-  ) async {
+  Future<void> _unfollowUser(UnFollowUserButtonClickEvent event,
+      Emitter<UnfollowUserState> emit) async {
     emit(UnfollowUserLoadingState());
     try {
-      final Response? response = await UserRepo.unFollowUser(followeesId: event.followersId);
+      final Response? response =
+          await UserRepo.unFollowUser(followeesId: event.followersId);
 
       debugPrint('unfollow statuscode-${response?.statusCode}');
       if (response != null && response.statusCode == 200) {

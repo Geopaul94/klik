@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,11 +6,9 @@ import 'package:klik/application/core/widgets/CustomElevatedButton.dart';
 
 import 'package:klik/application/core/widgets/custome_icons.dart';
 import 'package:klik/application/core/widgets/custome_linear%20colorgradient.dart';
-import 'package:klik/domain/model/suggession_users_model.dart';
 
 import 'package:klik/presentaion/bloc/suggessions_bloc/suggessions_bloc.dart';
 import 'package:klik/presentaion/bloc/unfollow_user_bloc/unfollow_user_bloc.dart';
-
 
 class SuggessionPage extends StatefulWidget {
   const SuggessionPage({Key? key}) : super(key: key);
@@ -33,61 +29,104 @@ class _SuggessionPageState extends State<SuggessionPage> {
     final size = MediaQuery.of(context).size;
     final width = size.width;
     final height = size.height;
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: appBar(context, height, width),
       body: BlocBuilder<SuggessionsBloc, SuggessionsState>(
-      builder: (context, state) {
-        if (state is UserSuggessionsloadingState) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is UserSuggessionsSuccessState) {
-          return SafeArea(
-            child: ListView.builder(
-              itemCount: state.Suggessions.length,
-              itemBuilder: (context, index) {
-                final user = state.Suggessions[index];
-                return ListTile(
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage(user.profilePic),
+        builder: (context, state) {
+          if (state is UserSuggessionsloadingState) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is UserSuggessionsSuccessState) {
+            return SafeArea(
+              child: Column(
+                children: [
+                  Container(
+                    height: 1,
+                    color: Color.fromARGB(255, 95, 94, 94),
+                    width: double.infinity,
                   ),
-                  title: Text(
-                    user.userName,
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                  subtitle: Text(
-                    user.email,
-                    style: const TextStyle(color: Colors.grey),
-                  ),
-                  trailing: 
-                  
-                  
-                 CustomElevatedButton(
-                        text: "Follow",
-                        height: 35,
-                        width: 70,
-                        color: green,
-                        fontSize: 12,
-                        onPressed: () {},
-                      )
-                );
-              },
-            ),
-          );
-        } else if (state is UserSuggessionsErrorState) {
-          return Center(child: Text(state.error, style: const TextStyle(color: Colors.white)));
-        } else {
-          return const Center(child: Text('No suggestions available', style: TextStyle(color: Colors.white)));
-        }
-      },
-    ),
-  );
-}
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: state.suggessionUserModelList.length,
+                      itemBuilder: (context, index) {
+                        final user = state.suggessionUserModelList[index];
+                        return ListTile(
+                          leading: CircleAvatar(
+                            radius: 25,
+                            backgroundImage: NetworkImage(
+                              user.profilePic.toString(),
+                            ),
+                          ),
+                          title: Text(
+                            user.userName.toString(),
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          subtitle: Text(
+                            user.email.toString(),
+                            style: const TextStyle(color: Colors.grey),
+                          ),
+                          trailing: CustomElevatedButton(
+                            text: "Follow",
+                            height: height * .043,
+                            width: width * .18,
+                            color: green,
+                            fontSize: 12,
+                            onPressed: () {
 
+
+                              
+                              // Trigger FollowUserButtonClickEvent
+
+
+// context.read<SuggessionsBloc>().add(
+//       RemoveSuggessionUserEvent(userId: user.id.toString()),
+//     );
+                              
+
+
+                                 context.read<SuggessionsBloc>().add(RemoveSuggessionUserEvent(userId: user.id.toString()));
+                       context
+                                  .read<SuggessionsBloc>()
+                                  .add(onSuggessionsIconclickedEvent());
+
+                              context.read<UnfollowUserBloc>().add(
+                                    FollowUserButtonClickEvent(
+                                        followersId: user.id.toString()),
+                                  );
+
+                       
+                       
+                       
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
+          } else if (state is UserSuggessionsErrorState) {
+            return Center(
+                child: Text(state.error,
+                    style: const TextStyle(color: Colors.white)));
+          } else {
+            return const Center(
+                child: Text('No suggestions available',
+                    style: TextStyle(color: Colors.white)));
+          }
+        },
+      ),
+    );
+  }
+}
 
 AppBar appBar(BuildContext context, double height, double width) {
   return AppBar(
     automaticallyImplyLeading: false,
-    backgroundColor: black,surfaceTintColor: black,
+    backgroundColor: black,
+    surfaceTintColor: black,
     title: Row(
       children: [
         GestureDetector(
@@ -114,5 +153,4 @@ AppBar appBar(BuildContext context, double height, double width) {
       ],
     ),
   );
-}
 }

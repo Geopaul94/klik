@@ -1,6 +1,169 @@
+// // class AllPostsModel {
+// //   final String id;
+// //   final String userId;
+// //   final String image;
+// //   final String? description;
+// //   final DateTime date;
+// //   final List<String> likes;
+// //   final bool hidden;
+// //   final bool blocked;
+// //   final List<String> tags;
+// //   final List<String> taggedUsers;
+// //   final DateTime edited;
+// //   final int commentCount;
+
+// //   AllPostsModel({
+// //     required this.id,
+// //     required this.userId,
+// //     required this.image,
+// //     this.description,
+// //     required this.date,
+// //     required this.likes,
+// //     required this.hidden,
+// //     required this.blocked,
+// //     required this.tags,
+// //     required this.taggedUsers,
+// //     required this.edited,
+// //     required this.commentCount,
+// //   });
+
+// //   factory AllPostsModel.fromJson(Map<String, dynamic> json) {
+// //     return AllPostsModel(
+// //       id: json['_id'],
+// //       userId: json['userId'],
+// //       image: json['image'],
+// //       description: json['description'],
+// //       date: DateTime.parse(json['date']),
+// //       likes: List<String>.from(json['likes']),
+// //       hidden: json['hidden'],
+// //       blocked: json['blocked'],
+// //       tags: List<String>.from(json['tags']),
+// //       taggedUsers: List<String>.from(json['taggedUsers']),
+// //       edited: DateTime.parse(json['edited']),
+// //       commentCount: json['commentCount'],
+// //     );
+// //   }
+
+// //   Map<String, dynamic> toJson() {
+// //     return {
+// //       '_id': id,
+// //       'userId': userId,
+// //       'image': image,
+// //       'description': description,
+// //       'date': date.toIso8601String(),
+// //       'likes': likes,
+// //       'hidden': hidden,
+// //       'blocked': blocked,
+// //       'tags': tags,
+// //       'taggedUsers': taggedUsers,
+// //       'edited': edited.toIso8601String(),
+// //       'commentCount': commentCount,
+// //     };
+// //   }
+// //    static List<AllPostsModel> fromJsonList(List<dynamic> jsonList) {
+// //     return jsonList.map((json) => AllPostsModel.fromJson(json)).toList();
+// //   }
+// // }
+
+
+
+
+// import 'package:klik/domain/model/userModel.dart';
+
+// class AllPostsModel {
+//   final String id;
+//   final UserModel userId; // Change to UserModel
+//   final String image;
+//   final String? description;
+//   final DateTime date;
+//   final List<String> likes;
+//   final bool hidden;
+//   final bool blocked;
+//   final List<String> tags;
+//   final List<String> taggedUsers;
+//   final DateTime edited;
+//   final int commentCount;
+
+//   AllPostsModel({
+//     required this.id,
+//     required this.userId, // UserModel instead of String
+//     required this.image,
+//     this.description,
+//     required this.date,
+//     required this.likes,
+//     required this.hidden,
+//     required this.blocked,
+//     required this.tags,
+//     required this.taggedUsers,
+//     required this.edited,
+//     required this.commentCount,
+//   });
+
+//   factory AllPostsModel.fromJson(Map<String, dynamic> json) {
+//     return AllPostsModel(
+//       id: json['_id'],
+//       userId: UserModel.fromJson(json['userId']), // Parse as UserModel
+//       image: json['image'],
+//       description: json['description'],
+//       date: DateTime.parse(json['date']),
+//       likes: List<String>.from(json['likes']),
+//       hidden: json['hidden'],
+//       blocked: json['blocked'],
+//       tags: List<String>.from(json['tags']),
+//       taggedUsers: List<String>.from(json['taggedUsers']),
+//       edited: DateTime.parse(json['edited']),
+//       commentCount: json['commentCount'],
+//     );
+//   }
+
+//   Map<String, dynamic> toJson() {
+//     return {
+//       '_id': id,
+//       'userId': userId.toJson(), // Convert UserModel to JSON
+//       'image': image,
+//       'description': description,
+//       'date': date.toIso8601String(),
+//       'likes': likes,
+//       'hidden': hidden,
+//       'blocked': blocked,
+//       'tags': tags,
+//       'taggedUsers': taggedUsers,
+//       'edited': edited.toIso8601String(),
+//       'commentCount': commentCount,
+//     };
+//   }
+
+//   static List<AllPostsModel> fromJsonList(List<dynamic> jsonList) {
+//     return jsonList.map((json) => AllPostsModel.fromJson(json)).toList();
+//   }
+// }
+
+
+class User {
+  final String id;
+  final String userName;
+  final String email;
+  final String profilePic;
+
+  User({
+    required this.id,
+    required this.userName,
+    required this.email,
+    required this.profilePic,
+  });
+
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['_id'],
+      userName: json['userName'],
+      email: json['email'],
+      profilePic: json['profilePic'],
+    );
+  }
+}
 class AllPostsModel {
   final String id;
-  final String userId;
+  final User? userId; // Make userId nullable
   final String image;
   final String? description;
   final DateTime date;
@@ -14,7 +177,7 @@ class AllPostsModel {
 
   AllPostsModel({
     required this.id,
-    required this.userId,
+    this.userId, // Nullable userId
     required this.image,
     this.description,
     required this.date,
@@ -30,7 +193,7 @@ class AllPostsModel {
   factory AllPostsModel.fromJson(Map<String, dynamic> json) {
     return AllPostsModel(
       id: json['_id'],
-      userId: json['userId'],
+      userId: json['userId'] != null && json['userId'] is Map ? User.fromJson(json['userId']) : null,
       image: json['image'],
       description: json['description'],
       date: DateTime.parse(json['date']),
@@ -44,20 +207,17 @@ class AllPostsModel {
     );
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      '_id': id,
-      'userId': userId,
-      'image': image,
-      'description': description,
-      'date': date.toIso8601String(),
-      'likes': likes,
-      'hidden': hidden,
-      'blocked': blocked,
-      'tags': tags,
-      'taggedUsers': taggedUsers,
-      'edited': edited.toIso8601String(),
-      'commentCount': commentCount,
-    };
+
+
+
+
+
+
+
+
+
+
+    static List<AllPostsModel> fromJsonList(List<dynamic> jsonList) {
+    return jsonList.map((json) => AllPostsModel.fromJson(json)).toList();
   }
 }

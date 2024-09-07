@@ -34,9 +34,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   final List screens = [
-   // Homepage(),
-
-   HomePage(),
+  HomePage(),
+ 
+   
     const Search_page(),
     const AddPost(),
     const NotificationPage(),

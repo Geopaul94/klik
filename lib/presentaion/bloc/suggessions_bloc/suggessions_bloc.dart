@@ -4,73 +4,76 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:http/http.dart';
 import 'package:klik/domain/model/suggession_users_model.dart';
+import 'package:klik/domain/model/userModel.dart';
 import 'package:klik/domain/repository/post_repo/post_repo.dart';
+import 'package:klik/domain/repository/user_repo/user_repo.dart';
 import 'package:meta/meta.dart';
 
 part 'suggessions_event.dart';
 part 'suggessions_state.dart';
 
 class SuggessionsBloc extends Bloc<SuggessionsEvent, SuggessionsState> {
+  final List<SuggessionUserModel> _suggestionUsers = []; // List to store suggestion users
+
   SuggessionsBloc() : super(SuggessionsInitial()) {
     on<onSuggessionsIconclickedEvent>(_getUserSuggestions);
+    on<RemoveSuggessionUserEvent>(_removeSuggestionUser); // Register the event
   }
 
-//   Future<void> _getUserSuggestions(
-//     onSuggessionsIconclickedEvent event,
-//     Emitter<SuggessionsState> emit
-//   ) async {
-//     emit(UserSuggessionsloadingState());
-//     try {
-//       final Response? result = await PostRepo.suggestions();
-//       if (result != null) {
-//         if (result.statusCode == 200) {
-//           final List<dynamic> responseBody = jsonDecode(result.body);
-//         final List<SuggessionUsers> suggestionUsers = responseBody.map((user) {
-//           return SuggessionUsers.fromJson(user);
-//         }).toList();
-//         log(result.body);
-//         emit(UserSuggessionsSuccessState(suggessions: suggestionUsers));
-//         } else if (result.statusCode == 500) {
-//           emit( UserSuggessionsErrorState(error: "Server not responding"));
-//         } else {
-//           emit( UserSuggessionsErrorState(error: "Unexpected status code: ${result.statusCode}"));
-//         }
-//       } else {
-//         emit( UserSuggessionsErrorState(error: "No response from server"));
-//       }
-//     } catch (e) {
-//       emit(UserSuggessionsErrorState(error: "An error occurred: ${e.toString()}"));
-//     }
-//   }
-// }
-
-
-Future<void> _getUserSuggestions(
-  onSuggessionsIconclickedEvent event,
-  Emitter<SuggessionsState> emit
-) async {
-  emit(UserSuggessionsloadingState());
-  try {
-    final Response? result = await PostRepo.suggestions();
-    if (result != null) {
-      if (result.statusCode == 200) {
+  Future<void> _getUserSuggestions(
+    onSuggessionsIconclickedEvent event,
+    Emitter<SuggessionsState> emit
+  ) async {
+    emit(UserSuggessionsloadingState());
+    try {
+      final Response? result = await UserRepo.suggestions();
+      if (result != null && result.statusCode == 200) {
         final List<dynamic> responseBody = jsonDecode(result.body)['data'];
-final List<SuggessionUsers> suggestionUsers = responseBody.map((userJson) {
-  return SuggessionUsers.fromJson(userJson as Map<String, dynamic>);
-}).toList();
+        _suggestionUsers.clear(); // Clear the list before updating
+        _suggestionUsers.addAll(responseBody.map((userJson) {
+          return SuggessionUserModel.fromJson(userJson as Map<String, dynamic>);
+        }).toList());
 
-        log(result.body);
-        emit(UserSuggessionsSuccessState(Suggessions: suggestionUsers));
-      } else if (result.statusCode == 500) {
-        emit(UserSuggessionsErrorState(error: "Server not responding"));
+        emit(UserSuggessionsSuccessState(_suggestionUsers));
       } else {
-        emit(UserSuggessionsErrorState(error: "Unexpected status code: ${result.statusCode}"));
+        emit(UserSuggessionsErrorState(error: "Unexpected status code: ${result?.statusCode}"));
       }
-    } else {
-      emit(UserSuggessionsErrorState(error: "No response from server"));
+    } catch (e) {
+      emit(UserSuggessionsErrorState(error: "An error occurred: ${e.toString()}"));
     }
-  } catch (e) {
-    emit(UserSuggessionsErrorState(error: "An error occurred: ${e.toString()}"));
+  }
+
+  Future<void> _removeSuggestionUser(
+    RemoveSuggessionUserEvent event, 
+    Emitter<SuggessionsState> emit
+  ) async {
+    try {
+      _suggestionUsers.removeWhere((user) => user.id == event.userId); // Remove user by ID
+      emit(UserSuggessionsSuccessState(_suggestionUsers)); // Update the UI with the new list
+    } catch (e) {
+      emit(UserSuggessionsErrorState(error: "Failed to remove user"));
+    }
   }
 }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
@@ -168,6 +170,27 @@ class UserRepo {
       return response;
     } catch (e) {
       log('Error in followUser: ${e.toString()}');
+      return null;
+    }
+  }
+
+//suggessions
+
+  static Future<Response?> suggestions() async {
+    try {
+      final token = await getUsertoken();
+      final response = await client.get(
+        Uri.parse('${Apiurl.baseUrl}${Apiurl.suggessions}'),
+        headers: {'Authorization': 'Bearer $token'},
+      );
+
+      checkStatusCode(response.statusCode);
+      //  log('Status code: ${response.statusCode}');
+      // debugPrint('User suggestions: ${response.body}');
+
+      return response;
+    } catch (e) {
+      log('Error in suggestions: ${e.toString()}');
       return null;
     }
   }
