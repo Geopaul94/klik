@@ -38,83 +38,89 @@ class _SuggessionPageState extends State<SuggessionPage> {
           if (state is UserSuggessionsloadingState) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is UserSuggessionsSuccessState) {
-            return SafeArea(
-              child: Column(
-                children: [
-                  Container(
-                    height: 1,
-                    color: Color.fromARGB(255, 95, 94, 94),
-                    width: double.infinity,
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: state.suggessionUserModelList.length,
-                      itemBuilder: (context, index) {
-                        final user = state.suggessionUserModelList[index];
-                        return ListTile(
-                          leading: CircleAvatar(
-                            radius: 25,
-                            backgroundImage: NetworkImage(
-                              user.profilePic.toString(),
-                            ),
-                          ),
-                          title: Text(
-                            user.userName.toString(),
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                          subtitle: Text(
-                            user.email.toString(),
-                            style: const TextStyle(color: Colors.grey),
-                          ),
-                          trailing: CustomElevatedButton(
-                            text: "Follow",
-                            height: height * .043,
-                            width: width * .18,
-                            color: green,
-                            fontSize: 12,
-                            onPressed: () {
-
-
-                              
-                              // Trigger FollowUserButtonClickEvent
-
-
-// context.read<SuggessionsBloc>().add(
-//       RemoveSuggessionUserEvent(userId: user.id.toString()),
-//     );
-                              
-
-
-                                 context.read<SuggessionsBloc>().add(RemoveSuggessionUserEvent(userId: user.id.toString()));
-                       context
-                                  .read<SuggessionsBloc>()
-                                  .add(onSuggessionsIconclickedEvent());
-
-                              context.read<UnfollowUserBloc>().add(
-                                    FollowUserButtonClickEvent(
-                                        followersId: user.id.toString()),
-                                  );
-
-                       
-                       
-                       
-                            },
-                          ),
-                        );
-                      },
+            if (state.suggessionUserModelList.isEmpty) {
+              // Display message when the list is empty
+              return const Center(
+                child: Text(
+                  'No suggestions available',
+                  style: TextStyle(color: Colors.white),
+                ),
+              );
+            } else {
+              // Build the list when the list is not empty
+              return SafeArea(
+                child: Column(
+                  children: [
+                    Container(
+                      height: 1,
+                      color: const Color.fromARGB(255, 95, 94, 94),
+                      width: double.infinity,
                     ),
-                  ),
-                ],
-              ),
-            );
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: state.suggessionUserModelList.length,
+                        itemBuilder: (context, index) {
+                          final user = state.suggessionUserModelList[index];
+                          return ListTile(
+                            leading: CircleAvatar(
+                              radius: 25,
+                              backgroundImage: NetworkImage(
+                                user.profilePic.toString(),
+                              ),
+                            ),
+                            title: Text(
+                              user.userName.toString(),
+                              style: const TextStyle(color: Colors.white),
+                            ),
+                            subtitle: Text(
+                              user.email.toString(),
+                              style: const TextStyle(color: Colors.grey),
+                            ),
+                            trailing: CustomElevatedButton(
+                              text: "Follow",
+                              height: height * .043,
+                              width: width * .18,
+                              color: green,
+                              fontSize: 12,
+                              onPressed: () {
+                                // Trigger events as needed
+                                context.read<SuggessionsBloc>().add(
+                                      RemoveSuggessionUserEvent(
+                                        userId: user.id.toString(),
+                                      ),
+                                    );
+                                context
+                                    .read<SuggessionsBloc>()
+                                    .add(onSuggessionsIconclickedEvent());
+                                context.read<UnfollowUserBloc>().add(
+                                      FollowUserButtonClickEvent(
+                                        followersId: user.id.toString(),
+                                      ),
+                                    );
+                              },
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }
           } else if (state is UserSuggessionsErrorState) {
             return Center(
-                child: Text(state.error,
-                    style: const TextStyle(color: Colors.white)));
+              child: Text(
+                state.error,
+                style: const TextStyle(color: Colors.white),
+              ),
+            );
           } else {
             return const Center(
-                child: Text('No suggestions available',
-                    style: TextStyle(color: Colors.white)));
+              child: Text(
+                'No suggestions available',
+                style: TextStyle(color: Colors.white),
+              ),
+            );
           }
         },
       ),
@@ -146,7 +152,7 @@ AppBar appBar(BuildContext context, double height, double width) {
           child: CustomeLinearcolor(
             fontSize: 18,
             fontWeight: FontWeight.w600,
-            text: 'Suggessions',
+            text: 'Suggestions',
             gradientColors: [blue, green],
           ),
         ),

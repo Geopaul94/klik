@@ -69,8 +69,9 @@ class PostRepo {
           headers: {'Authorization': 'Bearer $token'});
       debugPrint(response.statusCode.toString());
       debugPrint(response.body);
- debugPrint('DELETE post API called ++++++++ ${response.statusCode.toString()}');
- checkStatusCode(response.statusCode);
+      debugPrint(
+          'DELETE post API called ++++++++ ${response.statusCode.toString()}');
+      checkStatusCode(response.statusCode);
       return response;
     } catch (e) {
       debugPrint(e.toString());
@@ -117,65 +118,26 @@ class PostRepo {
     }
   }
 
-// get followers post
-
-  // static Future<Response?> getFollowersPost(int page, ) async {
-  //   try {
-  //     final token = await getUsertoken();
-  //     final response = await client.get(
-  //       Uri.parse(
-  //         '${Apiurl.baseUrl}${Apiurl.allFollowingsPost}?page=$page',
-  //       ),
-  //       headers: {
-  //         'Authorization': 'Bearer $token'
-  //       }, 
-  //     );
-
-  //     log('Status Code of getfolloerspost: ${response.statusCode}');
-  //   //  log(response.body);
-
-  // // log('Response Body: ${response.body}');
-
-
-
-  //     checkStatusCode(response.statusCode);
-  //   } catch (e) {
-  //     log('Error: $e');
-  //     return null;
-  //   }
-  // }
-
 
 
   static Future<Response?> getFollowersPost(int page) async {
     try {
-      final token = await getUsertoken(); // Replace with actual token fetching logic
+      final token =
+          await getUsertoken(); 
       final response = await client.get(
         Uri.parse('${Apiurl.baseUrl}${Apiurl.allFollowingsPost}?page=$page'),
         headers: {'Authorization': 'Bearer $token'},
       );
-      
-      // log('API Call: Status Code: ${response.statusCode}');
-      // log('API Response: ${response.body}');
+
+     log('API Call for followerspost: Status Code: ${response.statusCode}');
+      log('API Response: ${response.body}');
+    //  checkStatusCode(response.statusCode);
       return response;
     } catch (e) {
       log('API Error: $e');
       return null;
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   //edit post
 
@@ -222,7 +184,8 @@ class PostRepo {
       log(e.toString());
     }
   }
- static Future deleteComment({required String commentId}) async {
+
+  static Future deleteComment({required String commentId}) async {
     try {
       final token = await getUsertoken();
       var response = await client.delete(
@@ -235,12 +198,12 @@ class PostRepo {
       log(e.toString());
     }
   }
+
 //comment post
   static Future commentPost(
       {required String postId,
       required String userName,
       required String content}) async {
-        
     try {
       final userId = await getUserId();
       final token = await getUsertoken();
@@ -266,14 +229,7 @@ class PostRepo {
     }
   }
 
-
-
-
-
-
-
 // Get All comments
-
 
   static Future getAllComments({required String postId}) async {
     try {
@@ -289,10 +245,6 @@ class PostRepo {
     }
   }
 
-
-
- 
-
   static Future<Response?> fetchpostbyuser() async {
     try {
       final userid = await getUserId();
@@ -300,11 +252,10 @@ class PostRepo {
       final response = await client.get(
           Uri.parse("${Apiurl.baseUrl}${Apiurl.getPostByUserId}/$userid"),
           headers: {'Authorization': 'Bearer $userid'});
-     
 
       checkStatusCode(response.statusCode);
 
-       // log('Status code of fetchpostby user: ${response.statusCode}');
+      // log('Status code of fetchpostby user: ${response.statusCode}');
       // debugPrint('user posts suggestions: ${response.body}');
       return response;
     } catch (e) {

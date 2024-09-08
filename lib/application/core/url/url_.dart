@@ -6,6 +6,8 @@ class Apiurl{
   //base url
   static const String baseUrl = "https://z749xh9c-7002.inc1.devtunnels.ms/api";
 
+ 
+
    //user Urls
   static const String googleLogin = '/users/google-login';
   static const String signUp = '/users/send-otp';

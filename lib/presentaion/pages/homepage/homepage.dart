@@ -23,7 +23,6 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    // Trigger the BLoC event to fetch posts
     context
         .read<GetfollowersPostBloc>()
         .add(FetchFollowersPostEvent(page: _page));
@@ -36,7 +35,7 @@ class _HomePageState extends State<HomePage> {
      // backgroundColor: Colors.black,
       body: BlocBuilder<GetfollowersPostBloc, GetfollowersPostState>(
         builder: (context, state) {
-          // Handle UI based on state
+      
           if (state is GetfollowersPostLoadingState) {
             return Center(child: CircularProgressIndicator());
           } else if (state is GetfollowersPostSuccessState) {
@@ -90,124 +89,7 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-// class HomPage_card extends StatelessWidget {
-//   final AllPostsModel HomePagePosts;
 
-//   HomPage_card({required this.HomePagePosts, });
-
-//   String _formatDate(DateTime? date) {
-//     if (date == null) return 'Unknown date';
-//     return DateFormat('dd MMMM yyyy').format(date.toLocal());
-//   }
-
-//   TextEditingController commentController = TextEditingController();
-//   final _formkey = GlobalKey<FormState>();
-//   final List<Comment> _comments = [];
-
-//   AllPostsModel? logginedUserdetails;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final width = MediaQuery.of(context).size.width;
-//     final height = MediaQuery.of(context).size.height;
-
-//     return Card(
-//       color: Colors.black,
-//       margin: const EdgeInsets.all(8.0),
-//       shape: RoundedRectangleBorder(
-//         borderRadius: BorderRadius.circular(15.0),
-//       ),
-//       child: Padding(
-//         padding: const EdgeInsets.all(10.0),
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             UserRowWidget(
-//               profileImageUrl: HomePagePosts.userId!.profilePic.toString(),
-//               userName: HomePagePosts.userId!.userName.toString(),
-//               date: _formatDate(HomePagePosts.date),
-//               onIconTap: (TapDownDetails details) {
-
-//               },
-//               imageRadius: width * 0.08,
-//               userNameColor: Colors.white,
-//               dateColor: Colors.grey,
-//               userNameFontSize: 18.0,
-//               dateFontSize: 14.0,
-//             ),
-
-//             const SizedBox(height: 20),
-
-//             if (HomePagePosts.image!.isNotEmpty)
-//               Container(
-//                 width: double.infinity,
-//                 height: height * 0.4,
-//                 decoration: BoxDecoration(
-//                   color: Colors.grey[900],
-//                   borderRadius: BorderRadius.circular(15),
-//                   image: DecorationImage(
-//                     image: NetworkImage(HomePagePosts.image.toString()),
-//                     fit: BoxFit.cover,
-//                   ),
-//                 ),
-//               ),
-//             const SizedBox(height: 2),
-
-//             const SizedBox(height: 10),
-
-//             // HomePagePosts description
-//             Padding(
-//               padding: const EdgeInsets.all(8.0),
-//               child: Text(
-//                 HomePagePosts.description.toString(),
-//                 style: const TextStyle(
-//                   fontSize: 16,
-//                   color: Colors.white,
-//                 ),
-//               ),
-//             ),
-
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 Row(
-//                   children: [
-//                     IconButton(
-//                       icon: Icon(
-//                         CupertinoIcons.heart,
-//                         color: Colors.red,
-//                         size: height * 0.03,
-//                       ),
-//                       onPressed: () {},
-//                     ),
-//                     IconButton(
-//                       icon: Icon(
-//                         CupertinoIcons.bubble_left,
-//                         color: Colors.white,
-//                         size: height * 0.03,
-//                       ),
-//                       onPressed: () {},
-//                     ),
-//                   ],
-//                 ),
-//                 IconButton(
-//                   icon: Icon(
-//                     CupertinoIcons.bookmark,
-//                     color: Colors.white,
-//                     size: height * 0.03,
-//                   ),
-//                   onPressed: () {
-//                     // Save button pressed
-//                   },
-//                 ),
-//               ],
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class HomPage_card extends StatelessWidget {
   final AllPostsModel HomePagePosts;
