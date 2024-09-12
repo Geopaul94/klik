@@ -59,6 +59,9 @@ class _HomePageState extends State<HomePage> {
   AppBar appBar(BuildContext context) {
     return AppBar(
       backgroundColor: black,
+
+
+      automaticallyImplyLeading: false,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

@@ -11,57 +11,22 @@ class SamplePage extends StatefulWidget {
 }
 
 class _SamplePageState extends State<SamplePage> {
-  @override
-  void initState() {
-    super.initState();
-    fetchAndLogApiResponse(1, 5);
-  }
 
-  Future<void> fetchAndLogApiResponse(int page, int pageSize) async {
-    try {
-      final token = await getUsertoken();
-      final response = await http.get(
-        Uri.parse(
-          '${Apiurl.baseUrl}${Apiurl.allFollowingsPost}?page=$page&pageSize=$pageSize',
-        ),
-        headers: {
-          'Authorization': 'Bearer $token'
-        },
-      );
+ 
+  
 
-      if (response.statusCode == 200) {
-        log('Response Body: ${response.body}');
-        final jsonResponse = json.decode(response.body);
 
-        if (jsonResponse is List) {
-          if (jsonResponse.isEmpty) {
-            log('Received an empty list from the API.');
-          } else {
-            // Handle the list data
-            for (var item in jsonResponse) {
-              log('Item: $item');
-            }
-          }
-        } else {
-          log('Unexpected response format: ${jsonResponse.runtimeType}');
-        }
-      } else {
-        log('Failed to load data with status code: ${response.statusCode}');
-      }
-    } catch (e) {
-      log('Error: $e');
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('API Response Logger'),
-      ),
-      body: Center(
-        child: Text('Check the console for the API response'),
-      ),
-    );
-  }
-}
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text('API Response Logger'),
+    ),
+    body: Image(
+      image: AssetImage('assets/internetcheckcrop(1).jpg'), 
+      fit: BoxFit.cover, 
+      height: double.infinity,
+      width: double.infinity,
+    ),
+  );
+}}

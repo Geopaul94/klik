@@ -42,7 +42,7 @@ class PostRepo {
     try {
       final url =
           Uri.parse('https://api.cloudinary.com/v1_1/duyqxp4er/image/upload');
-      // final file = await imagePath.file ?? imagePath;
+      
       final request = http.MultipartRequest('POST', url)
         ..fields['upload_preset'] = 'vlbl4hxd'
         ..files.add(await http.MultipartFile.fromPath('file', file.path));
@@ -79,23 +79,7 @@ class PostRepo {
     }
   }
 
-//get post
 
-  // static Future<Response?> fetchPosts() async {
-  //   try {
-  //     final token = await getUsertoken();
-  //     debugPrint('Token is $token');
-  //     var response = await client.get(
-  //         Uri.parse('${Apiurl.baseUrl}${Apiurl.getallPost}'),
-  //         headers: {'Authorization': 'Bearer $token'});
-  //     debugPrint(response.statusCode.toString());
-  //     debugPrint(response.body);
-  //     return response;
-  //   } catch (e) {
-  //     log(e.toString());
-  //     return null;
-  //   }
-  // }
 
 //get all usesr post
 
@@ -129,9 +113,9 @@ class PostRepo {
         headers: {'Authorization': 'Bearer $token'},
       );
 
-     log('API Call for followerspost: Status Code: ${response.statusCode}');
-      log('API Response: ${response.body}');
-    //  checkStatusCode(response.statusCode);
+    //  log('API Call for followerspost: Status Code: ${response.statusCode}');
+    //   log('API Response: ${response.body}');
+      checkStatusCode(response.statusCode);
       return response;
     } catch (e) {
       log('API Error: $e');
@@ -185,65 +169,8 @@ class PostRepo {
     }
   }
 
-  static Future deleteComment({required String commentId}) async {
-    try {
-      final token = await getUsertoken();
-      var response = await client.delete(
-          Uri.parse('${Apiurl.baseUrl}${Apiurl.deleteComments}/$commentId'),
-          headers: {'Authorization': 'Bearer $token'});
-      debugPrint(response.statusCode.toString());
-      debugPrint(response.body);
-      return response;
-    } catch (e) {
-      log(e.toString());
-    }
-  }
+  
 
-//comment post
-  static Future commentPost(
-      {required String postId,
-      required String userName,
-      required String content}) async {
-    try {
-      final userId = await getUserId();
-      final token = await getUsertoken();
-      final comment = {
-        'userId': userId,
-        'userName': userName,
-        'postId': postId,
-        'content': content
-      };
-      var response = await client.post(
-          Uri.parse('${Apiurl.baseUrl}${Apiurl.commentPost}/$postId'),
-          body: jsonEncode(comment),
-          headers: {
-            'Authorization': 'Bearer $token',
-            'Content-Type': 'application/json'
-          });
-      // final responseBody = jsonDecode(response.body);
-      debugPrint(response.statusCode.toString());
-      debugPrint(response.body);
-      return response;
-    } catch (e) {
-      log(e.toString());
-    }
-  }
-
-// Get All comments
-
-  static Future getAllComments({required String postId}) async {
-    try {
-      final token = await getUsertoken();
-      var response = await client.get(
-          Uri.parse('${Apiurl.baseUrl}${Apiurl.getAllComments}/$postId'),
-          headers: {'Authorization': 'Bearer $token'});
-      // debugPrint(response.statusCode.toString());
-
-      return response;
-    } catch (e) {
-      log(e.toString());
-    }
-  }
 
   static Future<Response?> fetchpostbyuser() async {
     try {

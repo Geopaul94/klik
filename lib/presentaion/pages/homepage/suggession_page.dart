@@ -9,6 +9,7 @@ import 'package:klik/application/core/widgets/custome_linear%20colorgradient.dar
 
 import 'package:klik/presentaion/bloc/suggessions_bloc/suggessions_bloc.dart';
 import 'package:klik/presentaion/bloc/unfollow_user_bloc/unfollow_user_bloc.dart';
+import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
 
 class SuggessionPage extends StatefulWidget {
   const SuggessionPage({Key? key}) : super(key: key);
@@ -83,20 +84,28 @@ class _SuggessionPageState extends State<SuggessionPage> {
                               color: green,
                               fontSize: 12,
                               onPressed: () {
-                                // Trigger events as needed
+                                // Trigger RemoveSuggessionUserEvent to update the list and refresh
                                 context.read<SuggessionsBloc>().add(
                                       RemoveSuggessionUserEvent(
                                         userId: user.id.toString(),
                                       ),
                                     );
-                                context
-                                    .read<SuggessionsBloc>()
-                                    .add(onSuggessionsIconclickedEvent());
+
+                                // Trigger FollowUserButtonClickEvent to handle the follow action
                                 context.read<UnfollowUserBloc>().add(
                                       FollowUserButtonClickEvent(
                                         followersId: user.id.toString(),
                                       ),
                                     );
+
+                                // Navigate to the BottomNavBar after follow action
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => BottomNavBar()),
+                                  (Route<dynamic> route) =>
+                                      false, // This ensures the user cannot return to the suggestion page
+                                );
                               },
                             ),
                           );

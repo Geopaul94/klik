@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/custome_linear%20colorgradient.dart';
-import 'package:klik/presentaion/pages/addpost_page/add_post.dart';
 import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
 import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
-import 'package:klik/presentaion/pages/homepage/homepage.dart';
-import 'package:klik/presentaion/pages/profile_page/my_post_delete_edit/my_post_page.dart';
-import 'package:klik/presentaion/pages/profile_page/profile_page.dart';
+
+import 'package:klik/presentaion/pages/test_pages/testpage.dart';
 
 
 import 'package:shared_preferences/shared_preferences.dart';

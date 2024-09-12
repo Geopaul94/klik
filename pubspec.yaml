@@ -55,7 +55,7 @@ dependencies:
   splash_screen_view: ^3.0.0
   tbib_splash_screen: ^0.0.1
   image_picker: ^1.1.2
-  connectivity_plus: ^3.0.3
+ 
   json_annotation: ^4.9.0
   build_runner: ^2.4.11
   cached_network_image: ^3.3.1
@@ -66,6 +66,7 @@ dependencies:
   any_animated_button: ^0.0.4
   async_button_builder: ^3.0.0+1
   json_serializable: ^6.8.0
+  connectivity_plus: ^2.1.0
   
   
 

@@ -8,9 +8,8 @@ import 'package:klik/domain/repository/post_repo/post_repo.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:convert';
-import 'dart:developer'; // for log
-import 'package:flutter/material.dart'; // for debugPrint
+
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/src/response.dart';
 
@@ -72,6 +71,7 @@ class UserRepo {
           Uri.parse('${Apiurl.baseUrl}${Apiurl.getFollowing}'),
           headers: {'Authorization': 'Bearer $token'});
 
+     
       return response;
     } catch (e) {
       log(e.toString());

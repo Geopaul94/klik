@@ -34,9 +34,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   final List screens = [
-  HomePage(),
- 
-   
+    HomePage(),
     const Search_page(),
     const AddPost(),
     const NotificationPage(),
@@ -91,7 +89,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
                 label: "Add",
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.diversity_3_rounded),
+                icon: Icon(Icons.message_outlined),
                 label: "Suggestion",
               ),
               BottomNavigationBarItem(

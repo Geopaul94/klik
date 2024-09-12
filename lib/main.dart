@@ -6,14 +6,13 @@ import 'package:klik/presentaion/bloc/Connectivity/connectivity_bloc.dart';
 import 'package:klik/presentaion/bloc/add_post/add_post_bloc.dart';
 
 import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
-import 'package:klik/presentaion/bloc/comment_post_bloc/comment_post_bloc.dart';
-import 'package:klik/presentaion/bloc/delete_comment_bloc/delete_comment_bloc.dart';
+
 import 'package:klik/presentaion/bloc/edit_user_profile_bloc/edit_user_profile_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_followers_bloc/fetchfollowers_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_following_bloc/fetch_following_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
-import 'package:klik/presentaion/bloc/get_comments_bloc/get_comments_bloc.dart';
+
 import 'package:klik/presentaion/bloc/get_followers_post_bloc/getfollowers_post_bloc.dart';
 import 'package:klik/presentaion/bloc/login/forgorpassword_mailclicked/forgotpassword_bloc.dart';
 import 'package:klik/presentaion/bloc/login/login_bloc.dart';
@@ -58,13 +57,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => FetchSavedPostsBloc()),
         BlocProvider(create: (context) => ConnectivityBloc()),
         BlocProvider(create: (context) => FetchFollowingBloc()),
-        BlocProvider(create: (context) => GetCommentsBloc()),
         BlocProvider(create: (context) => GetfollowersPostBloc()),
         BlocProvider(create: (context) => EditUserProfileBloc()),
         BlocProvider(create: (context) => SuggessionsBloc()),
         BlocProvider(create: (context) => FollowersPostBloc()),
-        BlocProvider(create: (context) => CommentPostBloc()),
-        BlocProvider(create: (context) => DeleteCommentBloc()),
         BlocProvider(create: (context) => UnfollowUserBloc()),
       ],
       child: MaterialApp(
