@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klik/application/core/constants/constants.dart';
@@ -183,19 +182,22 @@ class ProfileSession3 extends StatelessWidget {
   }
 }
 
-
-Widget userNameAndBio(String userName,String bio) {
-  return  Column(
+Widget userNameAndBio(String userName, String bio) {
+  return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(userName, style:TextStyle(
-  fontSize: 18,
-  fontWeight: FontWeight.w500,
-),),
+      Text(
+        userName,
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.w500,
+        ),
+      ),
       Text(bio)
     ],
   );
 }
+
 Widget customTextColumn({
   required String text1,
   required String text2,

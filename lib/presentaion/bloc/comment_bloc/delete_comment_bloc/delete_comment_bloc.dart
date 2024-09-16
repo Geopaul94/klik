@@ -23,8 +23,8 @@ class DeleteCommentBloc extends Bloc<DeleteCommentEvent, DeleteCommentState> {
       Emitter<DeleteCommentState> emit) async {
     emit(DeleteCommentLoadingState());
     final  response =
-        await PostRepo.deletecomment(commentId: event.commentId);
-    final responseBody = jsonDecode(response!.body);
+        await PostRepo.deleteComment(commentId: event.commentId);
+    final responseBody =await jsonDecode(response!.body);
     if (response.statusCode == 200) {
       emit(DeleteCommentSuccesfulState(commentId: event.commentId));
     } else if (responseBody['status'] == 404) {

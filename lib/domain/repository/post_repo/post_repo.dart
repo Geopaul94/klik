@@ -226,11 +226,11 @@ class PostRepo {
 
 // delete comment
 
-  static Future<Response?> deletecomment({required String commentId}) async {
+  static Future<Response?> deleteComment({required String commentId}) async {
     try {
-      final token = getUsertoken();
+      final token = await getUsertoken();
       final response = await client.delete(
-          Uri.parse('${Apiurl.baseUrl}${Apiurl.baseUrl}/$commentId'),
+          Uri.parse('${Apiurl.baseUrl}${Apiurl.deleteComments}/$commentId'),
           headers: {
             'Authorization': 'Bearer $token',
             'Content-Type': 'application/json'
@@ -244,6 +244,34 @@ class PostRepo {
       return null;
     }
   }
+
+
+// static Future deleteComment({required String commentId}) async {
+//     try {
+//       final token = await getUsertoken();
+//       var response = await client.delete(
+//           Uri.parse('${Apiurl.baseUrl}${Apiurl.deleteComments}/$commentId'),
+//           headers: {'Authorization': 'Bearer $token'});
+//       debugPrint(response.statusCode.toString());
+//       debugPrint(response.body);
+//       return response;
+//     } catch (e) {
+//       log(e.toString());
+//     }
+//   }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //get all  comments
   static Future getAllCommentPost({required String postId}) async {

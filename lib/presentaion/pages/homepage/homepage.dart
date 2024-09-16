@@ -7,6 +7,7 @@ import 'package:klik/application/core/widgets/custome_linear%20colorgradient.dar
 import 'package:klik/application/core/widgets/userPost_row_name_and_date.dart';
 import 'package:klik/domain/model/all_posts_model.dart';
 import 'package:klik/domain/model/comment_model.dart';
+import 'package:klik/presentaion/bloc/comment_bloc/getAllComment/get_all_comment_bloc.dart';
 import 'package:klik/presentaion/bloc/get_followers_post_bloc/getfollowers_post_bloc.dart';
 import 'package:klik/presentaion/pages/homepage/add_comment.dart';
 import 'package:klik/presentaion/pages/homepage/like_button.dart';
@@ -34,12 +35,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(context),
-     // backgroundColor: Colors.black,
+      // backgroundColor: Colors.black,
       body: BlocBuilder<GetfollowersPostBloc, GetfollowersPostState>(
         builder: (context, state) {
-      
           if (state is GetfollowersPostLoadingState) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (state is GetfollowersPostSuccessState) {
             return ListView.builder(
               itemCount: state.HomePagePosts.length,
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
           } else if (state is GetfollowersPostErrorState) {
             return Center(child: Text('Error: ${state.error}'));
           } else {
-            return Center(child: Text('No posts available'));
+            return const Center(child: Text('No posts available'));
           }
         },
       ),
@@ -61,8 +61,6 @@ class _HomePageState extends State<HomePage> {
   AppBar appBar(BuildContext context) {
     return AppBar(
       backgroundColor: black,
-
-
       automaticallyImplyLeading: false,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -77,7 +75,7 @@ class _HomePageState extends State<HomePage> {
             onTap: () {
               Navigator.of(context).push(
                 CupertinoPageRoute(
-                  builder: (context) => SuggessionPage(),
+                  builder: (context) => const SuggessionPage(),
                   fullscreenDialog: true,
                 ),
               );
@@ -94,8 +92,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-
-
 class HomPage_card extends StatefulWidget {
   final AllPostsModel HomePagePosts;
 
@@ -106,13 +102,21 @@ class HomPage_card extends StatefulWidget {
 }
 
 class _HomPage_cardState extends State<HomPage_card> {
-
   final List<Comment> comments = [];
 
   bool _isSaved = false;
   String _formatDate(DateTime? date) {
     if (date == null) return 'Unknown date';
     return DateFormat('dd MMMM yyyy').format(date.toLocal());
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    context
+        .read<GetCommentsBloc>()
+        .add(CommentsFetchEvent(postId: widget.HomePagePosts.id));
   }
 
   @override
@@ -133,7 +137,7 @@ class _HomPage_cardState extends State<HomPage_card> {
           children: [
             nameAndDateRow(),
             const SizedBox(height: 20),
-            if (widget.HomePagePosts.image != null && widget.HomePagePosts.image!.isNotEmpty)
+            if (widget.HomePagePosts.image.isNotEmpty)
               Container(
                 width: double.infinity,
                 height: height * 0.4,
@@ -141,7 +145,7 @@ class _HomPage_cardState extends State<HomPage_card> {
                   color: Colors.grey[900],
                   borderRadius: BorderRadius.circular(15),
                   image: DecorationImage(
-                    image: NetworkImage(widget.HomePagePosts.image!),
+                    image: NetworkImage(widget.HomePagePosts.image),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -170,7 +174,7 @@ class _HomPage_cardState extends State<HomPage_card> {
       children: [
         Row(
           children: [
-           CustomLikeButton(),
+            const CustomLikeButton(),
             Row(
               children: [
                 IconButton(
@@ -206,53 +210,53 @@ class _HomPage_cardState extends State<HomPage_card> {
             ),
           ],
         ),
-        // IconButton(
-        //   icon: Icon(
-        //     _isSaved ? CupertinoIcons.bookmark_fill : CupertinoIcons.bookmark,
-        //     color: _isSaved ? Colors.blue : Colors.white,
-        //     size: height * 0.03,
-        //   ),
-        //   onPressed: () {
-        //     setState(() {
-        //       _isSaved = !_isSaved; // Toggle bookmark state
-        //     });
-        //   },
-        // ),
+        IconButton(
+          icon: Icon(
+            _isSaved ? CupertinoIcons.bookmark_fill : CupertinoIcons.bookmark,
+            color: _isSaved ? Colors.blue : Colors.white,
+            size: height * 0.03,
+          ),
+          onPressed: () {
+            setState(() {
+              _isSaved = !_isSaved;
+            });
+          },
+        ),
       ],
     );
   }
 
   Row nameAndDateRow() {
     return Row(
-            children: [
-              CircleAvatar(
-                radius: 25,
-                backgroundImage: NetworkImage(
-                  widget.HomePagePosts.userId?.profilePic ?? '',
-                ),
+      children: [
+        CircleAvatar(
+          radius: 25,
+          backgroundImage: NetworkImage(
+            widget.HomePagePosts.userId?.profilePic ?? '',
+          ),
+        ),
+        const SizedBox(width: 10),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              widget.HomePagePosts.userId?.userName ?? '',
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
               ),
-              const SizedBox(width: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.HomePagePosts.userId?.userName ?? '',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    _formatDate(widget.HomePagePosts.date),
-                    style: TextStyle(
-                      color: grey,
-                      fontSize: 14,
-                    ),
-                  ),
-                ],
+            ),
+            Text(
+              _formatDate(widget.HomePagePosts.date),
+              style: const TextStyle(
+                color: grey,
+                fontSize: 14,
               ),
-            ],
-          );
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }
