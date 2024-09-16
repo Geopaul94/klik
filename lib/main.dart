@@ -6,6 +6,9 @@ import 'package:klik/presentaion/bloc/Connectivity/connectivity_bloc.dart';
 import 'package:klik/presentaion/bloc/add_post/add_post_bloc.dart';
 
 import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
+import 'package:klik/presentaion/bloc/comment_bloc/comment_post/comment_post_bloc.dart';
+import 'package:klik/presentaion/bloc/comment_bloc/delete_comment_bloc/delete_comment_bloc.dart';
+import 'package:klik/presentaion/bloc/comment_bloc/getAllComment/get_all_comment_bloc.dart';
 
 import 'package:klik/presentaion/bloc/edit_user_profile_bloc/edit_user_profile_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_followers_bloc/fetchfollowers_bloc.dart';
@@ -62,6 +65,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => SuggessionsBloc()),
         BlocProvider(create: (context) => FollowersPostBloc()),
         BlocProvider(create: (context) => UnfollowUserBloc()),
+         BlocProvider(create: (context) => CommentPostBloc()),
+          BlocProvider(create: (context) => DeleteCommentBloc()),
+           BlocProvider(create: (context) => GetCommentsBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

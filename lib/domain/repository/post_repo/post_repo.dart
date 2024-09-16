@@ -190,6 +190,85 @@ class PostRepo {
       return null;
     }
   }
+
+
+//comment post
+
+  static Future commentPost(
+      {required String postId,
+      required String userName,
+      required String content}) async {
+    try {
+      final userId = await getUserId();
+      final token = await getUsertoken();
+      final comment = {
+        'userId': userId,
+        'userName': userName,
+        'postId': postId,
+        'content': content
+      };
+      var response = await client.post(
+          Uri.parse('${Apiurl.baseUrl}${Apiurl.commentPost}/$postId'),
+          body: jsonEncode(comment),
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json'
+          });
+      //  checkStatusCode(response.statusCode);
+
+      log('comment post status code : ${response.statusCode}');
+      log(response.body);
+      return response;
+    } catch (e) {
+      log(" add comment  /////        error in add comment on the post ${e.toString()}");
+    }
+  }
+
+// delete comment
+
+  static Future<Response?> deletecomment({required String commentId}) async {
+    try {
+      final token = getUsertoken();
+      final response = await client.delete(
+          Uri.parse('${Apiurl.baseUrl}${Apiurl.baseUrl}/$commentId'),
+          headers: {
+            'Authorization': 'Bearer $token',
+            'Content-Type': 'application/json'
+          });
+
+      checkStatusCode(response.statusCode);
+
+      return response;
+    } catch (e) {
+      log(" delete comment/////        error in fetching userposr ${e.toString()}");
+      return null;
+    }
+  }
+
+//get all  comments
+  static Future getAllCommentPost({required String postId}) async {
+    try {
+      final token = await getUsertoken();
+      var response = await client.get(
+          Uri.parse('${Apiurl.baseUrl}${Apiurl.getAllComments}/$postId'),
+          headers: {'Authorization': 'Bearer $token'});
+      log('Status code of getallcomments user: ${response.statusCode}');
+      //       log('getallcomments: ${response.body}');
+
+      debugPrint(response.statusCode.toString());
+      checkStatusCode(response.statusCode);
+      return response;
+    } catch (e) {
+      log(" getallcomments user/////        error in fetching userposr ${e.toString()}");
+    }
+  }
+
+
+
+
+
+
+
 }
 
 void checkStatusCode(int statusCode) {

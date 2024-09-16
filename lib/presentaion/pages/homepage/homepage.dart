@@ -8,6 +8,8 @@ import 'package:klik/application/core/widgets/userPost_row_name_and_date.dart';
 import 'package:klik/domain/model/all_posts_model.dart';
 import 'package:klik/domain/model/comment_model.dart';
 import 'package:klik/presentaion/bloc/get_followers_post_bloc/getfollowers_post_bloc.dart';
+import 'package:klik/presentaion/pages/homepage/add_comment.dart';
+import 'package:klik/presentaion/pages/homepage/like_button.dart';
 import 'package:klik/presentaion/pages/homepage/suggession_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -94,11 +96,20 @@ class _HomePageState extends State<HomePage> {
 
 
 
-class HomPage_card extends StatelessWidget {
+class HomPage_card extends StatefulWidget {
   final AllPostsModel HomePagePosts;
 
   const HomPage_card({required this.HomePagePosts});
 
+  @override
+  State<HomPage_card> createState() => _HomPage_cardState();
+}
+
+class _HomPage_cardState extends State<HomPage_card> {
+
+  final List<Comment> comments = [];
+
+  bool _isSaved = false;
   String _formatDate(DateTime? date) {
     if (date == null) return 'Unknown date';
     return DateFormat('dd MMMM yyyy').format(date.toLocal());
@@ -122,7 +133,7 @@ class HomPage_card extends StatelessWidget {
           children: [
             nameAndDateRow(),
             const SizedBox(height: 20),
-            if (HomePagePosts.image != null && HomePagePosts.image!.isNotEmpty)
+            if (widget.HomePagePosts.image != null && widget.HomePagePosts.image!.isNotEmpty)
               Container(
                 width: double.infinity,
                 height: height * 0.4,
@@ -130,7 +141,7 @@ class HomPage_card extends StatelessWidget {
                   color: Colors.grey[900],
                   borderRadius: BorderRadius.circular(15),
                   image: DecorationImage(
-                    image: NetworkImage(HomePagePosts.image!),
+                    image: NetworkImage(widget.HomePagePosts.image!),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -139,56 +150,76 @@ class HomPage_card extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                HomePagePosts.description ?? 'No description available',
+                widget.HomePagePosts.description ?? 'No description available',
                 style: const TextStyle(
                   fontSize: 16,
                   color: Colors.white,
                 ),
               ),
             ),
-            row_Bottom_icons(height),
+            row_Bottom_icons(height, context),
           ],
         ),
       ),
     );
   }
 
-  Row row_Bottom_icons(double height) {
+  Row row_Bottom_icons(double height, BuildContext context) {
     return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      CupertinoIcons.heart,
-                      color: Colors.red,
-                      size: height * 0.03,
-                    ),
-                    onPressed: () {},
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+           CustomLikeButton(),
+            Row(
+              children: [
+                IconButton(
+                  icon: Icon(
+                    CupertinoIcons.bubble_left,
+                    color: Colors.white,
+                    size: height * 0.03,
                   ),
-                  IconButton(
-                    icon: Icon(
-                      CupertinoIcons.bubble_left,
-                      color: Colors.white,
-                      size: height * 0.03,
-                    ),
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-              IconButton(
-                icon: Icon(
-                  CupertinoIcons.bookmark,
-                  color: Colors.white,
-                  size: height * 0.03,
+                  onPressed: () async {
+                    // Assuming you have the data ready
+
+                    String userName =
+                        widget.HomePagePosts.userId!.userName.toString();
+                    String profilePic =
+                        widget.HomePagePosts.userId!.profilePic.toString();
+                    ;
+                    // String id =comments.id;
+                    debugPrint(profilePic);
+                    // Now pass these values to the AddComment widget
+                    await showModalBottomSheet(
+                      context: context,
+                      builder: (context) => AddComment(
+                        profilePic: profilePic,
+                        userName: userName,
+                        comments: comments,
+                        id: widget.HomePagePosts.id,
+                      ),
+                    );
+                  },
                 ),
-                onPressed: () {
-                  // Save button pressed
-                },
-              ),
-            ],
-          );
+                Text(widget.HomePagePosts.commentCount.toString()),
+              ],
+            ),
+          ],
+        ),
+        // IconButton(
+        //   icon: Icon(
+        //     _isSaved ? CupertinoIcons.bookmark_fill : CupertinoIcons.bookmark,
+        //     color: _isSaved ? Colors.blue : Colors.white,
+        //     size: height * 0.03,
+        //   ),
+        //   onPressed: () {
+        //     setState(() {
+        //       _isSaved = !_isSaved; // Toggle bookmark state
+        //     });
+        //   },
+        // ),
+      ],
+    );
   }
 
   Row nameAndDateRow() {
@@ -197,7 +228,7 @@ class HomPage_card extends StatelessWidget {
               CircleAvatar(
                 radius: 25,
                 backgroundImage: NetworkImage(
-                  HomePagePosts.userId?.profilePic ?? '',
+                  widget.HomePagePosts.userId?.profilePic ?? '',
                 ),
               ),
               const SizedBox(width: 10),
@@ -205,7 +236,7 @@ class HomPage_card extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    HomePagePosts.userId?.userName ?? '',
+                    widget.HomePagePosts.userId?.userName ?? '',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 18.0,
@@ -213,7 +244,7 @@ class HomPage_card extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    _formatDate(HomePagePosts.date),
+                    _formatDate(widget.HomePagePosts.date),
                     style: TextStyle(
                       color: grey,
                       fontSize: 14,
