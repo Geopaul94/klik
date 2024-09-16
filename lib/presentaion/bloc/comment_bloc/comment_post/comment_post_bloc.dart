@@ -20,7 +20,7 @@ class CommentPostBloc extends Bloc<CommentPostEvent, CommentPostState> {
     emit(CommentPostLoadingState());
     final Response result = await PostRepo.commentPost(
         postId: event.postId, userName: event.userName, content: event.content);
-    final responseBody = jsonDecode(result.body);
+    final responseBody =await jsonDecode(result.body);
     if (result.statusCode == 200) {
       emit(CommentPostSuccesfulState(commentId: responseBody['commentId']));
     } else if (responseBody['status'] == 404) {

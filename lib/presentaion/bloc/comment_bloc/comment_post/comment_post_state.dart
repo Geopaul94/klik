@@ -16,3 +16,6 @@ final class CommentPostSuccesfulState extends CommentPostState {
 final class CommentPostNotFoundState extends CommentPostState {}
 
 final class CommentPostServerErrorState extends CommentPostState {}
+
+
+    final class CommentPostErrorState extends        CommentPostState{}

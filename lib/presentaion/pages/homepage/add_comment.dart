@@ -7,6 +7,7 @@ import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:klik/presentaion/bloc/comment_bloc/comment_post/comment_post_bloc.dart';
 import 'package:klik/presentaion/bloc/comment_bloc/delete_comment_bloc/delete_comment_bloc.dart';
 import 'package:klik/presentaion/bloc/comment_bloc/getAllComment/get_all_comment_bloc.dart';
+import 'package:klik/presentaion/pages/profile_page/profile_page.dart';
 
 class AddComment extends StatefulWidget {
   final String profilePic;
@@ -53,58 +54,78 @@ class _AddCommentState extends State<AddComment> {
       },
       child: Scaffold(
         backgroundColor: black,
-        body: Column(
-          children: [
-            Expanded(
-              child: BlocConsumer<GetCommentsBloc, GetCommentsState>(
-                listener: (context, state) {
-                  if (state is GetCommentsServerErrorState) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(SnackBar(content: Text(state.error)));
-                  }
-                },
-                builder: (context, state) {
-                  if (state is GetCommentsLoadingState) {
-                    return const Center(child: CircularProgressIndicator());
-                  } else if (state is GetCommentsSuccsfulState) {
-                    return state.comments.isEmpty
-                        ? const Center(
-                            child: Text("No Comments",
-                                style: TextStyle(color: Colors.white)),
-                          )
-                        : ListView.builder(
-                            itemCount: state.comments.length,
-                            itemBuilder: (context, index) {
-                              final comment = state
-                                  .comments[state.comments.length - 1 - index];
+        body: MultiBlocListener(
+          listeners: [
+            BlocListener<DeleteCommentBloc, DeleteCommentState>(
+              listener: (context, state) async {
+                if (state is DeleteCommentLoadingState) {
+                  await showDialog(
+                    context: context,
+                    builder: (context) {
+                      return const Center(child: CircularProgressIndicator());
+                    },
+                    barrierDismissible: false,
+                  );
+                } else if (state is DeleteCommentSuccesfulState) {
+                  Navigator.of(context).pop(); // Remove loading dialog
+                  FocusScope.of(context).unfocus();
 
-                              return BlocListener<DeleteCommentBloc,
-                                  DeleteCommentState>(
-                                listener: (context, state) {
-                                  if (state is DeleteCommentLoadingState) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) {
-                                        return const Center(
-                                            child: CircularProgressIndicator());
-                                      },
-                                      barrierDismissible: false,
-                                    );
-                                  } else if (state
-                                      is DeleteCommentSuccesfulState) {
-                                    Navigator.of(context)
-                                        .pop(); // Remove loading dialog
-                                    customSnackbar(context,
-                                        "Comment Deleted Successfully", green);
-                                  } else if (state
-                                      is DeleteCommentServerErrorState) {
-                                    Navigator.of(context).pop();
+                  // Fetch comments again after deletion
+                  context
+                      .read<GetCommentsBloc>()
+                      .add(CommentsFetchEvent(postId: widget.id));
+                  customSnackbar(
+                      context, "Comment Deleted Successfully", green);
+                } else if (state is DeleteCommentServerErrorState) {
+                  Navigator.of(context).pop();
+                  customSnackbar(context, "Server error occurred!", red);
+                }
+              },
+            ),
+            BlocListener<CommentPostBloc, CommentPostState>(
+              listener: (context, state) {
+                if (state is CommentPostSuccesfulState) {
+                  customSnackbar(context, "Comment Posted Successfully", green);
 
-                                    customSnackbar(context,
-                                        "Server error occurred!", green);
-                                  }
-                                },
-                                child: Card(
+                  // Fetch comments again after posting
+                  context
+                      .read<GetCommentsBloc>()
+                      .add(CommentsFetchEvent(postId: widget.id));
+
+                  _commentController.clear(); // Clear the input field
+                  FocusScope.of(context).unfocus(); // Close the keyboard
+                } else if (state is CommentPostErrorState) {
+                  customSnackbar(context, "Error posting comment", red);
+                }
+              },
+            ),
+          ],
+          child: Column(
+            children: [
+              Expanded(
+                child: BlocConsumer<GetCommentsBloc, GetCommentsState>(
+                  listener: (context, state) {
+                    if (state is GetCommentsServerErrorState) {
+                      ScaffoldMessenger.of(context)
+                          .showSnackBar(SnackBar(content: Text(state.error)));
+                    }
+                  },
+                  builder: (context, state) {
+                    if (state is GetCommentsLoadingState) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is GetCommentsSuccsfulState) {
+                      return state.comments.isEmpty
+                          ? const Center(
+                              child: Text("No Comments",
+                                  style: TextStyle(color: Colors.white)),
+                            )
+                          : ListView.builder(
+                              itemCount: state.comments.length,
+                              itemBuilder: (context, index) {
+                                final comment = state.comments[
+                                    state.comments.length - 1 - index];
+
+                                return Card(
                                   color: Colors.grey[850],
                                   child: ListTile(
                                     leading: CircleAvatar(
@@ -154,6 +175,8 @@ class _AddCommentState extends State<AddComment> {
                                                   onPressed: () {
                                                     Navigator.of(context).pop(
                                                         true); // Confirm delete
+                                                    FocusScope.of(context)
+                                                        .unfocus();
                                                   },
                                                   child: const Text('Delete'),
                                                 ),
@@ -176,81 +199,77 @@ class _AddCommentState extends State<AddComment> {
                                       }
                                     },
                                   ),
-                                ),
-                              );
-                            },
-                          );
-                  } else {
-                    return const Center(
-                        child: Text("No Comments",
-                            style: TextStyle(color: Colors.white)));
-                  }
-                },
+                                );
+                              },
+                            );
+                    } else {
+                      return const Center(
+                          child: Text("No Comments",
+                              style: TextStyle(color: Colors.white)));
+                    }
+                  },
+                ),
               ),
-            ),
-
-            // Add comment section at the bottom
-            Container(
-              padding: const EdgeInsets.all(16),
-              color: Colors.grey[850],
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    backgroundImage: NetworkImage(widget.profilePic),
-                    radius: 24,
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: Form(
-                      key: _formKey,
-                      child: TextFormField(
-                        controller: _commentController,
-                        decoration: InputDecoration(
-                          hintText: 'Type a comment...',
-                          hintStyle: const TextStyle(color: Colors.white70),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(30),
-                            borderSide: BorderSide.none,
+              // Add comment section at the bottom
+              Container(
+                padding: const EdgeInsets.all(16),
+                color: Colors.grey[850],
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: NetworkImage(userdetails.profilePic),
+                      radius: 24,
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Form(
+                        key: _formKey,
+                        child: TextFormField(
+                          controller: _commentController,
+                          decoration: InputDecoration(
+                            hintText: 'Type a comment...',
+                            hintStyle: const TextStyle(color: Colors.white70),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              borderSide: BorderSide.none,
+                            ),
+                            filled: true,
+                            fillColor: Colors.grey[700],
+                            contentPadding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
                           ),
-                          filled: true,
-                          fillColor: Colors.grey[700],
-                          contentPadding: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 10),
+                          validator: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter a comment';
+                            }
+                            return null;
+                          },
+                          style: const TextStyle(color: Colors.white),
                         ),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a comment';
-                          }
-                          return null;
-                        },
-                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.send, color: Colors.white),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        context.read<CommentPostBloc>().add(
-                              CommentPostButtonClickEvent(
-                                userName: widget.userName,
-                                postId: widget.id,
-                                content: _commentController.text,
-                              ),
-                            );
+                    IconButton(
+                      icon: const Icon(Icons.send, color: Colors.white),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          context.read<CommentPostBloc>().add(
+                                CommentPostButtonClickEvent(
+                                  userName: widget.userName,
+                                  postId: widget.id,
+                                  content: _commentController.text,
+                                ),
+                              );
 
-                        customSnackbar(
-                            context, "Comment Posted Successfully", green);
-
-                        _commentController.clear(); // Clear the input field
-                        FocusScope.of(context).unfocus(); // Close the keyboard
-                      }
-                    },
-                  ),
-                ],
+                          FocusScope.of(context).unfocus();
+                          _commentController.clear();
+                        }
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
