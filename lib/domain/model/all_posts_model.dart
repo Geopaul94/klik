@@ -1,4 +1,3 @@
-
 class User {
   final String id;
   final String userName;
@@ -21,13 +20,14 @@ class User {
     );
   }
 }
+
 class AllPostsModel {
   final String id;
   final User? userId; // Make userId nullable
   final String image;
   final String? description;
   final DateTime date;
-  final List<String> likes;
+  final List<User> likes;
   final bool hidden;
   final bool blocked;
   final List<String> tags;
@@ -53,11 +53,15 @@ class AllPostsModel {
   factory AllPostsModel.fromJson(Map<String, dynamic> json) {
     return AllPostsModel(
       id: json['_id'],
-      userId: json['userId'] != null && json['userId'] is Map ? User.fromJson(json['userId']) : null,
+      userId: json['userId'] != null && json['userId'] is Map
+          ? User.fromJson(json['userId'])
+          : null,
       image: json['image'],
       description: json['description'],
       date: DateTime.parse(json['date']),
-      likes: List<String>.from(json['likes']),
+      likes: (json['likes'] as List<dynamic>)
+          .map((like) => User.fromJson(like))
+          .toList(),
       hidden: json['hidden'],
       blocked: json['blocked'],
       tags: List<String>.from(json['tags']),
@@ -67,17 +71,7 @@ class AllPostsModel {
     );
   }
 
-
-
-
-
-
-
-
-
-
-
-    static List<AllPostsModel> fromJsonList(List<dynamic> jsonList) {
+  static List<AllPostsModel> fromJsonList(List<dynamic> jsonList) {
     return jsonList.map((json) => AllPostsModel.fromJson(json)).toList();
   }
 }

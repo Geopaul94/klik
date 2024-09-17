@@ -217,7 +217,7 @@ class _AddCommentState extends State<AddComment> {
                 child: Row(
                   children: [
                     CircleAvatar(
-                      backgroundImage: NetworkImage(userdetails.profilePic),
+                      backgroundImage: NetworkImage(widget.profilePic),
                       radius: 24,
                     ),
                     const SizedBox(width: 10),

@@ -42,7 +42,7 @@ class PostRepo {
     try {
       final url =
           Uri.parse('https://api.cloudinary.com/v1_1/duyqxp4er/image/upload');
-      
+
       final request = http.MultipartRequest('POST', url)
         ..fields['upload_preset'] = 'vlbl4hxd'
         ..files.add(await http.MultipartFile.fromPath('file', file.path));
@@ -79,8 +79,6 @@ class PostRepo {
     }
   }
 
-
-
 //get all usesr post
 
   static Future<Response?> getAllPosts() async {
@@ -102,19 +100,17 @@ class PostRepo {
     }
   }
 
-
-
+//get followers post
   static Future<Response?> getFollowersPost(int page) async {
     try {
-      final token =
-          await getUsertoken(); 
+      final token = await getUsertoken();
       final response = await client.get(
         Uri.parse('${Apiurl.baseUrl}${Apiurl.allFollowingsPost}?page=$page'),
         headers: {'Authorization': 'Bearer $token'},
       );
 
-    //  log('API Call for followerspost: Status Code: ${response.statusCode}');
-    //   log('API Response: ${response.body}');
+      //  log('API Call for followerspost: Status Code: ${response.statusCode}');
+      //   log('API Response: ${response.body}');
       checkStatusCode(response.statusCode);
       return response;
     } catch (e) {
@@ -169,8 +165,7 @@ class PostRepo {
     }
   }
 
-  
-
+//fetch posts by user
 
   static Future<Response?> fetchpostbyuser() async {
     try {
@@ -190,7 +185,6 @@ class PostRepo {
       return null;
     }
   }
-
 
 //comment post
 
@@ -245,34 +239,6 @@ class PostRepo {
     }
   }
 
-
-// static Future deleteComment({required String commentId}) async {
-//     try {
-//       final token = await getUsertoken();
-//       var response = await client.delete(
-//           Uri.parse('${Apiurl.baseUrl}${Apiurl.deleteComments}/$commentId'),
-//           headers: {'Authorization': 'Bearer $token'});
-//       debugPrint(response.statusCode.toString());
-//       debugPrint(response.body);
-//       return response;
-//     } catch (e) {
-//       log(e.toString());
-//     }
-//   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //get all  comments
   static Future getAllCommentPost({required String postId}) async {
     try {
@@ -291,12 +257,66 @@ class PostRepo {
     }
   }
 
+// post unlike
+
+  static Future<Response?> likePost({required String postId}) async {
+  try {
+    final token =await getUsertoken();
+    final response = await client.patch(
+      Uri.parse('${Apiurl.baseUrl}${Apiurl.likePost}/$postId'),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
+    );
+
+    if (response.statusCode == 200) {
+      log('Like post successful. Status code: ${response.statusCode}');
+      log(response.body);
+      return response;
+    } else {
+      checkStatusCode(response.statusCode);
+      log('Like post failed. Status code: ${response.statusCode}');
+      log(response.body);
+      return null;
+    }
+  } catch (e) {
+    log("Error in liking post: ${e.toString()}");
+    return null;
+  }
+}
 
 
 
 
+// post unlike
 
+ static Future<Response?> unlikePost({required String postId}) async {
+  try {
+    final token = getUsertoken();
+    final response = await client.patch(
+      Uri.parse('${Apiurl.baseUrl}${Apiurl.unlikePost}/$postId'),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
+    );
 
+    if (response.statusCode == 200) {
+      log('Unlike post successful. Status code: ${response.statusCode}');
+      log(response.body);
+      return response;
+    } else {
+      checkStatusCode(response.statusCode);
+      log('Unlike post failed. Status code: ${response.statusCode}');
+      log(response.body);
+      return null;
+    }
+  } catch (e) {
+    log("Error in unliking post: ${e.toString()}");
+    return null;
+  }
+}
 }
 
 void checkStatusCode(int statusCode) {

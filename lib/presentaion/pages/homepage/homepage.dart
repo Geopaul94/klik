@@ -31,23 +31,65 @@ class _HomePageState extends State<HomePage> {
         .add(FetchFollowersPostEvent(page: _page));
   }
 
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Scaffold(
+  //     appBar: appBar(context),
+  //     // backgroundColor: Colors.black,
+  //     body: BlocBuilder<GetfollowersPostBloc, GetfollowersPostState>(
+  //       builder: (context, state) {
+  //         if (state is GetfollowersPostLoadingState) {
+  //           return const Center(child: CircularProgressIndicator());
+  //         } else if (state is GetfollowersPostSuccessState) {
+
+  //           return ListView.builder(
+  //             itemCount: state.HomePagePosts.length,
+  //             itemBuilder: (context, index) {
+  //               final post = state.HomePagePosts[index];
+  //               return HomPage_card(HomePagePosts: post);
+  //             },
+  //           );
+  //         } else if (state is GetfollowersPostErrorState) {
+  //           return Center(child: Text('Error: ${state.error}'));
+  //         } else {
+  //           return const Center(child: Text('No posts available'));
+  //         }
+  //       },
+  //     ),
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(context),
       // backgroundColor: Colors.black,
       body: BlocBuilder<GetfollowersPostBloc, GetfollowersPostState>(
+        buildWhen: (previous, current) {
+          return current is GetfollowersPostLoadingState ||
+              current is GetfollowersPostSuccessState ||
+              current is GetfollowersPostErrorState;
+        },
         builder: (context, state) {
           if (state is GetfollowersPostLoadingState) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is GetfollowersPostSuccessState) {
-            return ListView.builder(
-              itemCount: state.HomePagePosts.length,
-              itemBuilder: (context, index) {
-                final post = state.HomePagePosts[index];
-                return HomPage_card(HomePagePosts: post);
-              },
-            );
+            if (state.HomePagePosts.isEmpty) {
+              return const Center(
+                child: Text(
+                  "Please follow your friends in the suggestion page",
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
+              );
+            } else {
+              return ListView.builder(
+                itemCount: state.HomePagePosts.length,
+                itemBuilder: (context, index) {
+                  final post = state.HomePagePosts[index];
+                  return HomPage_card(HomePagePosts: post);
+                },
+              );
+            }
           } else if (state is GetfollowersPostErrorState) {
             return Center(child: Text('Error: ${state.error}'));
           } else {
@@ -174,7 +216,14 @@ class _HomPage_cardState extends State<HomPage_card> {
       children: [
         Row(
           children: [
-            const CustomLikeButton(),
+            Row(
+              children: [
+                CustomLikeButton(
+                  postId: widget.HomePagePosts.id,
+                ),
+                Text(widget.HomePagePosts.likes.length.toString()),
+              ],
+            ),
             Row(
               children: [
                 IconButton(

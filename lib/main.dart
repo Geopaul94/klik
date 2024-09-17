@@ -17,6 +17,7 @@ import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
 
 import 'package:klik/presentaion/bloc/get_followers_post_bloc/getfollowers_post_bloc.dart';
+import 'package:klik/presentaion/bloc/like_unlike/like_unlike_bloc.dart';
 import 'package:klik/presentaion/bloc/login/forgorpassword_mailclicked/forgotpassword_bloc.dart';
 import 'package:klik/presentaion/bloc/login/login_bloc.dart';
 import 'package:klik/presentaion/bloc/login/otp_verification/otp_verify_bloc.dart';
@@ -68,6 +69,7 @@ class MyApp extends StatelessWidget {
          BlocProvider(create: (context) => CommentPostBloc()),
           BlocProvider(create: (context) => DeleteCommentBloc()),
            BlocProvider(create: (context) => GetCommentsBloc()),
+            BlocProvider(create: (context) => LikeUnlikeBloc()),  
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
