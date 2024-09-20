@@ -21,13 +21,13 @@ class LikeUnlikeBloc extends Bloc<LikeUnlikeEvent, LikeUnlikeState> {
     try {
       emit(LikePostLoadingState());
       final response = await PostRepo.likePost(postId: event.postId);
-      final responseBody = jsonDecode(response!.body);
+      final responseBody = await jsonDecode(response!.body);
 
       debugPrint('Status code ++++++++++++++++++++++++++++: ${response.statusCode}');
       debugPrint('Response body-----------------------------------------------: ${response.body}');
 
       if (response.statusCode == 200) {
-        emit(LikePostSuccessfullState());
+        emit(LikePostSuccessfullState(postId: event.postId));
       } else {
         if (responseBody['status'] == 404 ||
             responseBody['message'] == 'User already liked the post' ||
@@ -50,12 +50,12 @@ class LikeUnlikeBloc extends Bloc<LikeUnlikeEvent, LikeUnlikeState> {
     try {
       emit(LikePostLoadingState());
       final response = await PostRepo.unlikePost(postId: event.postId);
-      final responseBody = jsonDecode(response!.body);
+      final responseBody =await jsonDecode(response!.body);
       debugPrint('Status code: ${response.statusCode}');
       debugPrint('Response body: ${response.body}');
 
       if (response.statusCode == 200) {
-        emit(UnlikePostSuccessfullState());
+        emit(UnlikePostSuccessfullState(postId:  event.postId));
       } else {
         if (responseBody['status'] == 404 ||
             responseBody['message'] == 'User already liked the post' ||

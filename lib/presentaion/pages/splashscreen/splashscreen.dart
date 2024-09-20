@@ -33,10 +33,10 @@ class _SplashScreenState extends State<SplashScreen> {
         children: [
           Row(
             children: [
-              SizedBox(
+              const SizedBox(
                 width: 45,
               ),
-              Container(
+              SizedBox(
                 height: 200,
                 width: 251,
                 child: Image.asset(
@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
           CustomeLinearcolor(
             text: "Share Moments",
             fontSize: 20,
-            gradientColors: [green, blue],
+            gradientColors: const [green, blue],
           )
         ],
       ),
@@ -64,12 +64,12 @@ Future<void> checkUserLogin(context) async {
   if (userLoggedIn == null || userLoggedIn == false) {
     await Future.delayed(const Duration(seconds: 6));
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => LoginPage(),
+      builder: (context) => const LoginPage(),
     ));
   } else {
     await Future.delayed(const Duration(seconds: 6));
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) => BottomNavBar(),
+      builder: (context) => const BottomNavBar(),
     ));
   }
 }

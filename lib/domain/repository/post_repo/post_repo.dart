@@ -293,7 +293,7 @@ class PostRepo {
 
  static Future<Response?> unlikePost({required String postId}) async {
   try {
-    final token = getUsertoken();
+    final token =await getUsertoken();
     final response = await client.patch(
       Uri.parse('${Apiurl.baseUrl}${Apiurl.unlikePost}/$postId'),
       headers: {
