@@ -68,6 +68,7 @@ dependencies:
   json_serializable: ^6.8.0
   connectivity_plus: ^2.1.0
   like_button: ^2.0.5
+  iconsax: ^0.0.8
   
   
 

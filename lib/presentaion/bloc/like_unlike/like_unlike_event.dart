@@ -4,6 +4,8 @@ part of 'like_unlike_bloc.dart';
 sealed class LikeUnlikeEvent {}
 
 
+class FetchLikeButtonEvent extends LikeUnlikeEvent{}
+
 class onUserLikeButtonPressedEvent extends LikeUnlikeEvent{
   final String postId;
 

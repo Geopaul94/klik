@@ -23,13 +23,12 @@ class FetchSavedPostsBloc extends Bloc<FetchSavedPostsEvent, FetchSavedPostsStat
       Emitter<FetchSavedPostsState> emit) async {
     emit(FetchSavedPostsLoadingState());
     final Response result = await PostRepo.fetchSavedPosts();
-    final responseBody = jsonDecode(result.body);
+    final responseBody = await jsonDecode(result.body);
     final List data = responseBody;
     debugPrint('saved post fetch statuscode-${result.statusCode}');
 
     if (result.statusCode == 200) {
-      final List<SavedPostModel> posts =
-          data.map((json) => SavedPostModel.fromJson(json)).toList();
+      final List<SavedPostModel> posts = data.map((json) => SavedPostModel.fromJson(json)).toList();
       emit(FetchSavedPostsSuccesfulState(posts: posts));
     } else if (result.statusCode == 500) {
       emit(FetchSavedPostsServerErrorState());

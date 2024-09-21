@@ -152,13 +152,64 @@ class PostRepo {
     }
   }
 
+// save post
+
+  static Future<Response?> savepost({required String postId}) async {
+    try {
+      final token = await getUsertoken();
+      final response = await client.post(
+          Uri.parse('${Apiurl.baseUrl}${Apiurl.savePost}/$postId'),
+          headers: {
+            "Content-Type": 'application/json',
+            'Authorization': 'Bearer $token'
+          });
+
+      log('API Call for savepost: Status Code: ${response.statusCode}');
+      log('API Response: ${response.body}');
+      checkStatusCode(response.statusCode);
+      return response;
+    } catch (e) {
+      log('Save post Error: $e');
+      return null;
+    }
+  }
+
+// Removed Saved post
+
+  static Future<Response?> reomoveSavedpost({required String postId}) async {
+    try {
+      final token = await getUsertoken();
+      final response = await client.delete(
+          Uri.parse('${Apiurl.baseUrl}${Apiurl.removeSavedPost}/$postId'),
+          headers: {
+            "Content-Type": 'application/json',
+            'Authorization': 'Bearer $token'
+          });
+
+      log('API Call for removesaved post: Status Code: ${response.statusCode}');
+      //  log('API Response: ${response.body}');
+
+      checkStatusCode(response.statusCode);
+      return response;
+    } catch (e) {
+      log('remove post  Error: $e');
+      return null;
+    }
+  }
+
 // get saved posts
+
   static Future fetchSavedPosts() async {
     try {
       final token = await getUsertoken();
       var response = await client.get(
           Uri.parse('${Apiurl.baseUrl}${Apiurl.fetchSavedPost}'),
           headers: {'Authorization': 'Bearer $token'});
+
+      log('API Call for fetchsavedposts: Status Code: ${response.statusCode}');
+      //   log('API Response: ${response.body}');
+
+      checkStatusCode(response.statusCode);
       return response;
     } catch (e) {
       log(e.toString());
@@ -260,63 +311,60 @@ class PostRepo {
 // post unlike
 
   static Future<Response?> likePost({required String postId}) async {
-  try {
-    final token =await getUsertoken();
-    final response = await client.patch(
-      Uri.parse('${Apiurl.baseUrl}${Apiurl.likePost}/$postId'),
-      headers: {
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json'
-      },
-    );
+    try {
+      final token = await getUsertoken();
+      final response = await client.patch(
+        Uri.parse('${Apiurl.baseUrl}${Apiurl.likePost}/$postId'),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json'
+        },
+      );
 
-    if (response.statusCode == 200) {
-      log('Like post successful. Status code: ${response.statusCode}');
-      log(response.body);
-      return response;
-    } else {
-      checkStatusCode(response.statusCode);
-      log('Like post failed. Status code: ${response.statusCode}');
-      log(response.body);
+      if (response.statusCode == 200) {
+        log('Like post successful. Status code: ${response.statusCode}');
+        log(response.body);
+        return response;
+      } else {
+        checkStatusCode(response.statusCode);
+        log('Like post failed. Status code: ${response.statusCode}');
+        log(response.body);
+        return null;
+      }
+    } catch (e) {
+      log("Error in liking post: ${e.toString()}");
       return null;
     }
-  } catch (e) {
-    log("Error in liking post: ${e.toString()}");
-    return null;
   }
-}
-
-
-
 
 // post unlike
 
- static Future<Response?> unlikePost({required String postId}) async {
-  try {
-    final token =await getUsertoken();
-    final response = await client.patch(
-      Uri.parse('${Apiurl.baseUrl}${Apiurl.unlikePost}/$postId'),
-      headers: {
-        'Authorization': 'Bearer $token',
-        'Content-Type': 'application/json'
-      },
-    );
+  static Future<Response?> unlikePost({required String postId}) async {
+    try {
+      final token = await getUsertoken();
+      final response = await client.patch(
+        Uri.parse('${Apiurl.baseUrl}${Apiurl.unlikePost}/$postId'),
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json'
+        },
+      );
 
-    if (response.statusCode == 200) {
-      log('Unlike post successful. Status code: ${response.statusCode}');
-      log(response.body);
-      return response;
-    } else {
-      checkStatusCode(response.statusCode);
-      log('Unlike post failed. Status code: ${response.statusCode}');
-      log(response.body);
+      if (response.statusCode == 200) {
+        log('Unlike post successful. Status code: ${response.statusCode}');
+        log(response.body);
+        return response;
+      } else {
+        checkStatusCode(response.statusCode);
+        log('Unlike post failed. Status code: ${response.statusCode}');
+        log(response.body);
+        return null;
+      }
+    } catch (e) {
+      log("Error in unliking post: ${e.toString()}");
       return null;
     }
-  } catch (e) {
-    log("Error in unliking post: ${e.toString()}");
-    return null;
   }
-}
 }
 
 void checkStatusCode(int statusCode) {

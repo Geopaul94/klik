@@ -42,7 +42,7 @@ Future<void> _getFollowersPosts(
     if (response != null && response.statusCode == 200) {
    
       var jsonResponse = jsonDecode(response.body);
-      debugPrint(jsonResponse.toString()); 
+   //   debugPrint(jsonResponse.toString()); 
 
      List<dynamic> postsJson = jsonResponse;
   

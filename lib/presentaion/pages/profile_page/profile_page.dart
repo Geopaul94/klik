@@ -18,6 +18,7 @@ import 'package:klik/presentaion/pages/profile_page/simmer_widget.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/main_sessions.dart';
 import 'package:page_transition/page_transition.dart';
 
+
 String logginedUserProfileImage = '';
 String profilepageUserId = '';
 String profileuserName = '';

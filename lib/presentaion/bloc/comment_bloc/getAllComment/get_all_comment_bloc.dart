@@ -27,7 +27,7 @@ class GetCommentsBloc extends Bloc<GetCommentsEvent, GetCommentsState> {
     final Response result =
         await PostRepo.getAllCommentPost(postId: event.postId);
     if (result.statusCode == 200) {
-      final responseBody = jsonDecode(result.body);
+      final responseBody =  await jsonDecode(result.body);
       List<Comment> comments = List<Comment>.from(responseBody['comments']
           .map((commentJson) => Comment.fromJson(commentJson)));
       emit(GetCommentsSuccsfulState(comments: comments));
