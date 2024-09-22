@@ -22,6 +22,9 @@ class FetchSavedPostsBloc extends Bloc<FetchSavedPostsEvent, FetchSavedPostsStat
   FutureOr<void> savedPostsInitialFetchEvent(SavedPostsInitialFetchEvent event,
       Emitter<FetchSavedPostsState> emit) async {
     emit(FetchSavedPostsLoadingState());
+
+
+    
     final Response result = await PostRepo.fetchSavedPosts();
     final responseBody = await jsonDecode(result.body);
     final List data = responseBody;
@@ -33,7 +36,7 @@ class FetchSavedPostsBloc extends Bloc<FetchSavedPostsEvent, FetchSavedPostsStat
     } else if (result.statusCode == 500) {
       emit(FetchSavedPostsServerErrorState());
     } else {
-      emit(FetchSavedPostsErrorState());
+      emit(FetchSavedPostsErrorState("Server not working "));
     }
   }
 

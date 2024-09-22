@@ -7,9 +7,11 @@ final class SaveUnsaveInitial extends SaveUnsaveState {}
 
 class SavePostLoadingState extends SaveUnsaveState {}
 
-class SavePostSuccessfullState extends SaveUnsaveState { final SavePostModel post;
+class SavePostSuccessfullState extends SaveUnsaveState {
+  final SavePostModel post;
 
-  SavePostSuccessfullState({required this.post});}
+  SavePostSuccessfullState({required this.post});
+}
 
 class SavePostErrorState extends SaveUnsaveState {
   final String error;
@@ -19,7 +21,11 @@ class SavePostErrorState extends SaveUnsaveState {
 
 class RemoveSavedPostLoadingState extends SaveUnsaveState {}
 
-class RemoveSavedPostSuccessfulState extends SaveUnsaveState {}
+class RemoveSavedPostSuccessfulState extends SaveUnsaveState {final SavePostModel post;
+
+  RemoveSavedPostSuccessfulState({required this.post});
+  
+}
 
 class RemoveSavedPostErrorState extends SaveUnsaveState {
   final String error;

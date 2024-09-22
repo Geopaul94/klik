@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/CustomElevatedButton.dart';
-
 import 'package:klik/application/core/widgets/custome_icons.dart';
 import 'package:klik/application/core/widgets/custome_linear%20colorgradient.dart';
-
+import 'package:klik/presentaion/bloc/get_followers_post_bloc/getfollowers_post_bloc.dart';
 import 'package:klik/presentaion/bloc/suggessions_bloc/suggessions_bloc.dart';
 import 'package:klik/presentaion/bloc/unfollow_user_bloc/unfollow_user_bloc.dart';
 import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
+
 
 class SuggessionPage extends StatefulWidget {
   const SuggessionPage({Key? key}) : super(key: key);
@@ -24,6 +24,7 @@ class _SuggessionPageState extends State<SuggessionPage> {
     super.initState();
     context.read<SuggessionsBloc>().add(onSuggessionsIconclickedEvent());
   }
+   int _page = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -84,6 +85,14 @@ class _SuggessionPageState extends State<SuggessionPage> {
                               color: green,
                               fontSize: 12,
                               onPressed: () {
+
+
+ context
+        .read<GetfollowersPostBloc>()
+        .add(FetchFollowersPostEvent(page: 1));
+        
+
+
                                 // Trigger RemoveSuggessionUserEvent to update the list and refresh
                                 context.read<SuggessionsBloc>().add(
                                       RemoveSuggessionUserEvent(
@@ -97,6 +106,8 @@ class _SuggessionPageState extends State<SuggessionPage> {
                                         followersId: user.id.toString(),
                                       ),
                                     );
+
+ 
 
                                 // Navigate to the BottomNavBar after follow action
                                 Navigator.pushAndRemoveUntil(

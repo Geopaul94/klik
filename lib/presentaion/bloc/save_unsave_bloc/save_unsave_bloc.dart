@@ -52,7 +52,10 @@ Future<void> _removeSavedPost(
 
   if (response != null) {
     if (response.statusCode == 200) {
-      emit(RemoveSavedPostSuccessfulState());
+  final Map<String, dynamic> decodedJson = jsonDecode(response.body);
+      final SavePostModel post = SavePostModel.fromJson(decodedJson);
+      
+      emit(RemoveSavedPostSuccessfulState(post: post));
     } else if (response.statusCode == 500) {
       emit(RemoveSavedPostErrorState(
           error: 'Server not responding. Try again later.'));

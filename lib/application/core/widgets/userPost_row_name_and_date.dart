@@ -12,6 +12,7 @@ class UserRowWidget extends StatelessWidget {
   final Color dateColor;
   final double userNameFontSize;
   final double dateFontSize;
+   final bool showIcon;
 
   const UserRowWidget({
     Key? key,
@@ -23,7 +24,7 @@ class UserRowWidget extends StatelessWidget {
     this.userNameColor = Colors.white,
     this.dateColor = Colors.grey,
     this.userNameFontSize = 18.0,
-    this.dateFontSize = 14.0,
+    this.dateFontSize = 14.0,  this.showIcon = true,
   }) : super(key: key);
 
   @override
@@ -56,13 +57,14 @@ class UserRowWidget extends StatelessWidget {
           ],
         ),
         const Spacer(),
-        GestureDetector(
-          onTapDown: onIconTap,
-          child: const Icon(
-            CupertinoIcons.ellipsis_vertical,
-            color: Colors.white,
+          if (showIcon && onIconTap != null)
+          GestureDetector(
+            onTapDown: onIconTap,
+            child: const Icon(
+              CupertinoIcons.ellipsis_vertical,
+              color: Colors.white,
+            ),
           ),
-        ),
       ],
     );
   }

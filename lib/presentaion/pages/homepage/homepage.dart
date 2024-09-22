@@ -6,12 +6,15 @@ import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/custome_linear%20colorgradient.dart';
+import 'package:klik/application/core/widgets/custome_snackbar.dart';
 import 'package:klik/application/core/widgets/userPost_row_name_and_date.dart';
 import 'package:klik/domain/model/all_posts_model.dart';
 import 'package:klik/domain/model/comment_model.dart';
 import 'package:klik/domain/model/login_user_details_model.dart';
+import 'package:klik/domain/model/save_post_model.dart';
 import 'package:klik/domain/model/saved_post_model.dart';
 import 'package:klik/presentaion/bloc/comment_bloc/getAllComment/get_all_comment_bloc.dart';
+import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
 import 'package:klik/presentaion/bloc/get_followers_post_bloc/getfollowers_post_bloc.dart';
 import 'package:klik/presentaion/bloc/like_unlike/like_unlike_bloc.dart';
@@ -39,6 +42,8 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _page = 1;
+   List<String> userIds = [];
+
 
   @override
   void initState() {
@@ -46,47 +51,191 @@ class _HomePageState extends State<HomePage> {
     context
         .read<GetfollowersPostBloc>()
         .add(FetchFollowersPostEvent(page: _page));
+        context.read<FetchSavedPostsBloc>().add(SavedPostsInitialFetchEvent());
+        
+        
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: appBar(context),
-      // backgroundColor: Colors.black,
-      body: BlocBuilder<GetfollowersPostBloc, GetfollowersPostState>(
-        buildWhen: (previous, current) {
-          return current is GetfollowersPostLoadingState ||
-              current is GetfollowersPostSuccessState ||
-              current is GetfollowersPostErrorState;
-        },
-        builder: (context, state) {
-          if (state is GetfollowersPostLoadingState) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is GetfollowersPostSuccessState) {
-            if (state.HomePagePosts.isEmpty) {
-              return const Center(
-                child: Text(
-                  "Please follow your friends in the suggestion page",
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-              );
-            } else {
-              return ListView.builder(
-                itemCount: state.HomePagePosts.length,
-                itemBuilder: (context, index) {
-                  final post = state.HomePagePosts[index];
-                  return HomPage_card(HomePagePosts: post);
+    // return Scaffold(
+    //   appBar: appBar(context),
+    //   // backgroundColor: Colors.black,
+    //   body: BlocBuilder<GetfollowersPostBloc, GetfollowersPostState>(
+    //     buildWhen: (previous, current) {
+    //       return current is GetfollowersPostLoadingState ||
+    //           current is GetfollowersPostSuccessState ||
+    //           current is GetfollowersPostErrorState;
+    //     },
+    //     builder: (context, state) {
+    //       if (state is GetfollowersPostLoadingState) {
+    //         return const Center(child: CircularProgressIndicator());
+    //       } else if (state is GetfollowersPostSuccessState) {
+    //         context.read<FetchSavedPostsBloc>().add(SavedPostsInitialFetchEvent());
+    //         if (state.HomePagePosts.isEmpty) {
+    //           return const Center(
+    //             child: Text(
+    //               "Please follow your friends in the suggestion page",
+    //               style: TextStyle(color: Colors.white, fontSize: 16),
+    //             ),
+    //           );
+    //         }
+            
+    //         else{
+    //           return MultiBlocListener(
+    //             listeners: [
+    //               BlocListener<FetchSavedPostsBloc, FetchSavedPostsState>(
+    //                 listener: (context, savedpoststate) {
+    //                 if (savedpoststate is   FetchSavedPostsSuccesfulState) {
+                      
+
+
+    //                   List<SavedPostModel>savedPosts=savedpoststate .posts;
+
+    //                   print('Saved posts fetched successfully: $savedPosts');
+    //                 }else if (savedpoststate is FetchSavedPostsErrorState){
+
+
+    //                   customSnackbar(context, 'Error fetching saved posts: ${savedpoststate.error}', red);
+    //                 }
+    //                 },
+    //               ),
+    //               BlocListener<SubjectBloc, SubjectState>(
+    //                 listener: (context, state) {
+    //                   // TODO: implement listener
+    //                 },
+    //               ),
+    //             ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //             child: ListView.builder(
+    //             itemCount: state.HomePagePosts.length,
+    //             itemBuilder: (context, index) {
+    //               final post = state.HomePagePosts[index];
+    //               return HomPage_card(HomePagePosts: post);
+    //             },
+    //           );
+    //         }
+    //       } else if (state is GetfollowersPostErrorState) {
+    //         return Center(child: Text('Error: ${state.error}'));
+    //       } else {
+    //         return const Center(child: Text('No posts available'));
+    //       }
+              
+            
+            
+            
+            
+            
+            
+            
+           
+    //     },
+    //   ),
+    // );
+
+
+
+
+
+
+
+
+
+return Scaffold(
+  appBar: appBar(context),
+  body: BlocBuilder<GetfollowersPostBloc, GetfollowersPostState>(
+    buildWhen: (previous, current) {
+      return current is GetfollowersPostLoadingState ||
+          current is GetfollowersPostSuccessState ||
+          current is GetfollowersPostErrorState;
+    },
+    builder: (context, state) {
+      if (state is GetfollowersPostLoadingState) {
+        return const Center(child: CircularProgressIndicator());
+      } else if (state is GetfollowersPostSuccessState) {
+        context.read<FetchSavedPostsBloc>().add(SavedPostsInitialFetchEvent());
+        if (state.HomePagePosts.isEmpty) {
+          return const Center(
+            child: Text(
+              "Please follow your friends in the suggestion page",
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+          );
+        } else {
+          return MultiBlocListener(
+            listeners: [
+              BlocListener<FetchSavedPostsBloc, FetchSavedPostsState>(
+                listener: (context, savedpoststate) {
+                  if (savedpoststate is FetchSavedPostsSuccesfulState) {
+                    List<SavedPostModel> savedPosts = savedpoststate.posts;
+                    print('Saved posts fetched successfully ===========: $savedPosts');
+
+
+
+  List<String> userIds = savedPosts.map((post) => post.userId).toList();
+
+        // Print the list of userIds
+        print('User IDs from saved posts  ++++++: $userIds');
+
+                  } else if (savedpoststate is FetchSavedPostsErrorState) {
+                    customSnackbar(context, 'Error fetching saved posts: ${savedpoststate.error}', red);
+                  }
                 },
-              );
-            }
-          } else if (state is GetfollowersPostErrorState) {
-            return Center(child: Text('Error: ${state.error}'));
-          } else {
-            return const Center(child: Text('No posts available'));
-          }
-        },
-      ),
-    );
+              ),
+              
+            ],
+            child: ListView.builder(
+              itemCount: state.HomePagePosts.length,
+              itemBuilder: (context, index) {
+                final post = state.HomePagePosts[index];
+                return HomPage_card(HomePagePosts: post, userIds:userIds );
+              },
+            ),
+          );
+        }
+      } else if (state is GetfollowersPostErrorState) {
+        return Center(child: Text('Error: ${state.error}'));
+      } else {
+        return const Center(child: Text('No posts available'));
+      }
+    },
+  ),
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   }
 
   AppBar appBar(BuildContext context) {
@@ -125,8 +274,12 @@ class _HomePageState extends State<HomePage> {
 
 class HomPage_card extends StatefulWidget {
   final AllPostsModel HomePagePosts;
+ final List<String>userIds;
 
-  const HomPage_card({required this.HomePagePosts});
+
+
+
+   HomPage_card({super.key, required this.HomePagePosts, required this.userIds, });
 
   @override
   State<HomPage_card> createState() => _HomPage_cardState();
@@ -153,6 +306,12 @@ class _HomPage_cardState extends State<HomPage_card> {
 
   @override
   Widget build(BuildContext context) {
+
+   //   final createdAt = DateTime.parse(widget.HomePagePosts.createdAt.toString());
+   // final editedTime = DateTime.parse(widget.HomePagePosts.editedTime.toString());
+
+    // bool isEdited =
+    //     !areDateTimesEqualIgnoringMilliseconds(createdAt, editedTime);
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
@@ -363,13 +522,93 @@ class _HomPage_cardState extends State<HomPage_card> {
         ),
         
 
-        SavePostButton(
-          postId: widget.HomePagePosts.id, 
+        // SavePostButton(
+        //   postId: widget.HomePagePosts.id, 
         
-           userId: userdetails.id.toString(),
+        //    currentUserId: currentUser.toString(),  userIds:widget.userIds,
 
            
-        )
+        // )
+
+
+
+// MultiBlocBuilder(blocs: [  context.watch<FetchSavedPostsBloc>(),
+//             context.watch<SaveUnsaveBloc>(),],
+            
+//              builder: (context ,state){
+//               var state2 =state[1];
+//               if (state2 is FetchSavedPostsSuccesfulState) {
+//                 posts=state2.posts;
+//               }
+
+//               return Row(
+                
+//                 children:[
+
+
+// IconButton(
+//                     onPressed: () {
+//                       if (posts
+//                           .any((element) => element.postId.id == widget.HomePagePosts.id)) {
+//                         context.read<SaveUnsaveBloc>().add(
+//                             OnUserRemoveSavedPost(
+//                                 postId: widget.HomePagePosts.id.toString()));
+//                         posts.removeWhere(
+//                             (element) => element.postId.id == widget.HomePagePosts.id);
+//                       } else {
+//                         posts.add(SavedPostModel(
+//                             userId: widget.HomePagePosts.userId!.id.toString(),
+//                             postId: PostId(
+//                                 id: widget.HomePagePosts.id.toString(),
+//                                 userId: UserIdSavedPost.fromJson(
+//                                     widget.HomePagePosts.userId!.toJson()),
+//                                 image: widget.HomePagePosts.image.toString(),
+//                                 description: widget.HomePagePosts.description.toString(),
+//                                 likes: widget.HomePagePosts.likes,
+//                                 hidden: widget.HomePagePosts.hidden,
+//                                 blocked: widget.HomePagePosts.blocked,
+//                                 tags: widget.HomePagePosts.tags,
+//                                 date: widget.HomePagePosts.date,
+//                                 createdAt: widget.HomePagePosts.createdAt,
+//                                 updatedAt: widget.HomePagePosts.updatedAt,
+//                                 v: widget.HomePagePosts.v,
+//                                 taggedUsers: widget.HomePagePosts.taggedUsers),
+//                             createdAt: DateTime.now(),
+//                             updatedAt: DateTime.now(),
+//                             v: widget.HomePagePosts.v));
+//                         context.read<SaveUnsaveBloc>().add(
+//                             OnUserSavePost(
+//                                 postId: widget.HomePagePosts.id.toString()));
+//                       }
+//                     },
+//                     icon: Icon(
+//                       posts.any((element) => element.postId.id == widget.HomePagePosts.id)
+//                           ? Icons.bookmark
+//                           : Icons.bookmark_border,
+//                       color: customIconColor,
+//                       size: 25,
+//                     ))
+
+//                 ]);
+//              }
+            
+            
+            
+            
+            
+            
+//             )
+
+
+
+
+
+
+
+
+
+
+
       ],
     );
   }

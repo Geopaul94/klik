@@ -103,12 +103,12 @@ class UserIdSavedPost {
   String? password;
   String profilePic;
   String? phone;
-  bool online;
-  bool blocked;
-  bool verified;
-  String role;
-  bool isPrivate;
-  String backGroundImage;
+   bool? online ;
+  bool? blocked;
+  bool? verified;
+  String? role;
+  bool? isPrivate;
+  String? backGroundImage;
   DateTime createdAt;
   DateTime updatedAt;
   int v;
@@ -122,11 +122,11 @@ class UserIdSavedPost {
     this.password,
     required this.profilePic,
     this.phone,
-    required this.online,
-    required this.blocked,
-    required this.verified,
-    required this.role,
-    required this.isPrivate,
+     this.online,
+     this.blocked,
+     this.verified,
+     this.role,
+     this.isPrivate,
     required this.backGroundImage,
     required this.createdAt,
     required this.updatedAt,

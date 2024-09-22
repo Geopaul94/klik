@@ -38,8 +38,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-
-   currentUser = await getUserId();
+  currentUser = await getUserId();
 
   runApp(const MyApp());
 }

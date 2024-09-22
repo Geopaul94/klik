@@ -6,6 +6,7 @@ import 'package:klik/domain/model/my_post_model.dart';
 import 'package:klik/presentaion/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
 import 'package:klik/presentaion/pages/profile_page/my_post_delete_edit/my_post_page.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/loading_animation_and_error_idget.dart';
+import 'package:klik/presentaion/pages/profile_page/widgets/saved_post_screen.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 // class MyPostsGrid extends StatelessWidget {
@@ -128,11 +129,11 @@ class SavedPostsGrid extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) =>  ScreenSavedPost(model: state.posts,),
-                    //     ));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>  SavedPostScreen(index: index, posts:state.posts,),
+                        ));
                   },
                   child: CachedNetworkImage(
                     placeholder: (context, url) {

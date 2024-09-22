@@ -125,6 +125,8 @@ class Myposts_card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
@@ -217,16 +219,16 @@ class Myposts_card extends StatelessWidget {
                   ),
                 ],
               ),
-              IconButton(
-                icon: Icon(
-                  CupertinoIcons.bookmark,
-                  color: Colors.white,
-                  size: height * 0.03,
-                ),
-                onPressed: () {
-                  // Save button pressed
-                },
-              ),
+              // IconButton(
+              //   icon: Icon(
+              //     CupertinoIcons.bookmark,
+              //     color: Colors.white,
+              //     size: height * 0.03,
+              //   ),
+              //   onPressed: () {
+              //     // Save button pressed
+              //   },
+              // ),
             ],
           );
   }
