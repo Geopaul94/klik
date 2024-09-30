@@ -9,9 +9,7 @@ import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:http/src/response.dart';
 
 class UserRepo {
   static var client = http.Client();
@@ -36,6 +34,7 @@ class UserRepo {
   }
 
   //Fetch loggedIn user details
+
   static Future<Response?> fetchLoggedInUserDetails() async {
     try {
       final token = await getUsertoken();
@@ -50,6 +49,9 @@ class UserRepo {
     }
   }
 
+
+  //fetch followers
+
   static Future fetchFollowers() async {
     try {
       final token = await getUsertoken();
@@ -62,7 +64,7 @@ class UserRepo {
     }
   }
 
-  //fetch followers
+  //fetch following
 
   static Future fetchFollowing() async {
     try {
@@ -71,7 +73,6 @@ class UserRepo {
           Uri.parse('${Apiurl.baseUrl}${Apiurl.getFollowing}'),
           headers: {'Authorization': 'Bearer $token'});
 
-     
       return response;
     } catch (e) {
       log(e.toString());
@@ -137,7 +138,7 @@ class UserRepo {
   static Future<Response?> unFollowUser({required String followeesId}) async {
     try {
       final token = await getUsertoken();
-      final response = await client.post(
+      var response = await client.put(
         Uri.parse('${Apiurl.baseUrl}${Apiurl.unfollowUser}/$followeesId'),
         headers: {'Authorization': 'Bearer $token'},
       );
@@ -153,6 +154,8 @@ class UserRepo {
       return null;
     }
   }
+
+  // follow user
 
   static Future<Response?> followUser({required String followeesId}) async {
     try {
@@ -194,6 +197,66 @@ class UserRepo {
       return null;
     }
   }
+
+//get connections
+  static Future getConnections({required String userId}) async {
+    try {
+      final token = await getUsertoken();
+      var response = client.get(
+          Uri.parse('${Apiurl.baseUrl}${Apiurl.getConnections}/$userId'),
+          headers: {'Authorization': 'Bearer $token'});
+      return response;
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+// search all users
+
+
+  // static Future searchAllUsers({required String query}) async {
+  //   try {
+  //     final token = await getUsertoken();
+  //     var response = await client.get(
+  //         Uri.parse('${Apiurl.baseUrl}${Apiurl.searchAllUsers}$query'),
+  //         headers: {'Authorization': 'Bearer $token'});
+  //     return response;
+  //   } catch (e) {
+  //     log(e.toString());
+  //   }
+  // }
+
+  // fetch userpostby id
+
+  static Future fetchUserPostsOther({required String userId}) async {
+    try {
+      var response = await client
+          .get(Uri.parse('${Apiurl.baseUrl}${Apiurl.getPostByUserId}/$userId'));
+      if (kDebugMode) {
+        print('${Apiurl.baseUrl}${Apiurl.getPostByUserId}/$userId');
+      }
+      debugPrint(
+          "fetch postbyUserId ////////////////////////// ${response.statusCode}");
+      log(response.body);
+
+      checkStatusCode(response.statusCode);
+      return response;
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
   static void checkStatusCode(int statusCode) {
     if (statusCode == 200) {

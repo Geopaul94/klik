@@ -309,7 +309,7 @@ String _formatDate(DateTime? date) {
             profilePic: profilePic,
             userName: userName,
             comments: comments, // Make sure 'comments' is defined
-            id: widget.post.postId.id, // Using the correct ID from SavedPostModel
+            id: widget.post.postId.id, onCommentAdded: () {  }, onCommentDeleted: () {  }, // Using the correct ID from SavedPostModel
           ),
         );
       },

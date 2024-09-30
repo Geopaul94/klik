@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:klik/domain/model/all_posts_model.dart';
+import 'package:klik/domain/model/followers_post_model.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:klik/presentaion/bloc/like_unlike/like_unlike_bloc.dart';
 import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
@@ -15,8 +15,8 @@ import 'package:like_button/like_button.dart';
 
 class CustomLikeButton extends StatefulWidget {
   final String postId;
-  final List<User> likes; // List of objects containing userId
-  final String userId; // Current logged-in user's ID
+  final List  likes; 
+  final String userId; 
 
   CustomLikeButton({super.key, required this.postId, required this.likes, required this.userId});
 

@@ -1,18 +1,18 @@
 import 'dart:convert';
-import 'dart:math';
+
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/rendering.dart';
-import 'package:klik/domain/model/all_posts_model.dart';
+import 'package:klik/domain/model/followers_post_model.dart';
 import 'package:klik/domain/repository/post_repo/post_repo.dart';
-import 'package:klik/presentaion/pages/homepage/homepage.dart';
+
 import 'package:meta/meta.dart';
 
 part 'getfollowers_post_event.dart';
 part 'getfollowers_post_state.dart';
 
 class GetfollowersPostBloc extends Bloc<GetfollowersPostEvent, GetfollowersPostState> {
-  final List<AllPostsModel> _posts = [];
+  final List<FollowersPostModel> _posts = [];
   bool isFetching = false;
   bool hasMore = true; // To keep track of more data availability
 
@@ -57,7 +57,7 @@ Future<void> _getFollowersPosts(
 }
 
 
-      final List<AllPostsModel> posts = AllPostsModel.fromJsonList(postsJson);
+     final List<FollowersPostModel> posts = FollowersPostModel.fromJsonList(postsJson);
       emit(GetfollowersPostSuccessState(HomePagePosts: posts, hasMore: posts.length == 10));
     } else {
       emit(GetfollowersPostErrorState(error: 'Failed to load posts.'));
@@ -82,10 +82,10 @@ Future<void> _getFollowersPosts(
       final response = await PostRepo.getFollowersPost(event.page);
 
       if (response != null && response.statusCode == 200) {
-        final List<AllPostsModel> posts = AllPostsModel.fromJsonList(jsonDecode(response.body)['data']);
-        hasMore = posts.length == 10; // Check if more posts are available
+        final List<FollowersPostModel> posts = FollowersPostModel.fromJsonList(jsonDecode(response.body)['data']);
+        hasMore = posts.length == 10; 
 
-        _posts.addAll(posts); // Append more posts to the list
+        _posts.addAll(posts); 
         emit(GetfollowersPostSuccessState(HomePagePosts: _posts, hasMore: hasMore));
       } else {
         emit(GetfollowersPostErrorState(error: 'Failed to load more posts.'));

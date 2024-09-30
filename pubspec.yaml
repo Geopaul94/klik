@@ -69,6 +69,7 @@ dependencies:
   connectivity_plus: ^2.1.0
   like_button: ^2.0.5
   iconsax: ^0.0.8
+  meta: ^1.15.0
   
   
 

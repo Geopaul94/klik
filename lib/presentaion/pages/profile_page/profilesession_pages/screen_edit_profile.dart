@@ -10,7 +10,7 @@ import 'package:klik/application/core/widgets/custome_icons.dart';
 import 'package:klik/application/core/widgets/custome_linear%20colorgradient.dart';
 import 'package:klik/application/core/widgets/custome_snackbar.dart';
 import 'package:klik/application/core/widgets/validations.dart';
-import 'package:klik/domain/model/edit_details.dart';
+import 'package:klik/domain/model/edit_details_model.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
 import 'package:klik/presentaion/bloc/edit_user_profile_bloc/edit_user_profile_bloc.dart';

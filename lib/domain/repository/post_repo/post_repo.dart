@@ -187,7 +187,7 @@ class PostRepo {
           });
 
       log('API Call for removesaved post: Status Code: ${response.statusCode}');
-      //  log('API Response: ${response.body}');
+       log('API Response: ${response.body}');
 
       checkStatusCode(response.statusCode);
       return response;
@@ -206,7 +206,7 @@ class PostRepo {
           Uri.parse('${Apiurl.baseUrl}${Apiurl.fetchSavedPost}'),
           headers: {'Authorization': 'Bearer $token'});
 
-      log('API Call for fetchsavedposts: Status Code: ${response.statusCode}');
+      // log('API Call for fetchsavedposts: Status Code: ${response.statusCode}');
       //   log('API Response: ${response.body}');
 
       checkStatusCode(response.statusCode);
@@ -261,8 +261,8 @@ class PostRepo {
           });
       //  checkStatusCode(response.statusCode);
 
-      log('comment post status code : ${response.statusCode}');
-      log(response.body);
+      // log('comment post status code : ${response.statusCode}');
+      // log(response.body);
       return response;
     } catch (e) {
       log(" add comment  /////        error in add comment on the post ${e.toString()}");
@@ -285,7 +285,7 @@ class PostRepo {
 
       return response;
     } catch (e) {
-      log(" delete comment/////        error in fetching userposr ${e.toString()}");
+      log(" delete comment   /////    error in fetching userposr ${e.toString()}");
       return null;
     }
   }
@@ -304,7 +304,7 @@ class PostRepo {
       checkStatusCode(response.statusCode);
       return response;
     } catch (e) {
-      log(" getallcomments user/////        error in fetching userposr ${e.toString()}");
+      log(" getallcomments user /////        error in fetching userposr ${e.toString()}");
     }
   }
 
@@ -323,12 +323,12 @@ class PostRepo {
 
       if (response.statusCode == 200) {
         log('Like post successful. Status code: ${response.statusCode}');
-        log(response.body);
+      //  log(response.body);
         return response;
       } else {
         checkStatusCode(response.statusCode);
         log('Like post failed. Status code: ${response.statusCode}');
-        log(response.body);
+     //   log(response.body);
         return null;
       }
     } catch (e) {
@@ -352,12 +352,12 @@ class PostRepo {
 
       if (response.statusCode == 200) {
         log('Unlike post successful. Status code: ${response.statusCode}');
-        log(response.body);
+     //   log(response.body);
         return response;
       } else {
         checkStatusCode(response.statusCode);
         log('Unlike post failed. Status code: ${response.statusCode}');
-        log(response.body);
+      //  log(response.body);
         return null;
       }
     } catch (e) {

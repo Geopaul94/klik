@@ -1,38 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:klik/application/core/widgets/customeAppbar_row.dart';
 
-class Search_page extends StatelessWidget {
-  const Search_page({super.key});
+class SearchPage extends StatelessWidget {
+  const SearchPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Search Page'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Welcome to  search page!',
-              style: TextStyle(fontSize: 24),
-            ),
-
-            SizedBox(height: 20),
-
-            // ElevatedButton(
-
-            //   onPressed: () {
-
-            //     // Add your button press logic here
-
-            //   },
-
-            //   child: Text('Click me!'),
-
-            // ),
-          ],
-        ),
+      appBar: CustomeAppbarRow(
+        height: height,
+        width: width,
+        title: "Explore",
+        onBackButtonPressed: () {
+          Navigator.pop(context);
+        },
       ),
     );
   }

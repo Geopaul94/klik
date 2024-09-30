@@ -9,10 +9,8 @@ import 'package:klik/application/core/widgets/custome_snackbar.dart';
 import 'package:klik/presentaion/bloc/add_post/add_post_bloc.dart';
 import 'package:klik/presentaion/bloc/add_post/add_post_state.dart';
 import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
-import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
 import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
 import 'package:klik/presentaion/pages/addpost_page/addphoto.dart';
-
 
 class AddPost extends StatefulWidget {
   const AddPost({super.key});
@@ -35,8 +33,7 @@ class _AddPostState extends State<AddPost> {
       child: Scaffold(
         appBar: CustomAppBar(
           title: "New Post",
-          titleFontSize:24,
-       
+          titleFontSize: 24,
           backgroundColor: Colors.black,
         ),
         backgroundColor: Colors.black,
@@ -54,31 +51,24 @@ class _AddPostState extends State<AddPost> {
                             customSnackbar(context, state.error, red);
                           } else if (state is ImageUploadErrorState) {
                             customSnackbar(context, state.error, red);
-                          }
-                          
-                          
-                           else if (state is ImageUploadedState) {
-                        
+                          } else if (state is ImageUploadedState) {
                             _noteController.clear();
-                        
 
-                           
-
-  
-  context.read<BottomnavigatorCubit>().bottomNavigatorButtonClicked(index: 4);
-
-
+                            context
+                                .read<BottomnavigatorCubit>()
+                                .bottomNavigatorButtonClicked(index: 4);
 
                             context
                                 .read<FetchMyPostBloc>()
                                 .add(FetchAllMyPostsEvent());
 
-    BlocProvider.of<AddPostBloc>(context)
+                            BlocProvider.of<AddPostBloc>(context)
                                 .add(ClearImage());
 
-                                 customSnackbar(
-                                context, "Image uploaded successfully!", green);    
-                        print("==================+++11") ; }
+                            customSnackbar(
+                                context, "Image uploaded successfully!", green);
+                            print("==================+++11");
+                          }
                         },
                         builder: (context, state) {
                           return Column(
@@ -114,7 +104,8 @@ class _AddPostState extends State<AddPost> {
                               SizedBox(height: size.height * 0.02),
                               BlocBuilder<AddPostBloc, AddPostState>(
                                 builder: (context, state) {
-                                  if (state is ImageUploadingState) {    FocusScope.of(context).unfocus();
+                                  if (state is ImageUploadingState) {
+                                    FocusScope.of(context).unfocus();
                                     return loadingButton(
                                       media: size,
                                       onPressed: () {},

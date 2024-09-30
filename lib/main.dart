@@ -5,7 +5,9 @@ import 'package:klik/firebase_options.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:klik/presentaion/bloc/Connectivity/connectivity_bloc.dart';
 import 'package:klik/presentaion/bloc/add_post/add_post_bloc.dart';
-
+import 'package:klik/presentaion/bloc/commentcount_bloc/comment_count_bloc.dart';
+import 'package:klik/presentaion/bloc/get_connections_bloc/get_connections_bloc.dart';
+import 'package:klik/presentaion/bloc/profile_bloc/profile_bloc.dart';
 import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
 import 'package:klik/presentaion/bloc/comment_bloc/comment_post/comment_post_bloc.dart';
 import 'package:klik/presentaion/bloc/comment_bloc/delete_comment_bloc/delete_comment_bloc.dart';
@@ -27,7 +29,7 @@ import 'package:klik/presentaion/bloc/signup/signup_bloc.dart';
 import 'package:klik/presentaion/bloc/signupotp/signup_otp_bloc.dart';
 import 'package:klik/presentaion/bloc/suggessions_bloc/suggessions_bloc.dart';
 import 'package:klik/presentaion/bloc/testbloc/teastbloc_bloc.dart';
-import 'package:klik/presentaion/bloc/unfollow_user_bloc/unfollow_user_bloc.dart';
+import 'package:klik/presentaion/bloc/follow_unfollow_user_bloc/unfollow_user_bloc.dart';
 import 'package:klik/presentaion/pages/homepage/homepage.dart';
 import 'package:klik/presentaion/pages/nerworkdata/connectivity_listener.dart';
 import 'package:klik/presentaion/pages/splashscreen/splashscreen.dart';
@@ -75,6 +77,11 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => GetCommentsBloc()),
         BlocProvider(create: (context) => LikeUnlikeBloc()),
         BlocProvider(create: (context) => SaveUnsaveBloc()),
+        BlocProvider(create: (context) => GetConnectionsBloc()),
+        BlocProvider(create: (context) => ProfileBloc()),
+        BlocProvider(
+            create: (context) =>
+                CommentCountBloc(int.tryParse(commmentcount!) ?? 0)),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -5,6 +5,7 @@ import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/url/url_.dart';
+import 'package:klik/domain/model/postmodel.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dart:convert';
@@ -116,6 +117,9 @@ String formatDate(String inputDate) {
   
 
 
+}List<Post> parsePosts(String responseBody) {
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+  return parsed.map<Post>((json) => Post.fromJson(json)).toList();
 }
 
 

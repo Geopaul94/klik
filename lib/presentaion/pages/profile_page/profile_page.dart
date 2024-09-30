@@ -12,9 +12,11 @@ import 'package:klik/presentaion/bloc/login_user_details/login_user_details_bloc
 import 'package:klik/presentaion/pages/profile_page/my_post_delete_edit/my_post_page.dart';
 
 import 'package:klik/presentaion/pages/profile_page/profilesession_pages/screen_edit_profile.dart';
+import 'package:klik/presentaion/pages/profile_page/profilesession_pages/screenfollowers/screen_followers.dart';
 import 'package:klik/presentaion/pages/profile_page/screen_settings/screen_settings.dart';
 
 import 'package:klik/presentaion/pages/profile_page/simmer_widget.dart';
+import 'package:klik/presentaion/pages/profile_page/widgets/screen_following_list.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/main_sessions.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -172,29 +174,42 @@ class _ScreenProfileState extends State<ScreenProfile> {
                                 }
                               },
                               onFollowersTap: () {
-                                if (context.read<FetchFollowersBloc>().state
-                                    is FetchFollowersSuccesState) {
-                                  // Navigator.of(context).push(
-                                  //   MaterialPageRoute(
-                                  //     builder: (ctx) => ScreenFollowers(
-                                  //       model: (context
-                                  //               .read<FetchFollowersBloc>()
-                                  //               .state as FetchFollowersSuccesState)
-                                  //           .followersModel,
-                                  //     ),
-                                  //   ),
-                                  // );
-                                }
+
+
+
+
+                                // if (context.read<FetchFollowersBloc>().state
+                                //     is FetchFollowersSuccesState) {
+                                //   Navigator.of(context).push(
+                                //     MaterialPageRoute(
+                                //       builder: (ctx) => ScreenFollowers(
+                                //         model: (context
+                                //                 .read<FetchFollowersBloc>()
+                                //                 .state as FetchFollowersSuccesState)
+                                //             .followersModel,
+                                //       ),
+                                //     ),
+                                //   );
+                                // }
+
+
                               },
                               onFollowingTap: () {
+
+
+
                                 if (context.read<FetchFollowingBloc>().state
                                     is FetchFollowingSuccesState) {
-                                  // Navigator.of(context).push(
-                                  //   MaterialPageRoute(
-                                  //     builder: (ctx) => const ScreenFollowing(),
-                                  //   ),
-                                  // );
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (ctx) => const FollowingList(),
+                                    ),
+                                  );
+                               
+                               
                                 }
+
+
                               },
                             ),
                           ),

@@ -9,7 +9,7 @@ import 'package:klik/application/core/widgets/customeAppbar_row.dart';
 
 import 'package:klik/application/core/widgets/custome_snackbar.dart';
 import 'package:klik/application/core/widgets/userPost_row_name_and_date.dart';
-import 'package:klik/domain/model/all_posts_model.dart';
+import 'package:klik/domain/model/followers_post_model.dart';
 import 'package:klik/domain/model/comment_model.dart';
 
 import 'package:klik/domain/model/my_post_model.dart';
@@ -121,7 +121,7 @@ class Myposts_card extends StatelessWidget {
   final _formkey = GlobalKey<FormState>();
   final List<Comment> _comments = [];
 
-  AllPostsModel? logginedUserdetails;
+  FollowersPostModel? logginedUserdetails;
 
   @override
   Widget build(BuildContext context) {

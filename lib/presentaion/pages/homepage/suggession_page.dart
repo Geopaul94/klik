@@ -7,7 +7,7 @@ import 'package:klik/application/core/widgets/custome_icons.dart';
 import 'package:klik/application/core/widgets/custome_linear%20colorgradient.dart';
 import 'package:klik/presentaion/bloc/get_followers_post_bloc/getfollowers_post_bloc.dart';
 import 'package:klik/presentaion/bloc/suggessions_bloc/suggessions_bloc.dart';
-import 'package:klik/presentaion/bloc/unfollow_user_bloc/unfollow_user_bloc.dart';
+import 'package:klik/presentaion/bloc/follow_unfollow_user_bloc/unfollow_user_bloc.dart';
 import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
 
 

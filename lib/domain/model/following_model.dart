@@ -17,6 +17,8 @@ class FollowingsModel {
   }
 
   // Convert instance to JSON
+ 
+ 
   Map<String, dynamic> toJson() {
     return {
       'following': following.map((item) => item.toJson()).toList(),

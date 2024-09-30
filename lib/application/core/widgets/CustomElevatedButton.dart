@@ -16,7 +16,7 @@ class CustomElevatedButton extends StatelessWidget {
     final FontWeight? fontWeight; 
     final Color? fontcolor;
 
-  CustomElevatedButton({
+  CustomElevatedButton( {
     required this.text,
     required this.onPressed,
     this.color = Colors.green,

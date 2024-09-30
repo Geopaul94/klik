@@ -16,6 +16,9 @@ import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
 
 import 'package:klik/presentaion/pages/authentication/signup_page/signup_page.dart';
 
+
+
+String? token;
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 

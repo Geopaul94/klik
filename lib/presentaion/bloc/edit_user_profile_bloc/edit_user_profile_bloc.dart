@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:http/http.dart';
-import 'package:klik/domain/model/edit_details.dart';
+import 'package:klik/domain/model/edit_details_model.dart';
 import 'package:klik/domain/repository/user_repo/user_repo.dart';
 import 'package:meta/meta.dart';
 
