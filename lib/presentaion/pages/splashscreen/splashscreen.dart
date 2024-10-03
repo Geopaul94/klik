@@ -4,7 +4,7 @@ import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/custome_linear%20colorgradient.dart';
 import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
 import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
-import 'package:klik/presentaion/pages/search_page/animated_container.dart';
+
 
 import 'package:klik/presentaion/pages/test_pages/testpage.dart';
 
@@ -70,6 +70,6 @@ Future<void> checkUserLogin(context) async {
   } else {
     await Future.delayed(const Duration(seconds: 6));
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (context) =>  AnimatedContainerBorder()
+      builder: (context) =>  BottomNavBar()
  ) );}
 }

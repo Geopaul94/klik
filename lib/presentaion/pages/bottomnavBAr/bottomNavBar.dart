@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
+import 'package:klik/presentaion/pages/explorer_page/explorepage.dart';
 import 'package:klik/presentaion/pages/homepage/homepage.dart';
 import 'package:klik/presentaion/pages/notification_page/notification_page.dart';
 import 'package:klik/presentaion/pages/profile_page/profile_page.dart';
-import 'package:klik/presentaion/pages/search_page/Search_page.dart';
+
 import 'package:klik/presentaion/pages/addpost_page/add_post.dart';
 
 class BottomNavBar extends StatefulWidget {
@@ -35,7 +36,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   final List screens = [
     HomePage(),
-    const SearchPage(),
+    const ExplorePost(),
     const AddPost(),
     const NotificationPage(),
     const ScreenProfile()

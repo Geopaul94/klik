@@ -22,11 +22,10 @@ import 'package:klik/presentaion/pages/homepage/like_button.dart';
 import 'package:klik/presentaion/pages/homepage/save_removesave.dart';
 import 'package:klik/presentaion/pages/homepage/suggession_page.dart';
 import 'package:klik/presentaion/pages/profile_page/profile_page.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:multi_bloc_builder/multi_bloc_builder.dart';
 
 String? currentUser;
-
-
 
 String? commmentcount;
 
@@ -70,7 +69,25 @@ class _HomePageState extends State<HomePage> {
         },
         builder: (context, state) {
           if (state is GetfollowersPostLoadingState) {
-            return const Center(child: CircularProgressIndicator());
+          return Center(
+
+    child: Padding(
+
+      padding: const EdgeInsets.all(20.0),
+
+      child: LoadingAnimationWidget.hexagonDots(
+
+        color: green, 
+
+        size: 50,
+
+      ),
+
+    ),
+
+  );
+
+
           } else if (state is GetfollowersPostSuccessState) {
             context
                 .read<FetchSavedPostsBloc>()
@@ -195,11 +212,7 @@ class _HomPage_cardState extends State<HomPage_card> {
   void initState() {
     super.initState();
 
-
-
-
-
-    commmentcount=widget.HomePagePosts.commentCount.toString();
+    commmentcount = widget.HomePagePosts.commentCount.toString();
 
     context
         .read<GetCommentsBloc>()
@@ -273,13 +286,14 @@ class _HomPage_cardState extends State<HomPage_card> {
         context.watch<CommentPostBloc>(),
         context.watch<FetchSavedPostsBloc>(),
         context.watch<SaveUnsaveBloc>(),
-        context.watch<LikeUnlikeBloc>(),  context.watch<CommentCountBloc>(),
+        context.watch<LikeUnlikeBloc>(),
+        context.watch<CommentCountBloc>(),
       ],
       builder: (context, states) {
         var state2 = states[1]; // FetchSavedPostsBloc state
-var commentCountState = states[4]; 
+        var commentCountState = states[4];
         if (state2 is FetchSavedPostsSuccesfulState) {
-          posts = state2.posts;  
+          posts = state2.posts;
         }
 
         return Row(
@@ -318,33 +332,29 @@ var commentCountState = states[4];
                             userName: userName,
                             comments: comments,
                             id: widget.HomePagePosts.id,
-
- onCommentAdded: () {
-                            // Dispatch the increment event
-                            context
-                                .read<CommentCountBloc>()
-                                .add(IncrementCommentCount());
-                          },
-                          onCommentDeleted: () {
-                            // Dispatch the decrement event
-                            context
-                                .read<CommentCountBloc>()
-                                .add(DecrementCommentCount());
-                          },
-
-
-
-
+                            onCommentAdded: () {
+                              // Dispatch the increment event
+                              context
+                                  .read<CommentCountBloc>()
+                                  .add(IncrementCommentCount());
+                            },
+                            onCommentDeleted: () {
+                              // Dispatch the decrement event
+                              context
+                                  .read<CommentCountBloc>()
+                                  .add(DecrementCommentCount());
+                            },
                           ),
                         );
                       },
                     ),
-                   Text(
-                (commentCountState is CommentCountState)
-                    ? commentCountState.commentCount.toString()
-                    :widget.HomePagePosts.commentCount.toString(), // Default to "0" if the state is not available
-                style: const TextStyle(color: Colors.white),
-              ),
+                    Text(
+                      (commentCountState is CommentCountState)
+                          ? commentCountState.commentCount.toString()
+                          : widget.HomePagePosts.commentCount
+                              .toString(), // Default to "0" if the state is not available
+                      style: const TextStyle(color: Colors.white),
+                    ),
                   ],
                 ),
               ],
@@ -358,61 +368,60 @@ var commentCountState = states[4];
 
   IconButton saveIcon(BuildContext context) {
     return IconButton(
-            onPressed: () async {
-              bool isAlreadySaved = posts.any(
-                (element) => element.postId.id == widget.HomePagePosts.id,
-              );
+      onPressed: () async {
+        bool isAlreadySaved = posts.any(
+          (element) => element.postId.id == widget.HomePagePosts.id,
+        );
 
-              if (isAlreadySaved) {
-                context.read<SaveUnsaveBloc>().add(OnUserRemoveSavedPost(
-                      postId: widget.HomePagePosts.id.toString(),
-                    ));
+        if (isAlreadySaved) {
+          context.read<SaveUnsaveBloc>().add(OnUserRemoveSavedPost(
+                postId: widget.HomePagePosts.id.toString(),
+              ));
 
-                posts.removeWhere(
-                  (element) => element.postId.id == widget.HomePagePosts.id,
-                );
-
-                print("Post removed: ${widget.HomePagePosts.id}");
-              } else {
-                // If the post is not saved, add it to the saved list
-                posts.add(SavedPostModel(
-                  userId: widget.HomePagePosts.userId.id.toString(),
-                  postId: PostId(
-                    id: widget.HomePagePosts.id.toString(),
-                    userId: UserIdSavedPost.fromJson(
-                        widget.HomePagePosts.userId.toJson()),
-                    image: widget.HomePagePosts.image.toString(),
-                    description: widget.HomePagePosts.description.toString(),
-                    likes: widget.HomePagePosts.likes,
-                    hidden: widget.HomePagePosts.hidden,
-                    blocked: widget.HomePagePosts.blocked,
-                    tags: widget.HomePagePosts.tags,
-                    date: widget.HomePagePosts.createdAt,
-                    createdAt: widget.HomePagePosts.createdAt,
-                    updatedAt: widget.HomePagePosts.updatedAt,
-                    v: widget.HomePagePosts.v,
-                    taggedUsers: widget.HomePagePosts.taggedUsers,
-                  ),
-                  createdAt: DateTime.now(),
-                  updatedAt: DateTime.now(),
-                  v: widget.HomePagePosts.v,
-                ));
-
-                // Add the post to the backend
-                context.read<SaveUnsaveBloc>().add(OnUserSavePost(
-                      postId: widget.HomePagePosts.id.toString(),
-                    ));
-              }
-            },
-            icon: Icon(
-              posts.any((element) =>
-                      element.postId.id == widget.HomePagePosts.id)
-                  ? CupertinoIcons.bookmark_fill
-                  : CupertinoIcons.bookmark,
-              color: blue,
-              size: 25,
-            ),
+          posts.removeWhere(
+            (element) => element.postId.id == widget.HomePagePosts.id,
           );
+
+          print("Post removed: ${widget.HomePagePosts.id}");
+        } else {
+          // If the post is not saved, add it to the saved list
+          posts.add(SavedPostModel(
+            userId: widget.HomePagePosts.userId.id.toString(),
+            postId: PostId(
+              id: widget.HomePagePosts.id.toString(),
+              userId: UserIdSavedPost.fromJson(
+                  widget.HomePagePosts.userId.toJson()),
+              image: widget.HomePagePosts.image.toString(),
+              description: widget.HomePagePosts.description.toString(),
+              likes: widget.HomePagePosts.likes,
+              hidden: widget.HomePagePosts.hidden,
+              blocked: widget.HomePagePosts.blocked,
+              tags: widget.HomePagePosts.tags,
+              date: widget.HomePagePosts.createdAt,
+              createdAt: widget.HomePagePosts.createdAt,
+              updatedAt: widget.HomePagePosts.updatedAt,
+              v: widget.HomePagePosts.v,
+              taggedUsers: widget.HomePagePosts.taggedUsers,
+            ),
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+            v: widget.HomePagePosts.v,
+          ));
+
+          // Add the post to the backend
+          context.read<SaveUnsaveBloc>().add(OnUserSavePost(
+                postId: widget.HomePagePosts.id.toString(),
+              ));
+        }
+      },
+      icon: Icon(
+        posts.any((element) => element.postId.id == widget.HomePagePosts.id)
+            ? CupertinoIcons.bookmark_fill
+            : CupertinoIcons.bookmark,
+        color: blue,
+        size: 25,
+      ),
+    );
   }
 
   Row nameAndDateRow() {

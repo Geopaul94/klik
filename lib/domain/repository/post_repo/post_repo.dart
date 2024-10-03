@@ -365,7 +365,74 @@ class PostRepo {
       return null;
     }
   }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  // fetch allposts
+
+  static Future<http.Response?> explorePosts() async {
+  try {
+    final token = await getUsertoken();
+    final Uri url = Uri.parse('${Apiurl.baseUrl}${Apiurl.explorePosts}');
+    final http.Response response = await http.get(
+      url,
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json'
+      },
+    );
+
+    if (response.statusCode == 200) {
+      log('Unlike post successful. Status code: ${response.statusCode}');
+      log(response.body);
+
+      return response;
+    }
+    
+    
+    
+    
+    
+     else {
+      log("Error in fetching explore posts: ${response.statusCode}");
+      return null;
+    }
+
+
+
+    
+  } 
+  
+  
+  
+  catch (e) {
+    log("Error in fetching explore posts: ${e.toString()}");
+    return null;
+  }
 }
+
+}
+
+
+
+
 
 void checkStatusCode(int statusCode) {
   if (statusCode == 200) {
