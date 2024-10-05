@@ -26,6 +26,7 @@ import 'package:klik/presentaion/bloc/login/otp_verification/otp_verify_bloc.dar
 import 'package:klik/presentaion/bloc/login/resetpassword/resetpassword_bloc.dart';
 import 'package:klik/presentaion/bloc/login_user_details/login_user_details_bloc.dart';
 import 'package:klik/presentaion/bloc/save_unsave_bloc/save_unsave_bloc.dart';
+import 'package:klik/presentaion/bloc/search_user_bloc/explore_page_search_users_bloc.dart';
 import 'package:klik/presentaion/bloc/signup/signup_bloc.dart';
 import 'package:klik/presentaion/bloc/signupotp/signup_otp_bloc.dart';
 import 'package:klik/presentaion/bloc/suggessions_bloc/suggessions_bloc.dart';
@@ -81,6 +82,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => GetConnectionsBloc()),
         BlocProvider(create: (context) => ProfileBloc()),
         BlocProvider(create: (context) => ExplorerpostBloc()),
+
+
+     BlocProvider(create: (context) =>      ExplorePageSearchUsersBloc()),
+
+
+   
         BlocProvider(
             create: (context) =>
                 CommentCountBloc(int.tryParse(commmentcount!) ?? 0)),

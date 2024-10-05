@@ -8,9 +8,9 @@ import 'package:klik/application/core/widgets/custome_snackbar.dart';
 import 'package:klik/domain/model/explore_posts_model.dart';
 
 import 'package:klik/presentaion/bloc/explorerposts_bloc/explorerpost_bloc.dart';
-import 'package:klik/presentaion/pages/explorer_page/UUU.dart';
-import 'package:klik/presentaion/pages/explorer_page/user_profile_details.dart';
-import 'package:klik/presentaion/pages/profile_page/simmer_widget.dart';
+import 'package:klik/presentaion/pages/explorer_page/evo/postview.dart';
+import 'package:klik/presentaion/pages/explorer_page/evo/user_post_details.dart';
+
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -54,33 +54,17 @@ class _ExplorePostState extends State<ExplorePost> {
             }
           },
           builder: (context, state) {
-           if (state is ExplorerpostLoadingState) {
-
-  return Center(
-
-    child: Padding(
-
-      padding: const EdgeInsets.all(20.0),
-
-      child: LoadingAnimationWidget.hexagonDots(
-
-        color: green, 
-
-        size: 30,
-
-      ),
-
-    ),
-
-  );
-
-}
-            
-            
-            
-            
-            
-             else if (state is ExplorerpostSuccesstate) {
+            if (state is ExplorerpostLoadingState) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: LoadingAnimationWidget.hexagonDots(
+                    color: green,
+                    size: 30,
+                  ),
+                ),
+              );
+            } else if (state is ExplorerpostSuccesstate) {
               return SizedBox(
                 height: height - (height * 0.20),
                 child: MasonryGridView.builder(
@@ -94,14 +78,11 @@ class _ExplorePostState extends State<ExplorePost> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          PageTransition(
-                              type: PageTransitionType.bottomToTopJoined,
-                              childCurrent: widget,
-                              duration: Duration(milliseconds: 400),
-                              child: UserProfileDetails()
-
-                              // UserProfileDetails(initialindex: index,),
-                              ),
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return UsersPostDetailsList(initialindex: index);
+                            },
+                          ),
                         );
                       },
                       child: Padding(
@@ -109,11 +90,12 @@ class _ExplorePostState extends State<ExplorePost> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(5),
                             child: CachedNetworkImage(
-                                imageUrl: post.image,
-                                placeholder: (context, url) {
-                                  return LoadingAnimationWidget.hexagonDots(
-                                      color: green, size: 30);
-                                }),
+                              imageUrl: post.image,
+                              //  placeholder: (context, url) {
+                              // return LoadingAnimationWidget.hexagonDots(
+                              //     color: green, size: 30);
+                              //    }
+                            ),
                           )),
                     );
                   },

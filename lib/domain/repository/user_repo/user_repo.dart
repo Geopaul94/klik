@@ -214,17 +214,19 @@ class UserRepo {
 // search all users
 
 
-  // static Future searchAllUsers({required String query}) async {
-  //   try {
-  //     final token = await getUsertoken();
-  //     var response = await client.get(
-  //         Uri.parse('${Apiurl.baseUrl}${Apiurl.searchAllUsers}$query'),
-  //         headers: {'Authorization': 'Bearer $token'});
-  //     return response;
-  //   } catch (e) {
-  //     log(e.toString());
-  //   }
-  // }
+  static Future searchAllUsers({required String query}) async {
+    try {
+      final token = await getUsertoken();
+      var response = await client.get(
+          Uri.parse('${Apiurl.baseUrl}${Apiurl.searchAllUsers}$query'),
+          headers: {'Authorization': 'Bearer $token'});
+
+          checkStatusCode(response.statusCode);
+      return response;
+    } catch (e) {
+      log(e.toString());
+    }
+  }
 
   // fetch userpostby id
 

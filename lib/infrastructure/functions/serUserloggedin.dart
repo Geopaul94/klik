@@ -84,40 +84,21 @@ Future<void> googleSignOut() async {
   log("User signed out");
 }
 
-String formatDate(String inputDate) {
-  // Define the input format
-  DateFormat inputFormat = DateFormat("yyyy-MM-dd HH:mm:ss.SSS'Z'");
-  // Define the output format
-  DateFormat outputFormat = DateFormat('dd MMM yyyy');
-
-  // Parse the input date string
-  DateTime dateTime = inputFormat.parseUtc(inputDate);
-  DateTime now = DateTime.now().toUtc();
-
-  // Calculate the difference
-  Duration difference = now.difference(dateTime);
-
-  // Check if the date is within one week
-  if (difference.inDays < 7) {
-    // Check if the date is today
-    if (difference.inDays == 0) {
-      if (difference.inHours > 0) {
-        return '${difference.inHours} hours ago';
-      } else if (difference.inMinutes > 0) {
-        return '${difference.inMinutes} minutes ago';
-      } else {
-        return 'just now';
-      }
-    } else {
-      return '${difference.inDays} days ago';
-    }
-  } else {
-    return outputFormat.format(dateTime);
+String formatDate(DateTime? date) {
+    if (date == null) return 'Unknown date';
+    return DateFormat('dd MMMM yyyy').format(date.toLocal());
   }
-  
 
 
-}List<Post> parsePosts(String responseBody) {
+
+
+
+
+
+
+
+
+List<Post> parsePosts(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
   return parsed.map<Post>((json) => Post.fromJson(json)).toList();
 }
@@ -132,3 +113,4 @@ Future<void> pickImage(ValueNotifier<String> imageNotifier) async {
       imageNotifier.value = pickedFile.path;
     }
   }
+

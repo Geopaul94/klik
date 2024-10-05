@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:shimmer/shimmer.dart';
 
-Widget profileContainer(Size media, String profileImage, String coverImage) {
+Widget profileContainer(Size media, String profileImage, String coverImage,) {
   return Container(
     height: 210,
     width: media.width,

@@ -15,7 +15,7 @@ class LoginUserModel {
   final String profilePic;
   final String backGroundImage;
 
- LoginUserModel({
+  LoginUserModel({
     required this.id,
     required this.userName,
     required this.email,
@@ -27,7 +27,7 @@ class LoginUserModel {
     required this.isPrivate,
     required this.createdAt,
     required this.updatedAt,
-     this.bio,
+    this.bio,
     this.name,
     required this.profilePic,
     required this.backGroundImage,
@@ -51,5 +51,25 @@ class LoginUserModel {
       profilePic: json['profilePic'],
       backGroundImage: json['backGroundImage'],
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      '_id': id,
+      'userName': userName,
+      'email': email,
+      'phone': phone,
+      'online': online,
+      'blocked': blocked,
+      'verified': verified,
+      'role': role,
+      'isPrivate': isPrivate,
+      'createdAt': createdAt.toIso8601String(),
+      'updatedAt': updatedAt.toIso8601String(),
+      'bio': bio,
+      'name': name,
+      'profilePic': profilePic,
+      'backGroundImage': backGroundImage,
+    };
   }
 }

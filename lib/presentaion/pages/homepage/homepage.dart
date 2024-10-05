@@ -10,6 +10,7 @@ import 'package:klik/domain/model/followers_post_model.dart';
 import 'package:klik/domain/model/comment_model.dart';
 import 'package:klik/domain/model/saved_post_model.dart';
 import 'package:klik/domain/repository/user_repo/user_repo.dart';
+import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:klik/presentaion/bloc/comment_bloc/comment_post/comment_post_bloc.dart';
 import 'package:klik/presentaion/bloc/comment_bloc/getAllComment/get_all_comment_bloc.dart';
 import 'package:klik/presentaion/bloc/commentcount_bloc/comment_count_bloc.dart';
@@ -69,25 +70,15 @@ class _HomePageState extends State<HomePage> {
         },
         builder: (context, state) {
           if (state is GetfollowersPostLoadingState) {
-          return Center(
-
-    child: Padding(
-
-      padding: const EdgeInsets.all(20.0),
-
-      child: LoadingAnimationWidget.hexagonDots(
-
-        color: green, 
-
-        size: 50,
-
-      ),
-
-    ),
-
-  );
-
-
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: LoadingAnimationWidget.hexagonDots(
+                  color: green,
+                  size: 50,
+                ),
+              ),
+            );
           } else if (state is GetfollowersPostSuccessState) {
             context
                 .read<FetchSavedPostsBloc>()
@@ -107,21 +98,13 @@ class _HomePageState extends State<HomePage> {
                       if (savedpoststate is FetchSavedPostsSuccesfulState) {
                         List<SavedPostModel> savedPosts = savedpoststate.posts;
 
-                        print(
-                            "======================fkjfhafhlafhlkafhlkjfslafla5555555555555$savedPosts");
-                        //     print('${Saved posts fetched successfully ===========: $savedPosts } ${savedPosts.userIds}');
-
-                        // List<String> userIds =
-                        //     savedPosts.map((post) => post.userId).toList();
-
-                        List<String> userIds = savedPosts
-                            .map((post) => post.userId ?? 'Unknown')
+                     
+                        savedPosts
+                            .map((post) => post.userId)
                             .toList();
 
-                        // Print the list of userIds
-                        print('User IDs from saved posts  ++++++: $userIds');
+                     
 
-                        print(' 11111111111111111111111111111111$currentUser');
                       } else if (savedpoststate is FetchSavedPostsErrorState) {
                         customSnackbar(
                             context,
@@ -221,9 +204,8 @@ class _HomPage_cardState extends State<HomPage_card> {
 
   @override
   Widget build(BuildContext context) {
-    final createdAt = DateTime.parse(widget.HomePagePosts.createdAt.toString());
+    DateTime.parse(widget.HomePagePosts.createdAt.toString());
 
-    final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
     return Card(
@@ -270,15 +252,6 @@ class _HomPage_cardState extends State<HomPage_card> {
     );
   }
 
-  bool areDateTimesEqualIgnoringMilliseconds(
-      DateTime dateTime1, DateTime dateTime2) {
-    return dateTime1.year == dateTime2.year &&
-        dateTime1.month == dateTime2.month &&
-        dateTime1.day == dateTime2.day &&
-        dateTime1.hour == dateTime2.hour &&
-        dateTime1.minute == dateTime2.minute &&
-        dateTime1.second == dateTime2.second;
-  }
 
   row_Bottom_icons(double height, BuildContext context) {
     return MultiBlocBuilder(
@@ -302,11 +275,13 @@ class _HomPage_cardState extends State<HomPage_card> {
             Row(
               children: [
                 // Custom Like Button
+
                 CustomLikeButton(
                   postId: widget.HomePagePosts.id,
                   likes: widget.HomePagePosts.likes,
                   userId: userdetails.id,
                 ),
+
                 // Comment Section
 
                 Row(
@@ -333,13 +308,13 @@ class _HomPage_cardState extends State<HomPage_card> {
                             comments: comments,
                             id: widget.HomePagePosts.id,
                             onCommentAdded: () {
-                              // Dispatch the increment event
+                          
                               context
                                   .read<CommentCountBloc>()
                                   .add(IncrementCommentCount());
                             },
                             onCommentDeleted: () {
-                              // Dispatch the decrement event
+                        
                               context
                                   .read<CommentCountBloc>()
                                   .add(DecrementCommentCount());
@@ -352,7 +327,7 @@ class _HomPage_cardState extends State<HomPage_card> {
                       (commentCountState is CommentCountState)
                           ? commentCountState.commentCount.toString()
                           : widget.HomePagePosts.commentCount
-                              .toString(), // Default to "0" if the state is not available
+                              .toString(), 
                       style: const TextStyle(color: Colors.white),
                     ),
                   ],
@@ -446,7 +421,7 @@ class _HomPage_cardState extends State<HomPage_card> {
               ),
             ),
             Text(
-              _formatDate(widget.HomePagePosts.createdAt),
+              formatDate(widget.HomePagePosts.createdAt),
               style: const TextStyle(
                 color: grey,
                 fontSize: 14,
