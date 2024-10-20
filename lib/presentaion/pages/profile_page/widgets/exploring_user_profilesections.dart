@@ -6,10 +6,14 @@ import 'package:klik/application/core/widgets/customMaterialButton.dart';
 import 'package:klik/domain/model/explore_users_user_model.dart';
 import 'package:klik/domain/model/following_model.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
+import 'package:klik/presentaion/bloc/conversation_bloc/conversation_bloc.dart';
+import 'package:klik/presentaion/bloc/fetchallconversation_bloc/fetch_all_conversations_bloc.dart';
 import 'package:klik/presentaion/bloc/get_connections_bloc/get_connections_bloc.dart';
 import 'package:klik/presentaion/bloc/profile_bloc/profile_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_following_bloc/fetch_following_bloc.dart';
 import 'package:klik/presentaion/bloc/follow_unfollow_user_bloc/unfollow_user_bloc.dart';
+import 'package:klik/presentaion/pages/homepage/homepage.dart';
+import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_screen.dart';
 import 'package:klik/presentaion/pages/profile_page/profile_session_pages.dart';
 import 'package:klik/presentaion/pages/profile_page/profilesession_pages/profile_succes_dummy_container.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/loading_animation_and_error_idget.dart';
@@ -26,7 +30,7 @@ class ExploreUserProfileSession1 extends StatelessWidget {
   final UserIdSearchModel user;
   final VoidCallback onEditProfile;
 
-  ExploreUserProfileSession1({
+  ExploreUserProfileSession1({super.key, 
     required this.media,
     required this.profileImage,
     required this.coverImage,
@@ -116,6 +120,61 @@ class ExploreUserProfileSession1 extends StatelessWidget {
                 },
               ),
             ),
+
+
+
+
+
+ BlocConsumer<ConversationBloc, ConversationState>(
+              listener: (context, state) {
+                if (state is ConversationSuccesfulState) {
+                  context
+                      .read<FetchAllConversationsBloc>()
+                      .add(AllConversationsInitialFetchEvent());
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatScreen(
+                            conversationId: state.conversationId,
+                            recieverid: user.id,
+                            name: user.userName,
+                            profilepic: user.profilePic,
+                            username: user.userName),
+                      ));
+                }
+              },
+              builder: (context, state) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: customMaterialButton(
+                    borderRadius: 10,
+                    color: kPrimaryColor,
+                    onPressed: () {
+                      context.read<ConversationBloc>().add(
+                          CreateConversationButtonClickEvent(
+                              members: [currentUser.toString(), user.id]));
+                    },
+                  
+                    text: 'messsage',
+                    width: media.height * 0.1,
+                    height: media.height * 0.05,
+                    textStyle: const TextStyle(fontSize: 16),
+                  ),
+                );
+              },
+            ),
+
+
+
+
+
+
+
+
+
+
+
+
           ],
         ),
         Padding(
@@ -132,7 +191,7 @@ class ExploreUserProfileSessions2 extends StatelessWidget {
   final VoidCallback onFollowersTap;
   final VoidCallback onFollowingTap;
 
-  ExploreUserProfileSessions2(
+  const ExploreUserProfileSessions2(
       {super.key, required this.onPostsTap, required this.onFollowersTap, required this.onFollowingTap});
 
  @override

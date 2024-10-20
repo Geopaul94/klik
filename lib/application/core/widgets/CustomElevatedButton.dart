@@ -16,7 +16,7 @@ class CustomElevatedButton extends StatelessWidget {
     final FontWeight? fontWeight; 
     final Color? fontcolor;
 
-  CustomElevatedButton( {
+  const CustomElevatedButton( {super.key, 
     required this.text,
     required this.onPressed,
     this.color = Colors.green,
@@ -41,9 +41,9 @@ class CustomElevatedButton extends StatelessWidget {
     final buttonWidth = width ?? screenWidth * 0.8; // 80% of screen width
 
     // Define default padding and font size if not provided
-    final double defaultPaddingVertical = 10.0;
-    final double defaultPaddingHorizontal = 16.0;
-    final double defaultFontSize = 25.0;
+    const double defaultPaddingVertical = 10.0;
+    const double defaultPaddingHorizontal = 16.0;
+    const double defaultFontSize = 25.0;
 
     return SizedBox(
       height: buttonHeight,

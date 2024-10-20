@@ -10,7 +10,6 @@ import 'package:klik/presentaion/bloc/profile_bloc/profile_bloc.dart';
 import 'package:klik/presentaion/pages/explorer_page/bb/main_tile.dart';
 import 'package:klik/presentaion/pages/homepage/add_comment.dart';
 import 'package:klik/presentaion/pages/profile_page/simmer_widget.dart';
-import 'package:klik/presentaion/pages/profile_page/widgets/comment_bottom_sheet.dart';
 import 'package:shimmer/shimmer.dart';
 
 class ScreenOtherUserPosts extends StatelessWidget {
@@ -80,7 +79,7 @@ class ScreenOtherUserPosts extends StatelessWidget {
                       //     id: posts[index].id.toString());
                       context.read<GetCommentsBloc>().add(CommentsFetchEvent(
                           postId: posts[index].id.toString()));
-                    }, commentes: [],);
+                    }, commentes: const [],);
               },
               itemCount: posts.length,
             );

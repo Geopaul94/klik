@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:klik/firebase_options.dart';
+import 'package:klik/presentaion/bloc/add_message/add_message_bloc.dart';
+import 'package:klik/presentaion/bloc/conversation_bloc/conversation_bloc.dart';
+import 'package:klik/presentaion/bloc/fetchallconversation_bloc/fetch_all_conversations_bloc.dart';
+import 'package:klik/services/firebase/firebase_options.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:klik/presentaion/bloc/Connectivity/connectivity_bloc.dart';
 import 'package:klik/presentaion/bloc/add_post/add_post_bloc.dart';
@@ -82,12 +85,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => GetConnectionsBloc()),
         BlocProvider(create: (context) => ProfileBloc()),
         BlocProvider(create: (context) => ExplorerpostBloc()),
-
-
-     BlocProvider(create: (context) =>      ExplorePageSearchUsersBloc()),
-
-
-   
+        BlocProvider(create: (context) => ConversationBloc()),
+        BlocProvider(create: (context) => ExplorePageSearchUsersBloc()),
+  BlocProvider(create: (context) =>  FetchAllConversationsBloc()),
+       BlocProvider(create: (context) =>   AddMessageBloc()),
         BlocProvider(
             create: (context) =>
                 CommentCountBloc(int.tryParse(commmentcount!) ?? 0)),
@@ -103,4 +104,8 @@ class MyApp extends StatelessWidget {
       ),
     );
   }
+}
+
+class NavigationService {
+  static GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 }

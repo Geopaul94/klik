@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:klik/application/core/constants/constants.dart';
 
 class AnimatedText extends StatefulWidget {
-  const AnimatedText({Key? key}) : super(key: key);
+  const AnimatedText({super.key});
 
   @override
   _AnimatedTextState createState() => _AnimatedTextState();

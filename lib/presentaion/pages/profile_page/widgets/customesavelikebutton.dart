@@ -9,10 +9,10 @@ class Customesavelikebutton extends StatefulWidget {
   final String currentUserId;
 
   const Customesavelikebutton({
-    Key? key,
+    super.key,
     required this.post,
     required this.currentUserId,
-  }) : super(key: key);
+  });
 
   @override
   State<Customesavelikebutton> createState() => _Customesavelikebutton();

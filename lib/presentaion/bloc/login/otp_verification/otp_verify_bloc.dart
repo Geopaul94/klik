@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:klik/domain/repository/auth_repo/authentication_repo.dart';
 
-import 'package:meta/meta.dart';
 
 part 'otp_verify_event.dart';
 part 'otp_verify_state.dart';

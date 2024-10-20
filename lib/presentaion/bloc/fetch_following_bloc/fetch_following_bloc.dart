@@ -5,7 +5,6 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart';
 import 'package:klik/domain/model/following_model.dart';
 import 'package:klik/domain/repository/user_repo/user_repo.dart';
-import 'package:meta/meta.dart';
 
 part 'fetch_following_event.dart';
 part 'fetch_following_state.dart';
@@ -20,7 +19,7 @@ class FetchFollowingBloc extends Bloc<FetchFollowingEvent, FetchFollowingState> 
       // log(responseBody.toString());
       debugPrint('followers fetch status code-${result.statusCode}');
       if (result.statusCode == 200) {
-            final Map<String, dynamic> responseBody = jsonDecode(result.body);
+            final Map<String, dynamic> responseBody = await jsonDecode(result.body);
            final FollowingsModel followingsModel =
               FollowingsModel.fromJson(responseBody);
          return emit(FetchFollowingSuccesState(model: followingsModel));

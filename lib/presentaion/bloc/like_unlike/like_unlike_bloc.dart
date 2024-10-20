@@ -2,9 +2,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:http/http.dart';
 import 'package:klik/domain/repository/post_repo/post_repo.dart';
-import 'package:meta/meta.dart';
 
 part 'like_unlike_event.dart';
 part 'like_unlike_state.dart';

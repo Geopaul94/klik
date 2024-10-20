@@ -16,8 +16,8 @@ class CustomeAppbarRow extends StatefulWidget implements PreferredSizeWidget {
   final Color? iconColor;
   final bool searchIcon;
 
-  CustomeAppbarRow({
-    Key? key,
+  const CustomeAppbarRow({
+    super.key,
     required this.height,
     required this.width,
     required this.title,
@@ -26,7 +26,7 @@ class CustomeAppbarRow extends StatefulWidget implements PreferredSizeWidget {
     this.backgroundColor = Colors.black,
     this.iconColor,
     this.searchIcon = false,
-  }) : super(key: key);
+  });
 
   @override
   _CustomeAppbarRowState createState() => _CustomeAppbarRowState();
@@ -53,7 +53,7 @@ class _CustomeAppbarRowState extends State<CustomeAppbarRow> {
             child: SizedBox(
               height: widget.height * 0.05,
               width: widget.width * 0.2,
-              child: Align(
+              child: const Align(
                 alignment: Alignment.centerLeft,
                 child: CustomGradientIcon(
                   icon: CupertinoIcons.back,
@@ -87,7 +87,7 @@ class _CustomeAppbarRowState extends State<CustomeAppbarRow> {
               ),
               child: TextFormField(
                 autofocus: true, // Automatically focus when activated
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Search...",
                   border: InputBorder.none,
                 ),

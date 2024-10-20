@@ -100,8 +100,8 @@ class CustomTextFormField extends StatefulWidget {
   final Color labelTextColor;
   final Color hintTextColor;
 
-  CustomTextFormField({
-    Key? key,
+  const CustomTextFormField({
+    super.key,
     required this.labelText,
     required this.icon,
     required this.controller,
@@ -115,7 +115,7 @@ class CustomTextFormField extends StatefulWidget {
     this.labelTextColor = Colors.grey,
     this.hintTextColor = Colors.grey,
     this.errorTextColor = Colors.red,
-  }) : super(key: key);
+  });
 
   @override
   _CustomTextFormFieldState createState() => _CustomTextFormFieldState();

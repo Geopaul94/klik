@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
-import 'package:klik/presentaion/pages/explorer_page/bb/screen_explore.dart';
 import 'package:klik/presentaion/pages/explorer_page/bb/screen_search.dart';
-import 'package:klik/presentaion/pages/explorer_page/evo/explorepage.dart';
+
 import 'package:klik/presentaion/pages/homepage/homepage.dart';
-import 'package:klik/presentaion/pages/notification_page/notification_page.dart';
+import 'package:klik/presentaion/pages/message_page.dart/chat/chat_page.dart';
+
+
 import 'package:klik/presentaion/pages/profile_page/profile_page.dart';
 
 import 'package:klik/presentaion/pages/addpost_page/add_post.dart';
@@ -37,10 +38,10 @@ class _BottomNavBarState extends State<BottomNavBar> {
   }
 
   final List screens = [
-    HomePage(),
-     ScreenSearch(),
+    const HomePage(),
+     const ScreenSearch(),
     const AddPost(),
-    const NotificationPage(),
+     const ChatListScreen(),
     const ScreenProfile()
   ];
 
@@ -93,7 +94,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.message_outlined),
-                label: "Suggestion",
+                label: "Messages",
               ),
               BottomNavigationBarItem(
                 icon: Icon(CupertinoIcons.person_circle),

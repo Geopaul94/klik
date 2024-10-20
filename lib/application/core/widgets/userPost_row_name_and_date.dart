@@ -15,7 +15,7 @@ class UserRowWidget extends StatelessWidget {
    final bool showIcon;
 
   const UserRowWidget({
-    Key? key,
+    super.key,
     required this.profileImageUrl,
     required this.userName,
     required this.date,
@@ -25,7 +25,7 @@ class UserRowWidget extends StatelessWidget {
     this.dateColor = Colors.grey,
     this.userNameFontSize = 18.0,
     this.dateFontSize = 14.0,  this.showIcon = true,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class UserRowWidget extends StatelessWidget {
           ],
         ),
         const Spacer(),
-          if (showIcon && onIconTap != null)
+          if (showIcon)
           GestureDetector(
             onTapDown: onIconTap,
             child: const Icon(

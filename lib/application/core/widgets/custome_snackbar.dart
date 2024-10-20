@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'package:klik/application/core/constants/constants.dart';
 
 void customSnackbar(context, message, color) {
   ScaffoldMessenger.of(context).showSnackBar(

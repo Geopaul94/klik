@@ -4,11 +4,8 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:klik/application/core/url/url_.dart';
 import 'package:klik/domain/model/saved_post_model.dart';
 import 'package:klik/domain/repository/post_repo/post_repo.dart';
-import 'package:klik/infrastructure/functions/serUserloggedin.dart';
-import 'package:meta/meta.dart';
 
 part 'fetch_saved_posts_event.dart';
 part 'fetch_saved_posts_state.dart';

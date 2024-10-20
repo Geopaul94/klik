@@ -12,11 +12,9 @@ import 'package:klik/application/core/widgets/custome_snackbar.dart';
 import 'package:klik/application/core/widgets/validations.dart';
 import 'package:klik/domain/model/edit_details_model.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
-import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavigator_cubit.dart';
 import 'package:klik/presentaion/bloc/edit_user_profile_bloc/edit_user_profile_bloc.dart';
 import 'dart:io';
 import 'package:klik/presentaion/bloc/login_user_details/login_user_details_bloc.dart';
-import 'package:klik/presentaion/pages/profile_page/profile_page.dart';
 
 class ScreenEditProfile extends StatefulWidget {
   const ScreenEditProfile(
@@ -70,13 +68,13 @@ class _ScreenEditProfileState extends State<ScreenEditProfile> {
                 child: SizedBox(
                   height: height * .05,
                   width: width * .18,
-                  child: Align(
+                  child: const Align(
                     alignment: Alignment.centerLeft,
                     child: CustomGradientIcon(icon: CupertinoIcons.back),
                   ),
                 ),
               ),
-              Center(
+              const Center(
                 child: CustomeLinearcolor(
                   text: 'Edit Profile',
                   gradientColors: [blue, green],
@@ -104,7 +102,7 @@ class _ScreenEditProfileState extends State<ScreenEditProfile> {
                           paddingHorizontal: 0,
                           paddingVertical: 0,
                           fontWeight: FontWeight.w500,
-                          color: Color.fromARGB(255, 12, 106, 15),
+                          color: const Color.fromARGB(255, 12, 106, 15),
                           fontcolor: white,
                           onPressed: () {
                             FocusScope.of(context).unfocus();

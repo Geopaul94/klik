@@ -1,12 +1,9 @@
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klik/domain/model/saved_post_model.dart';
 import 'package:klik/presentaion/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
-import 'package:klik/presentaion/bloc/like_unlike/like_unlike_bloc.dart';
 import 'package:klik/presentaion/bloc/save_unsave_bloc/save_unsave_bloc.dart';
-import 'package:like_button/like_button.dart';
 
 // class Customesavedpostbutton extends StatefulWidget {
 //   final SavedPostModel post;
@@ -88,10 +85,10 @@ class Customesavedpostbutton extends StatefulWidget {
   final String currentUserId;
 
   const Customesavedpostbutton({
-    Key? key,
+    super.key,
     required this.post,
     required this.currentUserId,
-  }) : super(key: key);
+  });
 
   @override
   State createState() => _Customesavedpostbutton();

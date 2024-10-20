@@ -1,14 +1,11 @@
 
 
-import 'dart:async';
-import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:klik/domain/repository/post_repo/post_repo.dart';
 import 'package:klik/presentaion/bloc/add_post/add_post_state.dart';
-import 'package:meta/meta.dart';
 
 part 'add_post_event.dart';
 

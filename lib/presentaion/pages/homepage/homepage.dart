@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -20,7 +19,6 @@ import 'package:klik/presentaion/bloc/like_unlike/like_unlike_bloc.dart';
 import 'package:klik/presentaion/bloc/save_unsave_bloc/save_unsave_bloc.dart';
 import 'package:klik/presentaion/pages/homepage/add_comment.dart';
 import 'package:klik/presentaion/pages/homepage/like_button.dart';
-import 'package:klik/presentaion/pages/homepage/save_removesave.dart';
 import 'package:klik/presentaion/pages/homepage/suggession_page.dart';
 import 'package:klik/presentaion/pages/profile_page/profile_page.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -144,8 +142,8 @@ class _HomePageState extends State<HomePage> {
             'assets/croped_headline.png',
             height: 30,
           ),
-          CustomeLinearcolor(
-              text: "Share Moments", gradientColors: const [green, blue]),
+          const CustomeLinearcolor(
+              text: "Share Moments", gradientColors: [green, blue]),
           GestureDetector(
             onTap: () {
               Navigator.of(context).push(
@@ -171,7 +169,7 @@ class HomPage_card extends StatefulWidget {
   final FollowersPostModel HomePagePosts;
   final List<String> userIds;
 
-  HomPage_card({
+  const HomPage_card({
     super.key,
     required this.HomePagePosts,
     required this.userIds,

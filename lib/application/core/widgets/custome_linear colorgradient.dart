@@ -75,7 +75,7 @@ class CustomeLinearcolor extends StatelessWidget {
   final double? iconSize;
   final List<Color>? iconGradientColors;
 
-  CustomeLinearcolor({
+  const CustomeLinearcolor({super.key, 
     this.text,
     this.fontSize,
     this.fontWeight = FontWeight.normal,
@@ -89,8 +89,8 @@ class CustomeLinearcolor extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double defaultFontSize = 16.0;
-    final double defaultIconSize = 24.0;
+    const double defaultFontSize = 16.0;
+    const double defaultIconSize = 24.0;
 
     final TextStyle textStyle = TextStyle(
       fontSize: fontSize ?? defaultFontSize,
@@ -153,7 +153,7 @@ class CustomeLinearcolor extends StatelessWidget {
       children: [
         if (gradientText != null) gradientText,
         if (gradientText != null && gradientIcon != null)
-          SizedBox(width: 8.0), // Spacing between text and icon
+          const SizedBox(width: 8.0), // Spacing between text and icon
         if (gradientIcon != null) gradientIcon,
       ],
     );

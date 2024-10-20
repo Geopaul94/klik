@@ -21,7 +21,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions; // New parameter for actions
 
   const CustomAppBar({
-    Key? key,
+    super.key,
     this.startColor,
     this.endColor,
     this.leadingIcon,
@@ -37,7 +37,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.isTitleBold = false,
     this.showBackArrow = true,
     this.actions, // Initialize new parameter
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +53,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         startColor ?? Colors.blue,
                         endColor ?? Colors.green
                       ],
-                      stops: [0.0, 1.0],
+                      stops: const [0.0, 1.0],
                     ).createShader(rect);
                   },
                   child: Padding(
@@ -79,7 +79,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                             startColor ?? Colors.blue,
                             endColor ?? Colors.green
                           ],
-                          stops: [0.0, 1.0],
+                          stops: const [0.0, 1.0],
                         ).createShader(rect);
                       },
                       child: Icon(
@@ -93,7 +93,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         shaderCallback: (Rect rect) {
           return LinearGradient(
             colors: [startColor ?? Colors.blue, endColor ?? Colors.green],
-            stops: [0.0, 1.0],
+            stops: const [0.0, 1.0],
           ).createShader(rect);
         },
         child: Text(

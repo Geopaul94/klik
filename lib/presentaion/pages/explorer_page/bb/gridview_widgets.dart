@@ -9,13 +9,12 @@ import 'package:klik/presentaion/bloc/search_user_bloc/explore_page_search_users
 import 'package:klik/presentaion/pages/explorer_page/bb/screen_explore.dart';
 import 'package:klik/presentaion/pages/profile_page/CustomeListTile.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/exploring_user_profile.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 Widget postsGridViewWidget(ExplorerpostSuccesstate state, Size media,
     BuildContext context, Future<void> Function() onrefresh) {
   if (state.posts.isEmpty) {
     return errorStateWidget(
-        "No posts available ", TextStyle(fontWeight: FontWeight.w600), red);
+        "No posts available ", const TextStyle(fontWeight: FontWeight.w600), red);
   }
 
   return RefreshIndicator(
@@ -44,7 +43,7 @@ Widget postsGridViewWidget(ExplorerpostSuccesstate state, Size media,
                 fit: BoxFit.cover,
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress == null) return child;
-                  return Center(
+                  return const Center(
                     //   child:
                     child: CircularProgressIndicator()
                   );

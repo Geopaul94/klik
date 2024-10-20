@@ -55,7 +55,7 @@ class ProfileSession1 extends StatelessWidget {
                       height: media.height * 0.05,
                       textStyle: const TextStyle(fontSize: 16),
                       borderRadius: 5),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   GestureDetector(
                     onTap: () {
                       debugPrint("navigation to add post pressed ");

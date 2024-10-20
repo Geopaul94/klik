@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,7 +14,6 @@ import 'package:klik/application/core/widgets/validations.dart';
 import 'package:klik/domain/model/my_post_model.dart';
 import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
 import 'package:klik/presentaion/pages/addpost_page/post_text_form_field.dart';
-import 'package:klik/presentaion/pages/profile_page/my_post_delete_edit/my_post_page.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class ScreenUpdateUserPost extends StatelessWidget {
@@ -44,7 +42,7 @@ class ScreenUpdateUserPost extends StatelessWidget {
           onBackButtonPressed: () {
             Navigator.pop(context);
           },
-          gradientColors: [blue, green],
+          gradientColors: const [blue, green],
           backgroundColor: black,
           iconColor: Colors.white,
         ),

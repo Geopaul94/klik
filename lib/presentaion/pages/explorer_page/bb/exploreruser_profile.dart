@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,24 +6,20 @@ import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/customMaterialButton.dart';
 import 'package:klik/domain/model/explore_users_user_model.dart';
 import 'package:klik/domain/model/following_model.dart';
+import 'package:klik/presentaion/bloc/conversation_bloc/conversation_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_following_bloc/fetch_following_bloc.dart';
+import 'package:klik/presentaion/bloc/fetchallconversation_bloc/fetch_all_conversations_bloc.dart';
 import 'package:klik/presentaion/bloc/follow_unfollow_user_bloc/unfollow_user_bloc.dart';
 import 'package:klik/presentaion/bloc/get_connections_bloc/get_connections_bloc.dart';
 import 'package:klik/presentaion/bloc/profile_bloc/profile_bloc.dart';
+import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_screen.dart';
+
+import 'package:klik/presentaion/pages/profile_page/my_post_delete_edit/my_post_page.dart';
 import 'package:klik/presentaion/pages/profile_page/profile_session_pages.dart';
 import 'package:klik/presentaion/pages/profile_page/profilesession_pages/profile_succes_dummy_container.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/loading_animation_and_error_idget.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/screen_other_users_post.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-
-
-
-
-
-
-
-
-
 
 class ExploreUserProfileSession1 extends StatelessWidget {
   final Size media;
@@ -47,7 +42,7 @@ class ExploreUserProfileSession1 extends StatelessWidget {
   });
   List<Follower> followings = [];
 
-   String formatDate(DateTime? date) {
+  String formatDate(DateTime? date) {
     if (date == null) return 'Unknown date';
     return DateFormat('dd MMMM yyyy').format(date.toLocal());
   }
@@ -134,74 +129,51 @@ class ExploreUserProfileSession1 extends StatelessWidget {
                 },
               ),
             ),
-
-
-
-
-
-
-
-
-
-
-            //=================================================================================
-
-
-
-        //     BlocConsumer<ConversationBloc, ConversationState>(
-        //       listener: (context, state) {
-        //         if (state is ConversationSuccesfulState) {
-        //           context
-        //               .read<FetchAllConversationsBloc>()
-        //               .add(AllConversationsInitialFetchEvent());
-        //           Navigator.push(
-        //               context,
-        //               MaterialPageRoute(
-        //                 builder: (context) => ChatScreen(
-        //                     conversationId: state.conversationId,
-        //                     recieverid: user.id,
-        //                     name: user.userName,
-        //                     profilepic: user.profilePic,
-        //                     username: user.userName),
-        //               ));
-        //         }
-        //       },
-        //       builder: (context, state) {
-        //         return Padding(
-        //           padding: const EdgeInsets.only(right: 10),
-        //           child: customMaterialButton(
-        //             borderRadius: 10,
-        //             color: kPrimaryColor,
-        //             onPressed: () {
-        //               context.read<ConversationBloc>().add(
-        //                   CreateConversationButtonClickEvent(
-        //                       members: [logginedUserId, user.id]));
-        //             },
-        //             text: 'messsage',
-        //             width: media.height * 0.1,
-        //             height: media.height * 0.05,
-        //             textStyle: const TextStyle(fontSize: 16),
-        //           ),
-        //         );
-        //       },
-        //     ),
-        //   ],
-        // ),
-
-
-
-
-
-
-
-            //=================================================================================
+            BlocConsumer<ConversationBloc, ConversationState>(
+              listener: (context, state) {
+                if (state is ConversationSuccesfulState) {
+                  context
+                      .read<FetchAllConversationsBloc>()
+                      .add(AllConversationsInitialFetchEvent());
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ChatScreen(
+                            conversationId: state.conversationId,
+                            recieverid: user.id,
+                            name: user.userName,
+                            profilepic: user.profilePic,
+                            username: user.userName),
+                      ));
+                }
+              },
+              builder: (context, state) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: customMaterialButton(
+                    borderRadius: 10,
+                    color: green,
+                    onPressed: () {
+                      context.read<ConversationBloc>().add(
+                          CreateConversationButtonClickEvent(
+                              members: [logginedUserId, user.id]));
+                    },
+                    text: 'messsage',
+                    width: media.height * 0.1,
+                    height: media.height * 0.05,
+                    textStyle: const TextStyle(fontSize: 16),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
           child: userNameAndBio(userName, bio),
         ),
       ],
-    )
-      ]);
+    );
   }
 }
 

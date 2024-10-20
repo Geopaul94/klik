@@ -211,6 +211,22 @@ class UserRepo {
     }
   }
 
+
+
+    //get single user
+  static Future getSingleUser({required String userid}) async {
+    try {
+      final token = await getUsertoken();
+      var response = client.get(
+          Uri.parse(
+              '${Apiurl.baseUrl}${Apiurl.getSingleUser}/$userid'),
+          headers: {'Authorization': 'Bearer $token'});
+      return response;
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
 // search all users
 
 

@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
                   builder: (context) {
-                    return BottomNavBar();
+                    return const BottomNavBar();
                   },
                 ), (Route<dynamic> route) => false);
               } else if (state is LogingLoadingErrorState) {
@@ -164,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           SizedBox(height: height * 0.04),
 
-                          Container(
+                          SizedBox(
                             width: width * .8,
                             child: const Row(
                               children: [
@@ -193,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
                           BlocBuilder<LoginBloc, LoginState>(
                             builder: (context, state) {
                               if (state is LogingoogleButtonState) {
-                                return CircularProgressIndicator();
+                                return const CircularProgressIndicator();
                               }
                               return GestureDetector(
                                 child: Row(
@@ -226,7 +226,7 @@ class _LoginPageState extends State<LoginPage> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              CustomText(
+                              const CustomText(
                                 text: "Don't have account ? Let's ",
                                 color: Colors.grey,
                               ),
@@ -234,7 +234,7 @@ class _LoginPageState extends State<LoginPage> {
                                 width: width * .03,
                               ),
                               GestureDetector(
-                                child: CustomText(
+                                child: const CustomText(
                                   text: "Sign up ",
                                   color: Colors.green,
                                   fontSize: 20,
@@ -245,7 +245,7 @@ class _LoginPageState extends State<LoginPage> {
                                       "+++++++++++++++++++++++++++++++++++signup pressed");
                                   Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) {
-                                      return SignupPage();
+                                      return const SignupPage();
                                     },
                                   ));
                                 },

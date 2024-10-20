@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
@@ -29,7 +28,7 @@ class MyPostsScreen extends StatefulWidget {
   final int index;
   final List<MyPostModel> post;
 
-  MyPostsScreen({super.key, required this.index, required this.post});
+  const MyPostsScreen({super.key, required this.index, required this.post});
   @override
   _MyPostsScreenState createState() => _MyPostsScreenState();
 }
@@ -69,7 +68,7 @@ class _MyPostsScreenState extends State<MyPostsScreen> {
         onBackButtonPressed: () {
           Navigator.pop(context);
         },
-        gradientColors: [blue, green],
+        gradientColors: const [blue, green],
         backgroundColor: black,
         iconColor: Colors.white,
       ),
@@ -110,7 +109,7 @@ class Myposts_card extends StatelessWidget {
   final MyPostModel post;
 
   final int index;
-  Myposts_card({required this.post, required this.index});
+  Myposts_card({super.key, required this.post, required this.index});
 
   String _formatDate(DateTime? date) {
     if (date == null) return 'Unknown date';
@@ -215,7 +214,12 @@ class Myposts_card extends StatelessWidget {
                       color: Colors.white,
                       size: height * 0.03,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+
+
+
+                      
+                    },
                   ),
                 ],
               ),

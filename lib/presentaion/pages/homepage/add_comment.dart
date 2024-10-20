@@ -8,7 +8,6 @@ import 'package:klik/presentaion/bloc/comment_bloc/comment_post/comment_post_blo
 import 'package:klik/presentaion/bloc/comment_bloc/delete_comment_bloc/delete_comment_bloc.dart';
 import 'package:klik/presentaion/bloc/comment_bloc/getAllComment/get_all_comment_bloc.dart';
 import 'package:klik/presentaion/pages/homepage/homepage.dart';
-import 'package:klik/presentaion/pages/profile_page/profile_page.dart';
 import 'package:intl/intl.dart';
 
 class AddComment extends StatefulWidget {

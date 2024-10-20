@@ -1,12 +1,9 @@
-import 'dart:ffi';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/presentaion/bloc/Connectivity/connectivity_bloc.dart';
 import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
-import 'package:klik/presentaion/pages/homepage/homepage.dart';
 
 // class ConnectivityListener extends StatelessWidget {
 //   final Widget child;
@@ -84,17 +81,12 @@ import 'package:klik/presentaion/pages/homepage/homepage.dart';
 //   }
 // }
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:klik/presentaion/bloc/Connectivity/connectivity_bloc.dart';
-import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
 import 'package:klik/presentaion/pages/nerworkdata/animated_dots.dart';
 
 class ConnectivityListener extends StatelessWidget {
   final Widget child;
 
-  const ConnectivityListener({required this.child});
+  const ConnectivityListener({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +132,7 @@ class ConnectivityListener extends StatelessWidget {
                 height: height * .90,
               ),
 
-              Row(mainAxisAlignment: MainAxisAlignment.center,
+              const Row(mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   AnimatedText(),
                 ],
@@ -161,17 +153,17 @@ class ConnectivityListener extends StatelessWidget {
     }
   }
 void _showSnackbar(BuildContext context) {
-  final snackBar = SnackBar(
+  const snackBar = SnackBar(
     backgroundColor: Colors.green,  
     content: Text(
       'You are back to online',
       textAlign: TextAlign.center, 
-      style: const TextStyle(
+      style: TextStyle(
         color: Colors.white,  
         fontSize: 14,         
       ),
     ),
-    duration: const Duration(seconds: 1),
+    duration: Duration(seconds: 1),
   );
 
   ScaffoldMessenger.of(context).showSnackBar(snackBar);

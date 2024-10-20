@@ -13,9 +13,7 @@ import 'package:klik/domain/model/saved_post_model.dart';
 import 'package:klik/presentaion/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
 import 'package:klik/presentaion/pages/homepage/add_comment.dart';
 import 'package:klik/presentaion/pages/homepage/homepage.dart';
-import 'package:klik/presentaion/pages/homepage/like_button.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/customesavelikebutton.dart';
-import 'package:like_button/like_button.dart';
 
 // class SavedPostScreen extends StatefulWidget {
 
@@ -105,10 +103,10 @@ class SavedPostScreen extends StatefulWidget {
   final List<SavedPostModel> posts;
 
   const SavedPostScreen({
-    Key? key,
+    super.key,
     required this.index,
     required this.posts,
-  }) : super(key: key);
+  });
 
   @override
   State<SavedPostScreen> createState() => _SavedPostScreenState();
@@ -138,7 +136,7 @@ class _SavedPostScreenState extends State<SavedPostScreen> {
         width: size.width,
         title: 'Saved Posts',
         onBackButtonPressed: () => Navigator.pop(context),
-        gradientColors: [blue, green],
+        gradientColors: const [blue, green],
         backgroundColor: black,
         iconColor: Colors.white,
       ),

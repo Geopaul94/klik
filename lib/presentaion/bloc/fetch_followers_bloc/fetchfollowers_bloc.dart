@@ -15,10 +15,9 @@ class FetchFollowersBloc
     on<OnfetchAllFollowersEvent>((event, emit) async {
       emit(FetchFollowersLoadingState());
       final Response result = await UserRepo.fetchFollowers();
-      final responseBody = jsonDecode(result.body);
+      final responseBody =await jsonDecode(result.body);
       if (result.statusCode == 200) {
-        final FollowersModel followersModel =
-            FollowersModel.fromJson(responseBody);
+        final FollowersModel followersModel =FollowersModel.fromJson(responseBody);
         return emit(FetchFollowersSuccesState(followersModel: followersModel));
       } else {
         return emit(FetchFollowersErrorState());

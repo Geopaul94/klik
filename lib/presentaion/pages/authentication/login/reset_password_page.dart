@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klik/application/core/constants/constants.dart';
@@ -11,7 +10,6 @@ import 'package:klik/application/core/widgets/custome_linear%20colorgradient.dar
 import 'package:klik/application/core/widgets/custome_snackbar.dart';
 import 'package:klik/application/core/widgets/custometextformfield.dart';
 import 'package:klik/application/core/widgets/validations.dart';
-import 'package:klik/presentaion/bloc/login/otp_verification/otp_verify_bloc.dart';
 import 'package:klik/presentaion/bloc/login/resetpassword/resetpassword_bloc.dart';
 import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
 
@@ -74,7 +72,7 @@ class ResetPasswordPage extends StatelessWidget {
                   SizedBox(
                     height: size.height * .02,
                   ),
-                  CustomeLinearcolor(
+                  const CustomeLinearcolor(
                     text: "Enter New Password",
                     fontSize: 20,
                     gradientColors: [green, blue],
@@ -82,7 +80,7 @@ class ResetPasswordPage extends StatelessWidget {
                   SizedBox(
                     height: size.height * .01,
                   ),
-                  CustomText(
+                  const CustomText(
                     text:
                         "Once you reset your password , You can login to   \n your account using that password ",
                     color: Colors.grey,

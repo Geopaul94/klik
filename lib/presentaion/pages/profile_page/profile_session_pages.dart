@@ -188,7 +188,7 @@ Widget userNameAndBio(String userName, String bio) {
     children: [
       Text(
         userName,
-        style: TextStyle(
+        style: const TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w500,
         ),

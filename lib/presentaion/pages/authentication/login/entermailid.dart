@@ -20,6 +20,8 @@ class EntermailidLogin extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
 
+  EntermailidLogin({super.key});
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -39,7 +41,7 @@ class EntermailidLogin extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.black,
             leading: IconButton(
-              icon: Icon(CupertinoIcons.back,
+              icon: const Icon(CupertinoIcons.back,
                   color: Colors.white, size: 30.0), 
               onPressed: () {
                 Navigator.of(context).pop();
@@ -70,7 +72,7 @@ class EntermailidLogin extends StatelessWidget {
                         SizedBox(
                           height: screenWidth * .15,
                         ),
-                        CustomText(
+                        const CustomText(
                           text: "Forgot Password ?",
                           fontWeight: FontWeight.bold,
                           fontSize: 24,
@@ -79,7 +81,7 @@ class EntermailidLogin extends StatelessWidget {
                         SizedBox(
                           height: screenWidth * .050,
                         ),
-                        CustomText(
+                        const CustomText(
                           text: "Don't worry Please enter your email id .",
                           color: Colors.white,
                         ),
@@ -88,7 +90,7 @@ class EntermailidLogin extends StatelessWidget {
                         ),
                         Container(
                           height: screenWidth * .4,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: Colors.grey,
                             shape: BoxShape.circle,
                           ),

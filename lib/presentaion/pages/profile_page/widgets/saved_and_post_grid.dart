@@ -59,7 +59,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 class MyPostsGrid extends StatelessWidget {
   final List<MyPostModel> post;
 
-  MyPostsGrid({super.key, required this.post});
+  const MyPostsGrid({super.key, required this.post});
 
   @override
   Widget build(BuildContext context) {

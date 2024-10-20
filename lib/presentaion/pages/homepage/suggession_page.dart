@@ -12,7 +12,7 @@ import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
 
 
 class SuggessionPage extends StatefulWidget {
-  const SuggessionPage({Key? key}) : super(key: key);
+  const SuggessionPage({super.key});
 
   @override
   State<SuggessionPage> createState() => _SuggessionPageState();
@@ -24,7 +24,7 @@ class _SuggessionPageState extends State<SuggessionPage> {
     super.initState();
     context.read<SuggessionsBloc>().add(onSuggessionsIconclickedEvent());
   }
-   int _page = 1;
+   final int _page = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +113,7 @@ class _SuggessionPageState extends State<SuggessionPage> {
                                 Navigator.pushAndRemoveUntil(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => BottomNavBar()),
+                                      builder: (context) => const BottomNavBar()),
                                   (Route<dynamic> route) =>
                                       false, // This ensures the user cannot return to the suggestion page
                                 );
@@ -162,13 +162,13 @@ AppBar appBar(BuildContext context, double height, double width) {
           child: SizedBox(
             height: height * 0.05,
             width: width * 0.34,
-            child: Align(
+            child: const Align(
               alignment: Alignment.centerLeft,
               child: CustomGradientIcon(icon: CupertinoIcons.back),
             ),
           ),
         ),
-        Center(
+        const Center(
           child: CustomeLinearcolor(
             fontSize: 18,
             fontWeight: FontWeight.w600,

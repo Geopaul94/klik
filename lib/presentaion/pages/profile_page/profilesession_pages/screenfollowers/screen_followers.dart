@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/domain/model/explore_users_user_model.dart';
 import 'package:klik/domain/model/followers_model.dart';
@@ -46,7 +45,7 @@ class ScreenFollowers extends StatelessWidget {
           : ListView.builder(
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(
+                child: SizedBox(
                  
                   height: 60,
                   child: CustomListTile(

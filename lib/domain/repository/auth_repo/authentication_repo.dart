@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:klik/application/core/url/url_.dart';
@@ -146,20 +144,22 @@ class AuthenticationRepo {
 
         
         return response;
-      } else
+      } else {
         return response;
+      }
     } catch (e) {}
+    return null;
   }
 
   static Future<Response?> googleLogin(String email) async {
     try {
-      // print('9999999');
+    
       final finalEmail = {'email': email};
       var response = await client.post(
           Uri.parse(Apiurl.baseUrl + Apiurl.googleLogin),
           body: jsonEncode(finalEmail),
           headers: {"Content-Type": 'application/json'});
-      // print(ApiEndpoints.baseUrl+ApiEndpoints.googleLogin);
+    
       // print(response.body);
       if (response.statusCode == 200) {
         final responseBody = jsonDecode(response.body);

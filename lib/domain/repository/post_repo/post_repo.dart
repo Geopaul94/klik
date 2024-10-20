@@ -67,14 +67,14 @@ class PostRepo {
       var response = await client.delete(
           Uri.parse('${Apiurl.baseUrl}${Apiurl.deletePost}/$postId'),
           headers: {'Authorization': 'Bearer $token'});
-      debugPrint(response.statusCode.toString());
-      debugPrint(response.body);
+      log(response.statusCode.toString());
+      // debugPrint(response.body);
       debugPrint(
           'DELETE post API called ++++++++ ${response.statusCode.toString()}');
       checkStatusCode(response.statusCode);
       return response;
     } catch (e) {
-      debugPrint(e.toString());
+     log('Delete posts${e.toString()}');
       return null;
     }
   }
@@ -89,13 +89,14 @@ class PostRepo {
         headers: {'Authorization': 'Bearer $token'},
       );
 
-      // log(response.statusCode.toString());
+log(response.statusCode.toString());
+          log('Edit getall user post: Status Code: ${response.statusCode}');
       // debugPrint(response.body);
 
       checkStatusCode(response.statusCode);
       return response;
     } catch (e) {
-      log(e.toString());
+      log('Error getall posts${e.toString()}');
       return null;
     }
   }
@@ -109,12 +110,12 @@ class PostRepo {
         headers: {'Authorization': 'Bearer $token'},
       );
 
-      //  log('API Call for followerspost: Status Code: ${response.statusCode}');
+        log('API Call for followerspost: Status Code: ${response.statusCode}');
       //   log('API Response: ${response.body}');
       checkStatusCode(response.statusCode);
       return response;
     } catch (e) {
-      log('API Error: $e');
+      log('API Error followerspost:${e.toString()}');
       return null;
     }
   }
@@ -144,11 +145,12 @@ class PostRepo {
             'Authorization': 'Bearer $token'
           });
       log(response.statusCode.toString());
-      log(response.body);
+          log('Edit post: Status Code: ${response.statusCode}');
+    //  log(response.body);
       return response;
     } catch (e) {
-      log(e.toString());
-      return null;
+          log('Edit post Error: ${e.toString()}');
+               return null;
     }
   }
 
@@ -165,11 +167,11 @@ class PostRepo {
           });
 
       log('API Call for savepost: Status Code: ${response.statusCode}');
-      log('API Response: ${response.body}');
+  //    log('API Response: ${response.body}');
       checkStatusCode(response.statusCode);
       return response;
     } catch (e) {
-      log('Save post Error: $e');
+      log('Save post Error: ${e.toString()}');
       return null;
     }
   }
@@ -187,12 +189,12 @@ class PostRepo {
           });
 
       log('API Call for removesaved post: Status Code: ${response.statusCode}');
-       log('API Response: ${response.body}');
+     //  log('API Response: ${response.body}');
 
       checkStatusCode(response.statusCode);
       return response;
     } catch (e) {
-      log('remove post  Error: $e');
+      log('remove post  Error: ${e.toString()}');
       return null;
     }
   }
@@ -206,13 +208,14 @@ class PostRepo {
           Uri.parse('${Apiurl.baseUrl}${Apiurl.fetchSavedPost}'),
           headers: {'Authorization': 'Bearer $token'});
 
-      // log('API Call for fetchsavedposts: Status Code: ${response.statusCode}');
+       log('API Call for fetchsavedposts: Status Code: ${response.statusCode}');
       //   log('API Response: ${response.body}');
 
       checkStatusCode(response.statusCode);
       return response;
     } catch (e) {
-      log(e.toString());
+    
+      log("error in fetchsavedposts ${e.toString()}");
     }
   }
 
@@ -228,7 +231,7 @@ class PostRepo {
 
       checkStatusCode(response.statusCode);
 
-      // log('Status code of fetchpostby user: ${response.statusCode}');
+       log('Status code of fetchpostby user: ${response.statusCode}');
       // debugPrint('user posts suggestions: ${response.body}');
       return response;
     } catch (e) {
@@ -259,9 +262,9 @@ class PostRepo {
             'Authorization': 'Bearer $token',
             'Content-Type': 'application/json'
           });
-      //  checkStatusCode(response.statusCode);
+        checkStatusCode(response.statusCode);
 
-      // log('comment post status code : ${response.statusCode}');
+       log('comment post status code : ${response.statusCode}');
       // log(response.body);
       return response;
     } catch (e) {
@@ -291,22 +294,60 @@ class PostRepo {
   }
 
 //get all  comments
-  static Future getAllCommentPost({required String postId}) async {
-    try {
-      final token = await getUsertoken();
-      var response = await client.get(
-          Uri.parse('${Apiurl.baseUrl}${Apiurl.getAllComments}/$postId'),
-          headers: {'Authorization': 'Bearer $token'});
-      log('Status code of getallcomments user: ${response.statusCode}');
-      //       log('getallcomments: ${response.body}');
 
-      debugPrint(response.statusCode.toString());
-      checkStatusCode(response.statusCode);
-      return response;
-    } catch (e) {
-      log(" getallcomments user /////        error in fetching userposr ${e.toString()}");
-    }
+  // static Future getAllCommentPost({required String postId}) async {
+  //   try {
+  //     final token = await getUsertoken();
+  //     var response = await client.get(
+  //         Uri.parse('${Apiurl.baseUrl}${Apiurl.getAllComments}/$postId'),
+  //         headers: {'Authorization': 'Bearer $token'});
+  //     log('Status code of getallcomments user: ${response.statusCode}');
+  //     //       log('getallcomments: ${response.body}');
+
+  //     debugPrint(response.statusCode.toString());
+  //     checkStatusCode(response.statusCode);
+  //     return response;
+  //   } catch (e) {
+  //     log(" getallcomments user /////        error in fetching userposr ${e.toString()}");
+  //   }
+  // }
+ static Future<Response?> getAllCommentPost({required String postId}) async {
+  try {
+    final token = await getUsertoken();
+    final response = await client.get(
+      Uri.parse('${Apiurl.baseUrl}${Apiurl.getAllComments}/$postId'),
+      headers: {'Authorization': 'Bearer $token'},
+    );
+
+    log('Status code of getAllComments user: ${response.statusCode}');
+   // debugPrint(response.statusCode.toString());
+
+    // Check for status code (this could throw an exception)
+    checkStatusCode(response.statusCode);
+
+    return response; // Return the response object
+  } catch (e) {
+    log("getAllComments user ///// error in fetching user posts: ${e.toString()}");
+    // Optionally return a response with a specific status code
+    return null; // Return null to indicate an error occurred
   }
+
+
+
+
+
+ }
+
+
+
+
+
+
+
+
+
+
+
 
 // post unlike
 
@@ -400,8 +441,8 @@ class PostRepo {
     );
 
     if (response.statusCode == 200) {
-      log('Unlike post successful. Status code: ${response.statusCode}');
-      log(response.body);
+      log('Fetch all posts. Status code: ${response.statusCode}');
+     // log(response.body);
 
       return response;
     }

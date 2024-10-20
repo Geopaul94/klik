@@ -73,7 +73,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
         },
         child: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(kToolbarHeight),
+            preferredSize: const Size.fromHeight(kToolbarHeight),
             child: BlocBuilder<LoginUserDetailsBloc, LoginUserDetailsState>(
               builder: (context, state) {
                 if (state is LoginUserDetailsDataFetchSuccessState) {
@@ -93,8 +93,8 @@ class _ScreenProfileState extends State<ScreenProfile> {
                               PageTransition(
                                 type: PageTransitionType.rightToLeftJoined,
                                 childCurrent: widget,
-                                duration: Duration(milliseconds: 400),
-                                child: ScreenSettings(),
+                                duration: const Duration(milliseconds: 400),
+                                child: const ScreenSettings(),
                               ),
                             );
                           },
@@ -178,19 +178,19 @@ class _ScreenProfileState extends State<ScreenProfile> {
 
 
 
-                                // if (context.read<FetchFollowersBloc>().state
-                                //     is FetchFollowersSuccesState) {
-                                //   Navigator.of(context).push(
-                                //     MaterialPageRoute(
-                                //       builder: (ctx) => ScreenFollowers(
-                                //         model: (context
-                                //                 .read<FetchFollowersBloc>()
-                                //                 .state as FetchFollowersSuccesState)
-                                //             .followersModel,
-                                //       ),
-                                //     ),
-                                //   );
-                                // }
+                                if (context.read<FetchFollowersBloc>().state
+                                    is FetchFollowersSuccesState) {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (ctx) => ScreenFollowers(
+                                        model: (context
+                                                .read<FetchFollowersBloc>()
+                                                .state as FetchFollowersSuccesState)
+                                            .followersModel,
+                                      ),
+                                    ),
+                                  );
+                                }
 
 
                               },

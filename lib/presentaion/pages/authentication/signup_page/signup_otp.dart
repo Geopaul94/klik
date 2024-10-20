@@ -20,7 +20,7 @@ class RegisterOtp extends StatefulWidget {
   final UserModel user;
   final String email;
 
-  RegisterOtp({
+  const RegisterOtp({
     super.key,
     required this.email,
     required this.user,
@@ -123,20 +123,20 @@ class _RegisterOtpState extends State<RegisterOtp> {
                     ),
                     Row(
                       children: [
-                        CustomGradientIcon(
+                        const CustomGradientIcon(
                           icon: CupertinoIcons.back,
                           size: 32.0,
-                          gradientColors: const [Colors.blue, Colors.green],
+                          gradientColors: [Colors.blue, Colors.green],
                         ),
                         SizedBox(
                           width: height * 0.05,
                         ),
-                        CustomeLinearcolor(
+                        const CustomeLinearcolor(
                           text: 'Enter the OTP',
                           fontSize: 28.0,
                           fontWeight: FontWeight.bold,
                           textAlign: TextAlign.center,
-                          gradientColors: const [
+                          gradientColors: [
                             Colors.green,
                             Colors.blue,
                           ],
@@ -178,7 +178,7 @@ class _RegisterOtpState extends State<RegisterOtp> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CustomText(
+                        const CustomText(
                           text: "Enter the verification code that was sent to ",
                           color: Colors.white,
                         ),
@@ -260,7 +260,7 @@ class _RegisterOtpState extends State<RegisterOtp> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          CustomText(
+                          const CustomText(
                             text: "Didn't get the code?",
                             color: Colors.white,
                           ),

@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/customeAppbar_row.dart';
 import 'package:klik/domain/model/explore_users_user_model.dart';
-import 'package:klik/presentaion/bloc/get_connections_bloc/get_connections_bloc.dart';
 import 'package:klik/presentaion/bloc/profile_bloc/profile_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_following_bloc/fetch_following_bloc.dart';
 import 'package:klik/presentaion/bloc/follow_unfollow_user_bloc/unfollow_user_bloc.dart';
@@ -16,7 +14,7 @@ import 'package:multi_bloc_builder/multi_bloc_builder.dart';
 class ScreenExploreUserProfile extends StatefulWidget {
   final String userId;
   final UserIdSearchModel user;
-  ScreenExploreUserProfile(
+  const ScreenExploreUserProfile(
       {super.key, required this.userId, required this.user});
 
   @override
@@ -94,7 +92,7 @@ class _ScreenExploreUserProfileState extends State<ScreenExploreUserProfile> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                   ),
                   kheight,
-    
+                  Expanded(child: ExploreSession3()),
                 ],
               ),
             );

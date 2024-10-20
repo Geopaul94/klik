@@ -28,7 +28,7 @@ const Color oceanGreen = Color(0xFF48A9A6);
 const blueAccent = Colors.blueAccent;
 
 
-const Color customIconColor = Color(0xFFA1824A);
+const Color customIconColor = green;
 
 
 

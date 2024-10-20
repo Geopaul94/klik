@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 
 import 'package:flutter/widgets.dart';
-import 'package:http/http.dart';
 import 'package:klik/domain/repository/post_repo/post_repo.dart';
 
 part 'delete_comment_event.dart';

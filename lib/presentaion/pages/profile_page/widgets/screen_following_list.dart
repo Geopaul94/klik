@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klik/application/core/constants/constants.dart';
@@ -71,11 +70,11 @@ class FollowingList extends StatelessWidget {
               }
 
            return ListView.separated(
-            separatorBuilder: (context, index) => SizedBox(height: 4,),
+            separatorBuilder: (context, index) => const SizedBox(height: 4,),
                 itemBuilder: (context, index) => SizedBox(
                   height: 68,
                   child: Container(color: black,
-                  padding: EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(8),
                     child: CustomListTile(
                         onTap: () {
                           Navigator.push(

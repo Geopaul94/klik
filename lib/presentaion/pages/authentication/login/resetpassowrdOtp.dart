@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klik/application/core/constants/constants.dart';
@@ -92,13 +91,13 @@ class _ResetpassowrdotpState extends State<Resetpassowrdotp> {
                           Navigator.of(context).pop();
                           debugPrint('Back navigation in the OTP change page');
                         },
-                        child: CustomGradientIcon(
+                        child: const CustomGradientIcon(
                           icon: CupertinoIcons.back,
                           size: 40,
                         ),
                       ),
                       SizedBox(width: size.height * 0.040),
-                      CustomeLinearcolor(
+                      const CustomeLinearcolor(
                         text: "Enter the OTP",
                         fontWeight: FontWeight.bold,
                         fontSize: 28,

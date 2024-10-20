@@ -1,11 +1,8 @@
-import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
-import 'package:klik/domain/repository/post_repo/post_repo.dart';
 import 'package:klik/domain/repository/user_repo/user_repo.dart';
-import 'package:meta/meta.dart';
 
 part 'unfollow_user_event.dart';
 part 'unfollow_user_state.dart';

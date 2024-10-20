@@ -7,7 +7,7 @@ class TypewriterGradientText extends StatefulWidget {
   final Gradient gradient;
   final Duration speed;
 
-  const TypewriterGradientText({
+  const TypewriterGradientText({super.key, 
     required this.text,
     required this.style,
     required this.gradient,

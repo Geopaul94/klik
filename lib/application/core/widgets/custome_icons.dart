@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 
 class CustomGradientIcon extends StatelessWidget {
   final IconData icon;
   final double size;
   final List<Color> gradientColors;
 
-  CustomGradientIcon({
+  const CustomGradientIcon({super.key, 
     required this.icon,
     this.size = 24.0,
     this.gradientColors = const [Colors.blue, Colors.green],

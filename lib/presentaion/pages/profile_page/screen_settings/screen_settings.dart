@@ -24,9 +24,9 @@ class ScreenSettings extends StatelessWidget {
       body: Column(
         children: [
           Divider(color: grey100, thickness: 1),
-          Expanded(
+          const Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(10.0),
               child: CustomIconTextIconList(),
             ),
           ),
@@ -37,6 +37,8 @@ class ScreenSettings extends StatelessWidget {
 }
 
 class CustomIconTextIconList extends StatelessWidget {
+  const CustomIconTextIconList({super.key});
+
   @override
   Widget build(BuildContext context) {
     final List<ListItem> items = [
@@ -54,7 +56,7 @@ class CustomIconTextIconList extends StatelessWidget {
 
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AboutUsPage()),
+            MaterialPageRoute(builder: (context) => const AboutUsPage()),
           );
         },
       ),
@@ -70,7 +72,7 @@ class CustomIconTextIconList extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => PrivacyPoliciesPage()),
+            MaterialPageRoute(builder: (context) => const PrivacyPoliciesPage()),
           );
         },
       ),
@@ -86,7 +88,7 @@ class CustomIconTextIconList extends StatelessWidget {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => TermsAndConditionsPage()),
+            MaterialPageRoute(builder: (context) => const TermsAndConditionsPage()),
           );
         },
       ),
@@ -121,7 +123,7 @@ class CustomIconTextIconList extends StatelessWidget {
   }
 
   AlertDialog alertBox(BuildContext context) {
-    return AlertDialog(backgroundColor: Color.fromARGB(255, 26, 24, 24),
+    return AlertDialog(backgroundColor: const Color.fromARGB(255, 26, 24, 24),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -170,7 +172,7 @@ class CustomIconTextIconList extends StatelessWidget {
               Navigator.pushAndRemoveUntil(
                 context,
                 MaterialPageRoute(builder: (context) {
-                  return LoginPage();
+                  return const LoginPage();
                 }),
                 (Route<dynamic> route) => false,
               );
@@ -186,7 +188,7 @@ class CustomIconTextIconList extends StatelessWidget {
 class CustomListItemWidget extends StatelessWidget {
   final ListItem item;
 
-  const CustomListItemWidget({Key? key, required this.item}) : super(key: key);
+  const CustomListItemWidget({super.key, required this.item});
 
   @override
   Widget build(BuildContext context) {

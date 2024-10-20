@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:klik/domain/model/followers_post_model.dart';
-import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:klik/presentaion/bloc/like_unlike/like_unlike_bloc.dart';
-import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
 import 'package:klik/presentaion/pages/homepage/homepage.dart';
 
 import 'package:like_button/like_button.dart';
@@ -18,7 +15,7 @@ class CustomLikeButton extends StatefulWidget {
   final List  likes; 
   final String userId; 
 
-  CustomLikeButton({super.key, required this.postId, required this.likes, required this.userId});
+  const CustomLikeButton({super.key, required this.postId, required this.likes, required this.userId});
 
   @override
   State<CustomLikeButton> createState() => _CustomLikeButtonState();
@@ -43,7 +40,7 @@ class _CustomLikeButtonState extends State<CustomLikeButton> {
 
 
     
-    print("  ===================${_isLiked}");
+    print("  ===================$_isLiked");
 
     // Set initial like count
     _likeCount = widget.likes.length;
@@ -65,7 +62,7 @@ class _CustomLikeButtonState extends State<CustomLikeButton> {
           });
         } else if (state is LikePostErrorState || state is UnlikePostErrorState) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error liking/unliking post')),
+            const SnackBar(content: Text('Error liking/unliking post')),
           );
         }
       },
@@ -93,8 +90,8 @@ class _CustomLikeButtonState extends State<CustomLikeButton> {
               return !_isLiked;
             },
           ),
-          SizedBox(width: 8),
-          Text(_likeCount.toString(), style: TextStyle(color: Colors.white)),
+          const SizedBox(width: 8),
+          Text(_likeCount.toString(), style: const TextStyle(color: Colors.white)),
         ],
       ),
     );

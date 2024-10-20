@@ -4,7 +4,7 @@ class CustomPasswordField extends StatefulWidget {
   final TextEditingController controller;
   final String labelText;
 
-  CustomPasswordField({required this.controller, required this.labelText});
+  const CustomPasswordField({super.key, required this.controller, required this.labelText});
 
   @override
   _CustomPasswordFieldState createState() => _CustomPasswordFieldState();
@@ -25,7 +25,7 @@ class _CustomPasswordFieldState extends State<CustomPasswordField> {
       controller: widget.controller,
       obscureText: _obscureText,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.lock),
+        prefixIcon: const Icon(Icons.lock),
         suffixIcon: IconButton(
           icon: Icon(
             _obscureText ? Icons.visibility : Icons.visibility_off,
