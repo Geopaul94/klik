@@ -1,16 +1,15 @@
+import 'dart:async';
 
- import 'dart:async';
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/domain/model/get_userchatModel.dart';
 import 'package:klik/presentaion/bloc/fetchallconversation_bloc/fetch_all_conversations_bloc.dart';
-import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_screen.dart';
+import 'package:klik/presentaion/pages/message_page.dart/chat/chatscreen.dart';
 
-
-
+import 'package:klik/presentaion/pages/message_page.dart/widgets/messageloading_shimmer.dart';
 
 class ChatListScreen extends StatefulWidget {
   const ChatListScreen({super.key});
@@ -49,7 +48,34 @@ class _ChatListScreenState extends State<ChatListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Message', )),
+    
+
+appBar: AppBar(
+  backgroundColor: black,
+ 
+  title: Row(
+    children: [
+   
+      const Spacer(), 
+      ShaderMask(
+        shaderCallback: (bounds) => const LinearGradient(
+          colors: [Colors.green, Colors.blue],
+        ).createShader(bounds),
+        child: const Text(
+          "Message",
+          style: TextStyle(
+            fontSize: 26,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+      const Spacer(), 
+    ],
+  ),
+),
+
+  
       body: Column(
         children: [
           // Padding(
@@ -67,11 +93,11 @@ class _ChatListScreenState extends State<ChatListScreen> {
           Expanded(
             child: CustomMaterialIndicator(
               onRefresh: refresh,
-              child:
-                  BlocBuilder<FetchAllConversationsBloc, FetchAllConversationsState>(
+              child: BlocBuilder<FetchAllConversationsBloc,
+                  FetchAllConversationsState>(
                 builder: (context, state) {
                   if (state is FetchAllConversationsLoadingState) {
-                    return const Center(child: CircularProgressIndicator());
+                    return Center(child: ShimmerLoading());
                   } else if (state is FetchAllConversationsSuccesfulState) {
                     final conversations = state.conversations;
                     final users = state.otherUsers;
@@ -102,8 +128,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
                                   profilepic: user.profilePic,
                                   conversationId: conversation.id,
                                 ),
-
-),
+                              ),
                             );
                           },
                           child: _buildChatListItem(
@@ -137,14 +162,37 @@ class _ChatListScreenState extends State<ChatListScreen> {
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: grey,
+        color: black,
         borderRadius: BorderRadius.circular(15),
+        border: Border.all(
+          color:
+              const Color.fromARGB(255, 56, 76, 57), // Set the border color to green
+
+          width: 1, // Set the border thickness to 1
+        ),
       ),
       child: Row(
         children: [
-          CircleAvatar(
-            radius: 35,
-            backgroundImage: NetworkImage(profileImageUrl),
+          Container(
+            width: 70, // Set the width of the container
+            height: 70, // Set the height of the container
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(
+                  255, 216, 209, 209), // Background color for the container
+              borderRadius: BorderRadius.circular(10), // Small curved edges
+              border: Border.all(
+                color: const Color.fromARGB(255, 105, 182, 108), // Green border color
+                width: 1, // Border thickness
+              ),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(
+                  10), // Match the container's border radius
+              child: Image.network(
+                profileImageUrl,
+                fit: BoxFit.cover, // Ensure the image covers the entire area
+              ),
+            ),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -154,15 +202,15 @@ class _ChatListScreenState extends State<ChatListScreen> {
                 Text(
                   username,
                   style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
+                    color: Color.fromARGB(255, 180, 193, 203),
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 4),
                 Text(
                   messagePreview,
-                  style: TextStyle(color: Colors.grey[400]),
+                  style: const TextStyle(color: Colors.grey),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -174,7 +222,8 @@ class _ChatListScreenState extends State<ChatListScreen> {
             children: [
               Text(
                 messageTime,
-                style: TextStyle(color: Colors.grey[400], fontSize: 12),
+                style: const TextStyle(
+                    color: Color.fromARGB(255, 216, 199, 199), fontSize: 12),
               ),
             ],
           ),
@@ -183,4 +232,3 @@ class _ChatListScreenState extends State<ChatListScreen> {
     );
   }
 }
-

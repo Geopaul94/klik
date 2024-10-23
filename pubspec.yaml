@@ -75,6 +75,10 @@ dependencies:
   socket_io_client: ^3.0.0
   custom_refresh_indicator: ^4.0.1
   nuts_activity_indicator: ^1.0.0
+  redacted: ^1.0.12
+  flutter_spinkit: ^5.2.1
+  image_cropper: ^8.0.2
+  crop_image: ^1.0.13
   
   
 

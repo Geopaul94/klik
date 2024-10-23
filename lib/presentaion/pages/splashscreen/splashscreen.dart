@@ -3,6 +3,7 @@ import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/custome_linear%20colorgradient.dart';
 import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
 import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
+import 'package:klik/presentaion/pages/homepage/homepage.dart';
 
 
 
@@ -60,7 +61,7 @@ Future<void> checkUserLogin(context) async {
   final preferences = await SharedPreferences.getInstance();
   final userLoggedIn = preferences.get(authKey);
   debugPrint(userLoggedIn.toString());
-  if (userLoggedIn == null || userLoggedIn == false) {
+  if (userLoggedIn == null || userLoggedIn == false ) {
     await Future.delayed(const Duration(seconds: 6));
     Navigator.of(context).pushReplacement(MaterialPageRoute(
       builder: (context) => const LoginPage(),
@@ -71,3 +72,5 @@ Future<void> checkUserLogin(context) async {
       builder: (context) =>  const BottomNavBar()
  ) );}
 }
+
+

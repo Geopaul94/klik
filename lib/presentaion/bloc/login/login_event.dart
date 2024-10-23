@@ -12,6 +12,5 @@ class onLoginButtonClickedEvent extends LoginEvent {
 
 class onGoogleButtonClickedEvent extends LoginEvent {
 
-
   onGoogleButtonClickedEvent();
 }

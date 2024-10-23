@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:klik/application/core/constants/constants.dart';
+import 'package:klik/application/core/widgets/customanimation_explore_page_loading.dart';
 import 'package:klik/application/core/widgets/custome_loading_progress.dart';
 import 'package:klik/presentaion/bloc/explorerposts_bloc/explorerpost_bloc.dart';
 import 'package:klik/presentaion/bloc/search_user_bloc/explore_page_search_users_bloc.dart';
@@ -93,15 +95,27 @@ class _ScreenSearchState extends State<ScreenSearch> {
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding:  const EdgeInsets.symmetric(horizontal: 8.0),
         child: BlocBuilder<ExplorerpostBloc, ExplorerpostState>(
           builder: (context, state) {
-            if (state is ExplorerpostLoadingState) {
-              return const SizedBox(
-                  width: double.infinity,
-                  height: double.infinity,
-                  child: Center(child: CircularProgressIndicator()));
-            } else if (state is ExplorerpostSuccesstate) {
+       
+            
+ if (state is ExplorerpostLoadingState) {
+      return   SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: Center(
+          child:  SpinningLinesExample()
+        ),
+      );
+    }
+
+
+
+ 
+    
+            
+             else if (state is ExplorerpostSuccesstate) {
               if (onchangevalue.isEmpty) {
                 return postsGridViewWidget(state, media, context, _onRefresh);
               } else {

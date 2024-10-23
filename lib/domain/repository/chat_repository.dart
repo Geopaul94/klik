@@ -24,7 +24,7 @@ class ChatRepo {
           });
       return response;
     } catch (e) {
-      log(e.toString());
+  log('createConversation Error: ${e.toString()}');
     }
   }
 
@@ -36,9 +36,10 @@ class ChatRepo {
           Uri.parse(
               '${Apiurl.baseUrl}${Apiurl.getAllConversations}'),
           headers: {'Authorization': 'Bearer $token'});
+     log('getAllConversations Error: $response');
       return response;
     } catch (e) {
-      log(e.toString());
+ log('getAllConversations Error: ${e.toString()}');
     }
   }
 
@@ -65,7 +66,7 @@ class ChatRepo {
           });
       return response;
     } catch (e) {
-      log(e.toString());
+ log('addMessage Error: ${e.toString()}');
     }
   }
 
@@ -77,9 +78,11 @@ class ChatRepo {
           Uri.parse(
               '${Apiurl.baseUrl}${Apiurl.getAllMessages}/$conversationId'),
           headers: {'Authorization': 'Bearer $token'});
+
+                print(  'messages 11111111111111111111111111111111111   ${response.toString()} ');
       return response;
     } catch (e) {
-      log(e.toString());
+     log('getAllMessages Error: ${e.toString()}');
     }
   }
 }

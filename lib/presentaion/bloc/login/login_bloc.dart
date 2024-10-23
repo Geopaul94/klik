@@ -51,7 +51,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } else {
         emit(LogingLoadingErrorState(error: "account not found "));
       }
-      // TODO: implement event handler
+   
     });
   }
 }

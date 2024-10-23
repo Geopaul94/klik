@@ -9,5 +9,11 @@ final class FetchFollowersSuccesState extends FetchfollowersState {
 
   FetchFollowersSuccesState({required this.followersModel});
 }
-final class FetchFollowersErrorState extends FetchfollowersState {}
+final class FetchFollowersErrorState extends FetchfollowersState {
+
+
+  final String error;
+
+  FetchFollowersErrorState({required this.error});
+}
 final class FetchFollowersLoadingState extends FetchfollowersState {}

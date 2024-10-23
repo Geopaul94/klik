@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/CustomElevatedButton.dart';
 import 'package:klik/application/core/widgets/CustomeAppbar.dart';
+import 'package:klik/application/core/widgets/customanimation_explore_page_loading.dart';
 import 'package:klik/application/core/widgets/custome_button.dart';
 import 'package:klik/application/core/widgets/custome_snackbar.dart';
 import 'package:klik/presentaion/bloc/add_post/add_post_bloc.dart';
@@ -73,7 +75,20 @@ class _AddPostState extends State<AddPost> {
                           return Column(
                             children: [
                               if (state is ImagePickedLoadingState)
-                                const Center(child: CircularProgressIndicator())
+                                const Center(
+                                    child:
+                                    CircularProgressIndicator()
+                                    
+                                    //  Container(
+                                    //     height: 500,
+                                    //     width: 400,
+                                    //     color: black,
+                                    //     child: SpinningLinesExample()
+                                        
+                                    //     )
+                                        
+                                        
+                                        )
                               else if (state is ImagePickedSuccessState)
                                 AddPhotoContainer(
                                   imageFile: state.imageFile,
@@ -141,6 +156,12 @@ class _AddPostState extends State<AddPost> {
                           );
                         },
                       ),
+                      SizedBox(height: size.height * .02),
+                      Image.asset(
+                        'assets/headline.png',
+                        height: size.height * .15,
+                        width: size.width * .45,
+                      ),
                     ],
                   ),
                 ),
@@ -152,3 +173,10 @@ class _AddPostState extends State<AddPost> {
     );
   }
 }
+
+
+
+
+
+
+

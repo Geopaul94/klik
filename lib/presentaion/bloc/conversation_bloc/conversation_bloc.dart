@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
@@ -31,7 +32,7 @@ FutureOr<void> createConversationButtonClickEvent(
     debugPrint('create conversation response body-${response.body}');
     
     // Parsing the response
-    final Map<String, dynamic> responseData = jsonDecode(response.body);
+    final Map<String, dynamic> responseData =await jsonDecode(response.body);
     
     // Check if the status code is 200 and 'data' exists in the response
     if (response.statusCode == 200 && responseData.containsKey('data')) {
@@ -58,26 +59,77 @@ FutureOr<void> createConversationButtonClickEvent(
 }
 
 
-  FutureOr<void> getAllMessagesInitialFetchEvent(
-      GetAllMessagesInitialFetchEvent event,
-      Emitter<ConversationState> emit) async {
-    emit(GetAllMessagesLoadingState());
+//   FutureOr<void> getAllMessagesInitialFetchEvent(
+//       GetAllMessagesInitialFetchEvent event,
+//       Emitter<ConversationState> emit) async {
+//     emit(GetAllMessagesLoadingState());
+//     final Response response =
+//         await ChatRepo.getAllMessages(conversationId: event.conversationId);
+//     debugPrint("get all messages statuscode-${response.statusCode}");
+//     if (response.statusCode == 200) {
+//       final jsonResponse =await jsonDecode(response.body);
+
+
+//       log( jsonResponse);
+//       final List<dynamic>? dataList = jsonResponse['data'] as List<dynamic>?;
+// if (dataList == null) {
+//   throw Exception("Expected a list but got something else");
+// }
+
+//       messagesList =
+//           dataList.map((json) => AllMessagesModel.fromJson(json)).toList();
+  
+
+//       messagesList.sort(
+//   (a, b) => a.createdAt.compareTo(b.createdAt),
+// );
+
+//       emit(GetAllMessagesSuccesfulState(messagesList: messagesList));
+//     } else {
+//       emit(GetAllMessagesErrorState());
+//     }
+//   }
+
+
+
+FutureOr<void> getAllMessagesInitialFetchEvent(
+    GetAllMessagesInitialFetchEvent event,
+    Emitter<ConversationState> emit) async {
+  emit(GetAllMessagesLoadingState());
+  try {
     final Response response =
         await ChatRepo.getAllMessages(conversationId: event.conversationId);
     debugPrint("get all messages statuscode-${response.statusCode}");
     if (response.statusCode == 200) {
-      final jsonResponse =await jsonDecode(response.body);
-      final List<dynamic> dataList =await jsonResponse['data'];
-      messagesList =
-          dataList.map((json) => AllMessagesModel.fromJson(json)).toList();
-      messagesList.sort(
-        (a, b) => a.createdAt.compareTo(b.createdAt),
-      );
+      final jsonResponse = await jsonDecode(response.body);
+    log(jsonResponse.toString() as num);  // Log the JSON response to inspect structure
+
+      final List<dynamic>? dataList = jsonResponse['data'] as List<dynamic>?;
+      if (dataList == null) {
+        throw Exception("Expected a list but got something else");
+      }
+
+      messagesList = dataList.map((json) => AllMessagesModel.fromJson(json)).toList();
+      
+      // Ensure that `createdAt` is a DateTime or num and is sorted correctly
+      messagesList.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+
       emit(GetAllMessagesSuccesfulState(messagesList: messagesList));
     } else {
       emit(GetAllMessagesErrorState());
     }
+  } catch (e) {
+    debugPrint('Exception occurred: $e');
+    emit(GetAllMessagesErrorState());
   }
+}
+
+
+
+
+
+
+
 
   FutureOr<void> addNewMessageEvent(
       AddNewMessageEvent event, Emitter<ConversationState> emit) async {

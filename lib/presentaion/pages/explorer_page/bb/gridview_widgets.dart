@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:klik/application/core/constants/constants.dart';
+import 'package:klik/application/core/widgets/customanimation_explore_page_loading.dart';
+import 'package:klik/application/core/widgets/custome_loading_progress.dart';
 import 'package:klik/application/core/widgets/errorstate_widget.dart';
 import 'package:klik/presentaion/bloc/explorerposts_bloc/explorerpost_bloc.dart';
 import 'package:klik/presentaion/bloc/search_user_bloc/explore_page_search_users_bloc.dart';
@@ -13,8 +16,8 @@ import 'package:klik/presentaion/pages/profile_page/widgets/exploring_user_profi
 Widget postsGridViewWidget(ExplorerpostSuccesstate state, Size media,
     BuildContext context, Future<void> Function() onrefresh) {
   if (state.posts.isEmpty) {
-    return errorStateWidget(
-        "No posts available ", const TextStyle(fontWeight: FontWeight.w600), red);
+    return errorStateWidget("No posts available ",
+        const TextStyle(fontWeight: FontWeight.w600), red);
   }
 
   return RefreshIndicator(
@@ -43,10 +46,24 @@ Widget postsGridViewWidget(ExplorerpostSuccesstate state, Size media,
                 fit: BoxFit.cover,
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress == null) return child;
-                  return const Center(
-                    //   child:
-                    child: CircularProgressIndicator()
-                  );
+                   return Center(
+
+          child: SizedBox(
+
+            width: 80, // Define a width
+
+            height: 80, // Define a height
+
+            child:   SpinKitPulsingGrid(
+
+                  color: Colors.green, // Set your desired color
+
+                  size: 50.0, // Set the size of the grid
+
+                ),
+          ),
+
+        );
                 },
                 errorBuilder: (context, error, stackTrace) {
                   return const Icon(

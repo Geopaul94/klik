@@ -8,14 +8,25 @@ import 'package:klik/presentaion/bloc/conversation_bloc/conversation_bloc.dart';
 
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
+
+
+
+
+
+
+
 class SocketService {
   io.Socket socket = io.io(
-    'wss://4tlmk160-7002.asse.devtunnels.ms',
+      'http://13.235.254.238/api',
+      //  '43.205.209.18',
     io.OptionBuilder()
         .setTransports(['websocket'])
         .disableAutoConnect()
         .build(),
   );
+
+
+
 
   void connectSocket({required BuildContext context}) async {
     final BuildContext? ctx = NavigationService.navigatorKey.currentContext;
@@ -45,7 +56,9 @@ class SocketService {
               .read<ConversationBloc>()
               .add(AddNewMessageEvent(message: message));
         }
-  
+        //   context
+        //       .read<FetchAllConversationsBloc>()
+        //       .add(AllConversationsInitialFetchEvent());
         context
             .read<ConversationBloc>()
             .add(AddNewMessageEvent(message: message));
@@ -64,6 +77,7 @@ class SocketService {
   }
 
   sendMessgage(String message, String receiverId, String senderId) {
+    print("mesage ${message }  ${receiverId }  ${senderId }  ");
     socket.emit('sendMessage', {
       "senderId": senderId,
       "recieverId": receiverId,

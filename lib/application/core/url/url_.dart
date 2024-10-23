@@ -1,6 +1,6 @@
 class Apiurl {
   //base url
-  static const String baseUrl = "https://4tlmk160-7002.asse.devtunnels.ms/api";
+  static const String baseUrl =  'http://13.235.254.238/api';
 
   
 

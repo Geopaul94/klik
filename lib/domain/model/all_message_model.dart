@@ -23,19 +23,39 @@ class AllMessagesModel {
     required this.v,
   });
 
+  // factory AllMessagesModel.fromJson(Map<String, dynamic> json) =>
+  //     AllMessagesModel(
+  //       id: json["_id"],
+  //       senderId: json["senderId"],
+  //       recieverId: json["recieverId"],
+  //       conversationId: json["conversationId"],
+  //       text: json["text"],
+  //       isRead: json["isRead"],
+  //       deleteType: json["deleteType"],
+  //       createdAt: DateTime.parse(json["createdAt"]),
+  //       updatedAt: DateTime.parse(json["updatedAt"]),
+  //       v: json["__v"],
+  //     );
+
+
+
   factory AllMessagesModel.fromJson(Map<String, dynamic> json) =>
-      AllMessagesModel(
-        id: json["_id"],
-        senderId: json["senderId"],
-        recieverId: json["recieverId"],
-        conversationId: json["conversationId"],
-        text: json["text"],
-        isRead: json["isRead"],
-        deleteType: json["deleteType"],
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        v: json["__v"],
-      );
+    AllMessagesModel(
+      id: json["_id"],
+      senderId: json["senderId"],
+      recieverId: json["recieverId"],
+      conversationId: json["conversationId"],
+      text: json["text"],
+      isRead: json["isRead"],
+      deleteType: json["deleteType"],
+      createdAt: json["createdAt"] != null
+          ? DateTime.parse(json["createdAt"])
+          : DateTime.now(),  // Handle missing or invalid date
+      updatedAt: json["updatedAt"] != null
+          ? DateTime.parse(json["updatedAt"])
+          : DateTime.now(),  // Handle missing or invalid date
+      v: json["__v"],
+    );
 
   Map<String, dynamic> toJson() => {
         "_id": id,

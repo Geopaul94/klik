@@ -12,7 +12,8 @@ import 'package:klik/presentaion/bloc/fetchallconversation_bloc/fetch_all_conver
 import 'package:klik/presentaion/bloc/follow_unfollow_user_bloc/unfollow_user_bloc.dart';
 import 'package:klik/presentaion/bloc/get_connections_bloc/get_connections_bloc.dart';
 import 'package:klik/presentaion/bloc/profile_bloc/profile_bloc.dart';
-import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_screen.dart';
+
+import 'package:klik/presentaion/pages/message_page.dart/chat/chatscreen.dart';
 
 import 'package:klik/presentaion/pages/profile_page/my_post_delete_edit/my_post_page.dart';
 import 'package:klik/presentaion/pages/profile_page/profile_session_pages.dart';

@@ -13,7 +13,8 @@ import 'package:klik/presentaion/bloc/profile_bloc/profile_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_following_bloc/fetch_following_bloc.dart';
 import 'package:klik/presentaion/bloc/follow_unfollow_user_bloc/unfollow_user_bloc.dart';
 import 'package:klik/presentaion/pages/homepage/homepage.dart';
-import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_screen.dart';
+
+import 'package:klik/presentaion/pages/message_page.dart/chat/chatscreen.dart';
 import 'package:klik/presentaion/pages/profile_page/profile_session_pages.dart';
 import 'package:klik/presentaion/pages/profile_page/profilesession_pages/profile_succes_dummy_container.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/loading_animation_and_error_idget.dart';

@@ -223,16 +223,7 @@ class Myposts_card extends StatelessWidget {
                   ),
                 ],
               ),
-              // IconButton(
-              //   icon: Icon(
-              //     CupertinoIcons.bookmark,
-              //     color: Colors.white,
-              //     size: height * 0.03,
-              //   ),
-              //   onPressed: () {
-              //     // Save button pressed
-              //   },
-              // ),
+             
             ],
           );
   }

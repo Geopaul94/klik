@@ -98,9 +98,7 @@ class MyApp extends StatelessWidget {
         title: 'Klik',
         darkTheme: ThemeData.dark(),
         themeMode: ThemeMode.dark,
-        home: const ConnectivityListener(
-          child: SplashScreen(),
-        ),
+        home: SplashScreen(),
       ),
     );
   }

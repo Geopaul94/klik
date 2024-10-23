@@ -21,6 +21,7 @@ import 'package:klik/presentaion/pages/homepage/add_comment.dart';
 import 'package:klik/presentaion/pages/homepage/like_button.dart';
 import 'package:klik/presentaion/pages/homepage/suggession_page.dart';
 import 'package:klik/presentaion/pages/profile_page/profile_page.dart';
+import 'package:klik/services/socket/socket.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:multi_bloc_builder/multi_bloc_builder.dart';
 
@@ -42,6 +43,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
+
+   //  SocketService().connectSocket(context: context);
     context
         .read<GetfollowersPostBloc>()
         .add(FetchFollowersPostEvent(page: _page));
@@ -89,7 +92,8 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
             } else {
-              return MultiBlocListener(
+              return 
+              MultiBlocListener(
                 listeners: [
                   BlocListener<FetchSavedPostsBloc, FetchSavedPostsState>(
                     listener: (context, savedpoststate) {
@@ -431,3 +435,13 @@ class _HomPage_cardState extends State<HomPage_card> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+

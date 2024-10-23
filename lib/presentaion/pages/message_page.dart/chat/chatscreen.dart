@@ -1,11 +1,13 @@
-
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/domain/model/all_message_model.dart';
 import 'package:klik/presentaion/bloc/add_message/add_message_bloc.dart';
 import 'package:klik/presentaion/bloc/conversation_bloc/conversation_bloc.dart';
 import 'package:klik/presentaion/bloc/fetchallconversation_bloc/fetch_all_conversations_bloc.dart';
-import 'package:klik/presentaion/pages/message_page.dart/bchatpages/date_divider.dart';
+import 'package:klik/presentaion/pages/message_page.dart/chat/date_divider.dart';
+import 'package:klik/presentaion/pages/message_page.dart/widgets/messageloading_shimmer.dart';
 
 import 'package:klik/presentaion/pages/profile_page/my_post_delete_edit/my_post_page.dart';
 import 'package:klik/services/socket/socket.dart';
@@ -45,104 +47,163 @@ class _ChatScreenState extends State<ChatScreen> {
         );
   }
 
-
-@override
+  @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         toolbarHeight: 70,
-        backgroundColor: Colors.white,
+        backgroundColor: black,
         elevation: 1.5,
         leading: IconButton(
           onPressed: () => Navigator.of(context).pop(),
-          icon: const Icon(
-            Icons.arrow_back,
-            color: Colors.black,
+          icon: ShaderMask(
+            shaderCallback: (bounds) => const LinearGradient(
+              colors: [Colors.green, Colors.blue], // Gradient colors
+            ).createShader(bounds),
+            child: const Icon(
+              CupertinoIcons.back,
+              size: 24, // Adjust size as needed
+              color: Colors.white, // Set to white to see the gradient
+            ),
           ),
         ),
         title: Row(
+          mainAxisAlignment:
+              MainAxisAlignment.spaceBetween, // Align children horizontally
           children: [
-            CircleAvatar(
-              radius: 25,
-              backgroundImage: NetworkImage(widget.profilepic),
+            const SizedBox(
+                width: 10), // Add some space between the icon and the username
+            Expanded(
+              child: Align(
+                alignment: Alignment.center, // Center the username horizontally
+                child: ShaderMask(
+                  shaderCallback: (bounds) => const LinearGradient(
+                    colors: [Colors.green, Colors.blue], // Gradient colors
+                  ).createShader(bounds),
+                  child: Text(
+                    widget.username,
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w300,
+                      color: Colors.white, // Set to white to see the gradient
+                    ),
+                  ),
+                ),
+              ),
             ),
-            const SizedBox(width: 10),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  widget.username,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black,
-                  ),
+            Container(
+              width: 50, // Adjust size to be larger than the CircleAvatar
+              height: 50, // Adjust size to be larger than the CircleAvatar
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Colors.green, // Border color
+                  width: 1, // Border width
                 ),
-                Text(
-                  widget.name.isEmpty ? 'Guest User' : widget.name,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey,
-                  ),
-                ),
-              ],
+              ),
+              child: CircleAvatar(
+                radius:
+                    25, // This should be half of the Container's width/height
+                backgroundImage: NetworkImage(widget.profilepic),
+              ),
             ),
           ],
         ),
+// IconButton(
+//   onPressed: () => Navigator.of(context).pop(),
+//   icon: ShaderMask(
+//     shaderCallback: (bounds) => LinearGradient(
+//       colors: [Colors.green, Colors.blue], // Gradient colors
+//     ).createShader(bounds),
+//     child: const Icon(
+//       CupertinoIcons.back,
+//       size: 24, // Adjust size as needed
+//       color: Colors.white, // Set to white to see the gradient
+//     ),
+//   ),
+// ),
+// title: Row(
+//   mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align children horizontally
+//   children: [
+//     ShaderMask(
+//       shaderCallback: (bounds) => LinearGradient(
+//         colors: [Colors.green, Colors.blue], // Gradient colors
+//       ).createShader(bounds),
+//       child: Text(
+//         widget.username,
+//         style: const TextStyle(
+//           fontSize: 24,
+//           fontWeight: FontWeight.w300,
+//           color: Colors.white, // Set to white to see the gradient
+//         ),
+//       ),
+//     ),
+//     CircleAvatar(
+//       radius: 25,
+//       backgroundImage: NetworkImage(widget.profilepic),
+//     ),
+//   ],
+// ),
       ),
-      body: Form(
-        key: _formkey,
-        child: Column(
-          children: [
-            Expanded(
-              child: BlocConsumer<ConversationBloc, ConversationState>(
-                listener: (context, state) {},
-                builder: (context, state) {
-                  if (state is GetAllMessagesLoadingState) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                  if (state is GetAllMessagesSuccesfulState) {
-                    List<DateTime> dates = [];
-                    List<List<AllMessagesModel>> messagesByDate = [];
-                    for (var message in state.messagesList) {
-                      DateTime date = DateTime(
+      body: Container(
+        color: const Color.fromARGB(
+            255, 27, 26, 26), // Set background color to white
+        child: Form(
+          key: _formkey,
+          child: Column(
+            children: [
+              Expanded(
+                child: BlocConsumer<ConversationBloc, ConversationState>(
+                  listener: (context, state) {},
+                  builder: (context, state) {
+                    if (state is GetAllMessagesLoadingState) {
+                      return Center(
+                        child: ShimmerLoading(),
+                      );
+                    }
+                    if (state is GetAllMessagesSuccesfulState) {
+                      List<DateTime> dates = [];
+                      List<List<AllMessagesModel>> messagesByDate = [];
+                      for (var message in state.messagesList) {
+                        DateTime date = DateTime(
                           message.createdAt.year,
                           message.createdAt.month,
-                          message.createdAt.day);
-                      if (!dates.contains(date)) {
-                        dates.add(date);
-                        messagesByDate.add([message]);
-                      } else {
-                        messagesByDate.last.add(message);
-                      }
-                    }
-                    dates = dates.reversed.toList();
-                    messagesByDate = messagesByDate.reversed.toList();
-                    return ListView.builder(
-                      controller: scrollController,
-                      itemCount: dates.length,
-                      reverse: true,
-                      itemBuilder: (context, index) {
-                        return Column(
-                          children: [
-                            DateDivider(date: dates[index]),
-                            ...messagesByDate[index]
-                                .map((message) => getMessageCard(message)),
-                          ],
+                          message.createdAt.day,
                         );
-                      },
-                    );
-                  } else {
-                    return const SizedBox();
-                  }
-                },
+                        if (!dates.contains(date)) {
+                          dates.add(date);
+                          messagesByDate.add([message]);
+                        } else {
+                          messagesByDate.last.add(message);
+                        }
+                      }
+                      dates = dates.reversed.toList();
+                      messagesByDate = messagesByDate.reversed.toList();
+                      return ListView.builder(
+                        controller: scrollController,
+                        itemCount: dates.length,
+                        reverse: true,
+                        itemBuilder: (context, index) {
+                          return Column(
+                            children: [
+                              DateDivider(date: dates[index]),
+                              ...messagesByDate[index]
+                                  .map((message) => getMessageCard(message)),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
+                ),
               ),
-            ),
-            _buildMessageInput(context),
-          ],
+              _buildMessageInput(context),
+            ],
+          ),
         ),
       ),
     );
@@ -158,11 +219,9 @@ class _ChatScreenState extends State<ChatScreen> {
               controller: _messageController,
               maxLines: 1,
               minLines: 1,
-
-
-decoration: InputDecoration(
+              decoration: InputDecoration(
                 filled: true,
-                fillColor: Colors.grey[200],
+                fillColor: const Color.fromARGB(255, 65, 60, 60),
                 hintText: 'Type a message...',
                 contentPadding:
                     const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
@@ -198,12 +257,11 @@ decoration: InputDecoration(
                 );
                 BlocProvider.of<ConversationBloc>(context)
                     .add(AddNewMessageEvent(message: message));
-                context.read<AddMessageBloc>().add(
-                    AddMessageButtonClickEvent(
-                        message: _messageController.text,
-                        senderId: logginedUserId,
-                        recieverId: widget.recieverid,
-                        conversationId: widget.conversationId));
+                context.read<AddMessageBloc>().add(AddMessageButtonClickEvent(
+                    message: _messageController.text,
+                    senderId: logginedUserId,
+                    recieverId: widget.recieverid,
+                    conversationId: widget.conversationId));
                 context
                     .read<FetchAllConversationsBloc>()
                     .add(AllConversationsInitialFetchEvent());
@@ -212,7 +270,7 @@ decoration: InputDecoration(
             },
             child: const CircleAvatar(
               radius: 25,
-              backgroundColor: Colors.blue,
+              backgroundColor: green,
               child: Icon(
                 Icons.send,
                 color: Colors.white,
@@ -225,33 +283,33 @@ decoration: InputDecoration(
   }
 
   Widget getMessageCard(AllMessagesModel message) {
-  bool isSender = message.senderId == logginedUserId; // Check if the current user is the sender
+    bool isSender = message.senderId ==
+        logginedUserId; // Check if the current user is the sender
 
-  return Align(
-    alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
-    child: Container(
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-      padding: const EdgeInsets.all(10),
-      constraints: BoxConstraints(
-        maxWidth: MediaQuery.of(context).size.width * 0.75,
-      ),
-      decoration: BoxDecoration(
-        color: isSender ? Colors.blue : Colors.grey[200],
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(isSender ? 12 : 0),
-          topRight: Radius.circular(isSender ? 0 : 12),
-          bottomLeft: const Radius.circular(12),
-          bottomRight: const Radius.circular(12),
+    return Align(
+      alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+        padding: const EdgeInsets.all(10),
+        constraints: BoxConstraints(
+          maxWidth: MediaQuery.of(context).size.width * 0.75,
+        ),
+        decoration: BoxDecoration(
+          color: isSender ? green : Colors.grey[200],
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(isSender ? 12 : 0),
+            topRight: Radius.circular(isSender ? 0 : 12),
+            bottomLeft: const Radius.circular(12),
+            bottomRight: const Radius.circular(12),
+          ),
+        ),
+        child: Text(
+          message.text,
+          style: TextStyle(
+            color: isSender ? Colors.white : Colors.black,
+          ),
         ),
       ),
-      child: Text(
-        message.text,
-        style: TextStyle(
-          color: isSender ? Colors.white : Colors.black,
-        ),
-      ),
-    ),
-  );
-}
-
+    );
+  }
 }
