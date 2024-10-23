@@ -6,6 +6,7 @@ import 'package:klik/presentaion/bloc/bottomanav_mainpages.dart/cubit/bottomnavi
 import 'package:klik/presentaion/pages/explorer_page/bb/screen_search.dart';
 
 import 'package:klik/presentaion/pages/homepage/homepage.dart';
+import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_persons_list/chat_persons_list.dart';
 import 'package:klik/presentaion/pages/message_page.dart/chat/chat_page.dart';
 
 
@@ -41,7 +42,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     const HomePage(),
      const ScreenSearch(),
     const AddPost(),
-     const ChatListScreen(),
+     const ChatPersonsList(),
     const ScreenProfile()
   ];
 

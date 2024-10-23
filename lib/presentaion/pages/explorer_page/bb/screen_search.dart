@@ -42,16 +42,8 @@ class _ScreenSearchState extends State<ScreenSearch> {
     var media = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).brightness == Brightness.light
-            ? kwhiteColor
-            : black,
-        leading: IconButton(
-          icon: const Icon(CupertinoIcons.back,
-              color: Colors.black), // Back arrow icon
-          onPressed: () {
-            Navigator.pop(context); // Action to go back
-          },
-        ),
+        backgroundColor: black,
+       
         title: ShaderMask(
           shaderCallback: (Rect bounds) {
             return const LinearGradient(

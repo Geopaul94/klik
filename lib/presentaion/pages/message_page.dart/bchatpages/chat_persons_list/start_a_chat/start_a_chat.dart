@@ -1,6 +1,4 @@
 
-
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klik/application/core/constants/constants.dart';
@@ -9,22 +7,22 @@ import 'package:klik/presentaion/bloc/conversation_bloc/conversation_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_followers_bloc/fetchfollowers_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_following_bloc/fetch_following_bloc.dart';
 import 'package:klik/presentaion/bloc/fetchallconversation_bloc/fetch_all_conversations_bloc.dart';
-import 'package:klik/presentaion/pages/homepage/suggession_page.dart';
-import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_screen.dart';
+import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_page/chat_screen.dart';
+import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_persons_list/start_a_chat/rich_text.dart';
 import 'package:klik/presentaion/pages/message_page.dart/chat/chatscreen.dart';
-
 import 'package:klik/presentaion/pages/profile_page/my_post_delete_edit/my_post_page.dart';
 import 'package:klik/presentaion/pages/profile_page/simmer_widget.dart';
 import 'package:multi_bloc_builder/multi_bloc_builder.dart';
 
-class NewChatScreen extends StatefulWidget {
-  const NewChatScreen({super.key});
+
+class StartAChat extends StatefulWidget {
+  const StartAChat({super.key});
 
   @override
-  State<NewChatScreen> createState() => _NewChatScreenState();
+  State<StartAChat> createState() => _StartAChatState();
 }
 
-class _NewChatScreenState extends State<NewChatScreen> {
+class _StartAChatState extends State<StartAChat> {
   @override
   void initState() {
     context.read<FetchFollowingBloc>().add(OnFetchFollowingUsersEvent());
@@ -36,10 +34,10 @@ class _NewChatScreenState extends State<NewChatScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).brightness == Brightness.light
-            ? kwhiteColor
+            ? white
             : black,
         surfaceTintColor: Theme.of(context).brightness == Brightness.light
-            ? kwhiteColor
+            ? white
             : black,
         leading: IconButton(
             onPressed: () {
@@ -48,7 +46,10 @@ class _NewChatScreenState extends State<NewChatScreen> {
             icon: const Icon(Icons.arrow_back_ios_new_rounded)),
         title: const Text(
           'New Chat',
-          style: appBarTitleStyle,
+          style:  TextStyle(
+  fontSize: 18,
+  fontWeight: FontWeight.w500,
+),
         ),
       ),
       body: MultiBlocConsumer(
@@ -105,7 +106,7 @@ class _NewChatScreenState extends State<NewChatScreen> {
                                 },
                                 child: ListTile(
                                   leading: CircleAvatar(
-                                    backgroundColor: kwhiteColor,
+                                    backgroundColor: white,
                                     radius: 28,
                                     child: CircleAvatar(
                                       backgroundImage: NetworkImage(
@@ -145,43 +146,4 @@ class _NewChatScreenState extends State<NewChatScreen> {
       ),
     );
   }
-}
-
-
-
-
-
-class Richtext extends StatelessWidget {
-  const Richtext({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return RichText(
-      text: TextSpan(children: [
-        const TextSpan(
-            text: 'Go to  ',
-            style: TextStyle(
-                color: black,
-                fontFamily: 'Quicksand',
-                fontWeight: FontWeight.w500,
-                fontSize: 15)),
-        TextSpan(
-            recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                navigatePushAnimaterbottomtotop(
-                    context, const SuggessionPage());
-              },
-            text: 'Suggessions?',
-            style: const TextStyle(
-                color: blueAccent,
-                fontFamily: 'Quicksand',
-                fontWeight: FontWeight.w500,
-                fontSize: 15))
-      ]),
-    );
-  }
-  
-  void navigatePushAnimaterbottomtotop(BuildContext context, suggessionScreen) {}
 }

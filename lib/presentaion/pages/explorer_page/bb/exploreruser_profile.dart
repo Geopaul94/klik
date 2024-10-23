@@ -12,6 +12,7 @@ import 'package:klik/presentaion/bloc/fetchallconversation_bloc/fetch_all_conver
 import 'package:klik/presentaion/bloc/follow_unfollow_user_bloc/unfollow_user_bloc.dart';
 import 'package:klik/presentaion/bloc/get_connections_bloc/get_connections_bloc.dart';
 import 'package:klik/presentaion/bloc/profile_bloc/profile_bloc.dart';
+import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_page/chat_screen.dart';
 
 import 'package:klik/presentaion/pages/message_page.dart/chat/chatscreen.dart';
 

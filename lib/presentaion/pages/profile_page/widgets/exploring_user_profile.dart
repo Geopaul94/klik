@@ -40,7 +40,7 @@ class _ScreenExploreUserProfileState extends State<ScreenExploreUserProfile> {
       appBar: CustomeAppbarRow(
         height: media.height,
         width: media.width,
-        title: 'Following List',
+        title: ' ',
         onBackButtonPressed: () => Navigator.pop(context),
         gradientColors: const [blue, green],
         backgroundColor: black,

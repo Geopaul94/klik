@@ -13,8 +13,8 @@ import 'package:klik/presentaion/bloc/profile_bloc/profile_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_following_bloc/fetch_following_bloc.dart';
 import 'package:klik/presentaion/bloc/follow_unfollow_user_bloc/unfollow_user_bloc.dart';
 import 'package:klik/presentaion/pages/homepage/homepage.dart';
+import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_page/chat_screen.dart';
 
-import 'package:klik/presentaion/pages/message_page.dart/chat/chatscreen.dart';
 import 'package:klik/presentaion/pages/profile_page/profile_session_pages.dart';
 import 'package:klik/presentaion/pages/profile_page/profilesession_pages/profile_succes_dummy_container.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/loading_animation_and_error_idget.dart';
@@ -31,7 +31,8 @@ class ExploreUserProfileSession1 extends StatelessWidget {
   final UserIdSearchModel user;
   final VoidCallback onEditProfile;
 
-  ExploreUserProfileSession1({super.key, 
+  ExploreUserProfileSession1({
+    super.key,
     required this.media,
     required this.profileImage,
     required this.coverImage,
@@ -121,12 +122,7 @@ class ExploreUserProfileSession1 extends StatelessWidget {
                 },
               ),
             ),
-
-
-
-
-
- BlocConsumer<ConversationBloc, ConversationState>(
+            BlocConsumer<ConversationBloc, ConversationState>(
               listener: (context, state) {
                 if (state is ConversationSuccesfulState) {
                   context
@@ -155,7 +151,6 @@ class ExploreUserProfileSession1 extends StatelessWidget {
                           CreateConversationButtonClickEvent(
                               members: [currentUser.toString(), user.id]));
                     },
-                  
                     text: 'messsage',
                     width: media.height * 0.1,
                     height: media.height * 0.05,
@@ -164,18 +159,6 @@ class ExploreUserProfileSession1 extends StatelessWidget {
                 );
               },
             ),
-
-
-
-
-
-
-
-
-
-
-
-
           ],
         ),
         Padding(
@@ -193,9 +176,12 @@ class ExploreUserProfileSessions2 extends StatelessWidget {
   final VoidCallback onFollowingTap;
 
   const ExploreUserProfileSessions2(
-      {super.key, required this.onPostsTap, required this.onFollowersTap, required this.onFollowingTap});
+      {super.key,
+      required this.onPostsTap,
+      required this.onFollowersTap,
+      required this.onFollowingTap});
 
- @override
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -222,6 +208,8 @@ class ExploreUserProfileSessions2 extends StatelessWidget {
           BlocBuilder<GetConnectionsBloc, GetConnectionsState>(
             builder: (context, state) {
               if (state is GetConnectionsSuccesfulState) {
+                print(
+                    'state.followersCount================${state.followersCount.toString()}');
                 return customTextColumn(
                   text1: state.followersCount.toString(),
                   text2: 'Followers',

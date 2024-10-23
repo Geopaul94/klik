@@ -202,9 +202,13 @@ class UserRepo {
   static Future getConnections({required String userId}) async {
     try {
       final token = await getUsertoken();
-      var response = client.get(
+      var response = await client.get(
           Uri.parse('${Apiurl.baseUrl}${Apiurl.getConnections}/$userId'),
           headers: {'Authorization': 'Bearer $token'});
+
+
+      checkStatusCode(response.statusCode);
+     log('Status code: ${response.statusCode}');
       return response;
     } catch (e) {
       log(e.toString());
