@@ -7,7 +7,6 @@ import 'package:klik/presentaion/pages/explorer_page/bb/screen_search.dart';
 
 import 'package:klik/presentaion/pages/homepage/homepage.dart';
 import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_persons_list/chat_persons_list.dart';
-import 'package:klik/presentaion/pages/message_page.dart/chat/chat_page.dart';
 
 
 import 'package:klik/presentaion/pages/profile_page/profile_page.dart';

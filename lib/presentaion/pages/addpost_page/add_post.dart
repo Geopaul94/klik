@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_cropper/image_cropper.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/CustomElevatedButton.dart';
 import 'package:klik/application/core/widgets/CustomeAppbar.dart';
-import 'package:klik/application/core/widgets/customanimation_explore_page_loading.dart';
 import 'package:klik/application/core/widgets/custome_button.dart';
 import 'package:klik/application/core/widgets/custome_snackbar.dart';
 import 'package:klik/presentaion/bloc/add_post/add_post_bloc.dart';

@@ -175,9 +175,9 @@ class ProfileSession3 extends StatelessWidget {
         const Padding(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: TabBar(
-            labelColor: oceanGreen,
+            labelColor: green,
             unselectedLabelColor: grey,
-            indicatorColor: oceanGreen,
+            indicatorColor: Color.fromARGB(255, 58, 136, 60),
             tabs: [
               Tab(text: 'My Posts'),
               Tab(text: 'Saved Posts'),
@@ -194,7 +194,7 @@ class ProfileSession3 extends StatelessWidget {
                   } else if (state is FetchMyPostLoadingState) {
                     return Center(
                       child: LoadingAnimationWidget.fourRotatingDots(
-                        color: kPrimaryColor,
+                        color: green,
                         size: 30,
                       ),
                     );

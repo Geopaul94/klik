@@ -9,7 +9,6 @@ import 'package:klik/presentaion/bloc/fetch_following_bloc/fetch_following_bloc.
 import 'package:klik/presentaion/bloc/fetchallconversation_bloc/fetch_all_conversations_bloc.dart';
 import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_page/chat_screen.dart';
 import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_persons_list/start_a_chat/rich_text.dart';
-import 'package:klik/presentaion/pages/message_page.dart/chat/chatscreen.dart';
 import 'package:klik/presentaion/pages/profile_page/my_post_delete_edit/my_post_page.dart';
 import 'package:klik/presentaion/pages/profile_page/simmer_widget.dart';
 import 'package:multi_bloc_builder/multi_bloc_builder.dart';

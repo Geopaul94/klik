@@ -163,7 +163,7 @@ class AuthenticationRepo {
       // print(response.body);
       if (response.statusCode == 200) {
         final responseBody = jsonDecode(response.body);
-      print("google signin${responseBody}");
+      print("google signin$responseBody");
         await setUserLoggedin(
           token: responseBody['user']['token'],
           userrole: responseBody['user']['role'],

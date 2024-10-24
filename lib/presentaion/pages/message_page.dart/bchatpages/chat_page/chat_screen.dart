@@ -9,7 +9,6 @@ import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_page/ch
 import 'package:klik/presentaion/pages/message_page.dart/bchatpages/socket/socket.dart';
 import 'package:klik/presentaion/pages/message_page.dart/chat/date_divider.dart';
 import 'package:klik/presentaion/pages/profile_page/my_post_delete_edit/my_post_page.dart';
-import 'package:klik/services/socket/socket.dart';
 
 
 class ChatScreen extends StatefulWidget {

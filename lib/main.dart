@@ -98,7 +98,7 @@ class MyApp extends StatelessWidget {
         title: 'Klik',
         darkTheme: ThemeData.dark(),
         themeMode: ThemeMode.dark,
-        home: SplashScreen(),
+        home: const SplashScreen(),
       ),
     );
   }

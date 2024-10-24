@@ -13,7 +13,6 @@ import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_page/ch
 import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_persons_list/chat_list_shimmer.dart';
 import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_persons_list/custom_card.dart';
 import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_persons_list/start_a_chat/start_a_chat.dart';
-import 'package:klik/presentaion/pages/message_page.dart/chat/chatscreen.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:multi_bloc_builder/multi_bloc_builder.dart';
 

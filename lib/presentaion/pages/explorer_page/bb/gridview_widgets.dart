@@ -46,7 +46,7 @@ Widget postsGridViewWidget(ExplorerpostSuccesstate state, Size media,
                 fit: BoxFit.cover,
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress == null) return child;
-                   return Center(
+                   return const Center(
 
           child: SizedBox(
 

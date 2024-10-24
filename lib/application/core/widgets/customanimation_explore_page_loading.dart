@@ -6,6 +6,8 @@ import 'package:klik/application/core/constants/constants.dart';
 
 
 class SpinningLinesExample extends StatelessWidget {
+  const SpinningLinesExample({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
