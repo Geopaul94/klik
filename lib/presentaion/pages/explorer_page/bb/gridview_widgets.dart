@@ -4,8 +4,6 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:klik/application/core/constants/constants.dart';
-import 'package:klik/application/core/widgets/customanimation_explore_page_loading.dart';
-import 'package:klik/application/core/widgets/custome_loading_progress.dart';
 import 'package:klik/application/core/widgets/errorstate_widget.dart';
 import 'package:klik/presentaion/bloc/explorerposts_bloc/explorerpost_bloc.dart';
 import 'package:klik/presentaion/bloc/search_user_bloc/explore_page_search_users_bloc.dart';

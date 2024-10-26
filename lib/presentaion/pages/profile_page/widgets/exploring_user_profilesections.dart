@@ -13,7 +13,7 @@ import 'package:klik/presentaion/bloc/profile_bloc/profile_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_following_bloc/fetch_following_bloc.dart';
 import 'package:klik/presentaion/bloc/follow_unfollow_user_bloc/unfollow_user_bloc.dart';
 import 'package:klik/presentaion/pages/homepage/homepage.dart';
-import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_page/chat_screen.dart';
+import 'package:klik/presentaion/pages/message_page.dart/chat/chatscreen.dart';
 
 import 'package:klik/presentaion/pages/profile_page/profile_session_pages.dart';
 import 'package:klik/presentaion/pages/profile_page/profilesession_pages/profile_succes_dummy_container.dart';
@@ -55,7 +55,7 @@ class ExploreUserProfileSession1 extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Padding(
-              padding: const EdgeInsets.only(right: 10),
+              padding: const EdgeInsets.only(right: 5),
               child: BlocBuilder<FetchFollowingBloc, FetchFollowingState>(
                 builder: (context, state) {
                   if (state is FetchFollowingSuccesState) {
@@ -104,18 +104,18 @@ class ExploreUserProfileSession1 extends StatelessWidget {
                           followings.any((following) => following.id == user.id)
                               ? 'Unfollow'
                               : 'Follow',
-                      width: media.height * 0.1,
+                      width: media.height * 0.09,
                       height: media.height * 0.05,
-                      textStyle: const TextStyle(fontSize: 16),
+                      textStyle: const TextStyle(fontSize: 14),
                     );
                   } else {
                     return customMaterialButton(
                       borderRadius: 10,
-                      color: kPrimaryColor,
+                      color: green,
                       onPressed: onEditProfile,
                       text: '',
-                      width: media.height * 0.1,
-                      height: media.height * 0.05,
+                      width: media.height * 0.09,
+                      height: media.height * 0.04,
                       textStyle: const TextStyle(fontSize: 16),
                     );
                   }
@@ -137,7 +137,11 @@ class ExploreUserProfileSession1 extends StatelessWidget {
                             name: user.userName,
                             profilepic: user.profilePic,
                             username: user.userName),
-                      ));
+                      )
+                      
+                    
+                      
+                      );
                 }
               },
               builder: (context, state) {
@@ -145,11 +149,11 @@ class ExploreUserProfileSession1 extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 10),
                   child: customMaterialButton(
                     borderRadius: 10,
-                    color: kPrimaryColor,
+                    color: green,
                     onPressed: () {
                       context.read<ConversationBloc>().add(
                           CreateConversationButtonClickEvent(
-                              members: [currentUser.toString(), user.id]));
+                              members: [currentuserId, user.id]));
                     },
                     text: 'messsage',
                     width: media.height * 0.1,

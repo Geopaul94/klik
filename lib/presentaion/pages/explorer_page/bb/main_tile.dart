@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/domain/model/comment_model.dart';
+import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:klik/presentaion/bloc/commentcount_bloc/comment_count_bloc.dart';
 import 'package:klik/presentaion/bloc/like_unlike/like_unlike_bloc.dart';
 import 'package:klik/presentaion/pages/homepage/add_comment.dart';
@@ -102,7 +103,6 @@ class ExplorePageMainTile extends StatelessWidget {
               ],
             ),
             kheight,
-         
             kheight,
             Container(
               width: double.infinity,
@@ -129,7 +129,7 @@ class ExplorePageMainTile extends StatelessWidget {
             ),
             BlocBuilder<LikeUnlikeBloc, LikeUnlikeState>(
               builder: (context, state) {
-                bool isLiked = post.likes.contains(currentUser.toString());
+                bool isLiked = post.likes.contains(currentuserId);
                 int currentLikeCount = post.likes.length;
 
                 return Column(
@@ -147,7 +147,7 @@ class ExplorePageMainTile extends StatelessWidget {
                                             postId: post.id),
                                       );
 
-                                  post.likes.remove(currentUser.toString());
+                                  post.likes.remove(currentuserId);
                                 } else {
                                   context.read<LikeUnlikeBloc>().add(
                                         onUserLikeButtonPressedEvent(
@@ -155,7 +155,7 @@ class ExplorePageMainTile extends StatelessWidget {
                                       );
 
                                   post.likes
-                                      .add(currentUser.toString().toString());
+                                      .add(currentuserId);
                                 }
                               },
                               child: Padding(
@@ -175,9 +175,6 @@ class ExplorePageMainTile extends StatelessWidget {
                             ),
                           ],
                         ),
-
-                   
-
                         Row(
                           children: [
                             IconButton(
@@ -187,7 +184,6 @@ class ExplorePageMainTile extends StatelessWidget {
                                 size: height * 0.03,
                               ),
                               onPressed: () async {
-                             
                                 String profilePic = profileImage;
 
                                 debugPrint(profilePic);
@@ -198,7 +194,7 @@ class ExplorePageMainTile extends StatelessWidget {
                                     profilePic: profilePic,
                                     userName: userName,
                                     comments: commentes,
-                                    id:  post.id,
+                                    id: post.id,
                                     onCommentAdded: () {
                                       // Dispatch the increment event
                                       context
@@ -225,7 +221,6 @@ class ExplorePageMainTile extends StatelessWidget {
                     ),
                   ],
                 );
-              
               },
             ),
           ],

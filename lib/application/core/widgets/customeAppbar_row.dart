@@ -127,8 +127,6 @@ import 'package:klik/application/core/widgets/custome_linear%20colorgradient.dar
 //   }
 // }
 
-
-
 class CustomeAppbarRow extends StatefulWidget implements PreferredSizeWidget {
   final double height;
   final double width;
@@ -163,35 +161,42 @@ class _CustomeAppbarRowState extends State<CustomeAppbarRow> {
       surfaceTintColor: widget.backgroundColor,
       automaticallyImplyLeading: false,
       backgroundColor: widget.backgroundColor,
-      title: Row(
-        children: [
-          // Back Button
-          GestureDetector(
-            onTap: widget.onBackButtonPressed,
-            child: SizedBox(
-              height: widget.height * 0.05,
-              width: widget.width * 0.2,
-              child: const Align(
-                alignment: Alignment.centerLeft,
-                child: CustomGradientIcon(
-                  icon: CupertinoIcons.back,
+      // Wrapping the Stack in a SizedBox to provide constraints
+      title: SizedBox(
+        height: kToolbarHeight,  // Use standard AppBar height
+        child: Stack(
+          children: [
+            // Back Button
+            Positioned(
+              left: 0,
+              child: GestureDetector(
+                onTap: widget.onBackButtonPressed,
+                child: SizedBox(
+                  height: widget.height * 0.05,
+                  width: widget.width * 0.2,
+                  child: const Align(
+                    alignment: Alignment.centerLeft,
+                    child: CustomGradientIcon(
+                      icon: CupertinoIcons.back,
+                    ),
+                  ),
                 ),
               ),
             ),
-          ),
 
-          // Title
-          Expanded(
-            child: Center(
-              child: CustomeLinearcolor(
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                text: widget.title,
-                gradientColors: widget.gradientColors,
+            // Title
+            Positioned.fill(
+              child: Center(
+                child: CustomeLinearcolor(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  text: widget.title,
+                  gradientColors: widget.gradientColors,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

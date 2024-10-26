@@ -12,8 +12,7 @@ import 'package:klik/presentaion/bloc/fetchallconversation_bloc/fetch_all_conver
 import 'package:klik/presentaion/bloc/follow_unfollow_user_bloc/unfollow_user_bloc.dart';
 import 'package:klik/presentaion/bloc/get_connections_bloc/get_connections_bloc.dart';
 import 'package:klik/presentaion/bloc/profile_bloc/profile_bloc.dart';
-import 'package:klik/presentaion/pages/message_page.dart/bchatpages/chat_page/chat_screen.dart';
-
+import 'package:klik/presentaion/pages/message_page.dart/chat/chatscreen.dart';
 
 import 'package:klik/presentaion/pages/profile_page/my_post_delete_edit/my_post_page.dart';
 import 'package:klik/presentaion/pages/profile_page/profile_session_pages.dart';
@@ -225,7 +224,7 @@ class ExploreUserProfileSessions2 extends StatelessWidget {
                 );
               } else {
                 return customTextColumn(
-                  text1: '0',
+                  text1: '2',
                   text2: 'Followers',
                   textStyle: profilecolumnStyle,
                   onTap: onFollowersTap,
@@ -236,15 +235,18 @@ class ExploreUserProfileSessions2 extends StatelessWidget {
           BlocBuilder<GetConnectionsBloc, GetConnectionsState>(
             builder: (context, state) {
               if (state is GetConnectionsSuccesfulState) {
+                debugPrint(' followerscount  ===      ${state.followersCount.toString()}');
+    debugPrint('following count ==========  ${state.followingsCount.toString()}');
                 return customTextColumn(
                   text1: state.followingsCount.toString(),
+              
                   text2: 'Following',
                   textStyle: profilecolumnStyle,
                   onTap: onFollowersTap,
                 );
               } else {
                 return customTextColumn(
-                  text1: '0',
+                  text1: '1',
                   text2: 'Following',
                   textStyle: profilecolumnStyle,
                   onTap: onFollowersTap,

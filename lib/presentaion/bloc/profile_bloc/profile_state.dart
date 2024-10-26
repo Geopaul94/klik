@@ -7,9 +7,11 @@ final class ProfileInitial extends ProfileState {}
 
 class ProfilePostFetchLoadingState extends ProfileState {}
 
-class ProfilePostFetchSuccesfulState extends ProfileState {  final List<Post> posts;
+class ProfilePostFetchSuccesfulState extends ProfileState {
+  final List<Post> posts;
 
-  ProfilePostFetchSuccesfulState({required this.posts});}
+  ProfilePostFetchSuccesfulState({required this.posts});
+}
 
 class ProfilePostFetchUserNotFoundState extends ProfileState {}
 

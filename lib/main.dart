@@ -36,7 +36,6 @@ import 'package:klik/presentaion/bloc/suggessions_bloc/suggessions_bloc.dart';
 import 'package:klik/presentaion/bloc/testbloc/teastbloc_bloc.dart';
 import 'package:klik/presentaion/bloc/follow_unfollow_user_bloc/unfollow_user_bloc.dart';
 import 'package:klik/presentaion/pages/homepage/homepage.dart';
-import 'package:klik/presentaion/pages/nerworkdata/connectivity_listener.dart';
 import 'package:klik/presentaion/pages/splashscreen/splashscreen.dart';
 
 void main() async {
@@ -45,7 +44,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  currentUser = await getUserId();
+
 
   runApp(const MyApp());
 }

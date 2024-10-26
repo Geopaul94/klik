@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:http/http.dart';
 
 import 'package:intl/intl.dart';
 import 'package:klik/application/core/constants/constants.dart';
@@ -10,9 +8,8 @@ import 'package:klik/application/core/widgets/customeAppbar_row.dart';
 
 import 'package:klik/application/core/widgets/userPost_row_name_and_date.dart';
 import 'package:klik/domain/model/comment_model.dart';
-import 'package:klik/domain/model/postmodel.dart';
 import 'package:klik/domain/model/saved_post_model.dart';
-import 'package:klik/presentaion/bloc/comment_bloc/comment_post/comment_post_bloc.dart';
+import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 
 import 'package:klik/presentaion/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
 import 'package:klik/presentaion/bloc/save_unsave_bloc/save_unsave_bloc.dart';
@@ -79,7 +76,7 @@ class _SavedPostScreenState extends State<SavedPostScreen> {
             );
           }
           // Handle other states (loading, error, etc.)
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );
@@ -179,7 +176,7 @@ class _SavedPostsCardState extends State<SavedPostsCard> {
                 Row(children: [
                   Customesavelikebutton(
                     post: widget.post,
-                    currentUserId: currentUser.toString(),
+                    currentUserId: currentuserId,
                   ),
                   Row(
                     children: [

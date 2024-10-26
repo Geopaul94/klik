@@ -29,7 +29,7 @@ class UserRepo {
       }
       return response;
     } catch (e) {
-      log(e.toString());
+         log('Error in fetchUserPosts: ${e.toString()}');
     }
   }
 
@@ -44,7 +44,7 @@ class UserRepo {
 
       return response;
     } catch (e) {
-      log(e.toString());
+         log('Error in fetchLoggedInUserDetails: ${e.toString()}');
       return null;
     }
   }
@@ -60,7 +60,7 @@ class UserRepo {
           headers: {'Authorization': 'Bearer $token'});
       return response;
     } catch (e) {
-      log(e.toString());
+         log('Error in fetchFollowers: ${e.toString()}');
     }
   }
 
@@ -75,7 +75,7 @@ class UserRepo {
 
       return response;
     } catch (e) {
-      log(e.toString());
+         log('Error in fetchFollowing: ${e.toString()}');
     }
   }
 
@@ -211,7 +211,7 @@ class UserRepo {
      log('Status code: ${response.statusCode}');
       return response;
     } catch (e) {
-      log(e.toString());
+       log('Error in getConnections: ${e.toString()}');
     }
   }
 
@@ -227,7 +227,7 @@ class UserRepo {
           headers: {'Authorization': 'Bearer $token'});
       return response;
     } catch (e) {
-      log(e.toString());
+          log('Error in getsingleuser: ${e.toString()}');
     }
   }
 
@@ -244,7 +244,7 @@ class UserRepo {
           checkStatusCode(response.statusCode);
       return response;
     } catch (e) {
-      log(e.toString());
+       log('Error in searchalluser: ${e.toString()}');
     }
   }
 
@@ -259,12 +259,12 @@ class UserRepo {
       }
       debugPrint(
           "fetch postbyUserId ////////////////////////// ${response.statusCode}");
-      log(response.body);
+      log("  fetchUserPostsOther      ${response.body}");
 
       checkStatusCode(response.statusCode);
       return response;
     } catch (e) {
-      log(e.toString());
+        log('Error in fetchuserpostothers: ${e.toString()}');
     }
   }
 

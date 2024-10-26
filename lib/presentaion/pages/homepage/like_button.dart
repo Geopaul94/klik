@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:klik/presentaion/bloc/like_unlike/like_unlike_bloc.dart';
-import 'package:klik/presentaion/pages/homepage/homepage.dart';
 
 import 'package:like_button/like_button.dart';
 
@@ -33,9 +33,9 @@ class _CustomLikeButtonState extends State<CustomLikeButton> {
     // _isLiked = widget.likes.any((user) => user.id == widget.userId);
         _isLiked = widget.likes.any((user) {
           print('User ID from likes: ${user.id}');
-          print('Current User ID: ${widget.userId}');
+          print('Current User ID: $currentuserId');
           
-          return user.id == currentUser;
+          return user.id == currentuserId;
         });
 
 

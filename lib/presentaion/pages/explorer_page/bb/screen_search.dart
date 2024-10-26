@@ -91,7 +91,7 @@ class _ScreenSearchState extends State<ScreenSearch> {
        
             
  if (state is ExplorerpostLoadingState) {
-      return   SizedBox(
+      return   const SizedBox(
         width: double.infinity,
         height: double.infinity,
         child: Center(

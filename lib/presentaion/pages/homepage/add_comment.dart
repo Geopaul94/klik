@@ -170,7 +170,7 @@ class _AddCommentState extends State<AddComment> {
                                           ),
                                         ],
                                       ),
-                                      trailing: currentUser == comment.user.id
+                                      trailing: currentuserId == comment.user.id
                                           ? IconButton(
                                               icon: const Icon(
                                                 Icons.delete,

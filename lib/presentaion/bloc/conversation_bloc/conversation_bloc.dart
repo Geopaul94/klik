@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,8 +26,8 @@ FutureOr<void> createConversationButtonClickEvent(
 
   try {
     // API call to create conversation
-    final Response response = await ChatRepo.createConversation(members: event.members);
-    debugPrint('create conversation statuscode-${response.statusCode}');
+    final Response? response = await ChatRepo.createConversation(members: event.members);
+    debugPrint('create conversation statuscode-${response!.statusCode}');
     debugPrint('create conversation response body-${response.body}');
     
     // Parsing the response
@@ -48,12 +47,12 @@ FutureOr<void> createConversationButtonClickEvent(
       }
     } else {
       // Error due to invalid response structure or non-200 status code
-      debugPrint('Error: Invalid response or status code');
+      debugPrint('Error: Invalid response or status code    createConversation    ');
       emit(ConversationErrorState());
     }
   } catch (e) {
     // Error handling
-    debugPrint('Exception occurred: $e');
+    debugPrint('Exception occurred   in createConversation : $e');
     emit(ConversationErrorState());
   }
 }
@@ -91,27 +90,37 @@ FutureOr<void> createConversationButtonClickEvent(
 //   }
 
 
-
 FutureOr<void> getAllMessagesInitialFetchEvent(
     GetAllMessagesInitialFetchEvent event,
     Emitter<ConversationState> emit) async {
   emit(GetAllMessagesLoadingState());
+
   try {
-    final Response response =
-        await ChatRepo.getAllMessages(conversationId: event.conversationId);
-    debugPrint("get all messages statuscode-${response.statusCode}");
+    final Response? response = await ChatRepo.getAllMessages(conversationId: event.conversationId);
+
+    if (response == null) {
+      emit(GetAllMessagesErrorState()); // Response was null
+      return;
+    }
+
+    debugPrint("get all messages status code: ${response.statusCode}");
+
     if (response.statusCode == 200) {
-      final jsonResponse = await jsonDecode(response.body);
-    log(jsonResponse.toString() as num);  // Log the JSON response to inspect structure
+      final jsonResponse = jsonDecode(response.body);
+
+      // Log the JSON response to inspect structure
+      // debugPrint(jsonResponse.toString());// Fixed log error
 
       final List<dynamic>? dataList = jsonResponse['data'] as List<dynamic>?;
+      
       if (dataList == null) {
-        throw Exception("Expected a list but got something else");
+        throw Exception("Expected a list in the 'data' field but got something else.");
       }
 
-      messagesList = dataList.map((json) => AllMessagesModel.fromJson(json)).toList();
-      
-      // Ensure that `createdAt` is a DateTime or num and is sorted correctly
+      final List<AllMessagesModel> messagesList = dataList
+          .map((json) => AllMessagesModel.fromJson(json))
+          .toList();
+
       messagesList.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
       emit(GetAllMessagesSuccesfulState(messagesList: messagesList));
@@ -119,12 +128,10 @@ FutureOr<void> getAllMessagesInitialFetchEvent(
       emit(GetAllMessagesErrorState());
     }
   } catch (e) {
-    debugPrint('Exception occurred: $e');
+    debugPrint('Exception occurred while fetching messages: $e');
     emit(GetAllMessagesErrorState());
   }
 }
-
-
 
 
 

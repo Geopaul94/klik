@@ -12,6 +12,8 @@ import 'package:flutter/foundation.dart';
 
 import 'package:intl/intl.dart';
 
+String currentuserId='';
+
 Future<void> setUserLoggedin(
     {required String token,
     required String userid,
@@ -40,6 +42,11 @@ Future<String?> getUsertoken() async {
 Future<String?> getUserId() async {
   final sharedpreference = await SharedPreferences.getInstance();
   final userId = sharedpreference.getString(userIdKey);
+
+  print('shared preference gerUserId');
+
+   currentuserId = userId.toString();
+  print('currentuserId   $currentuserId');
   return userId;
 }
 
@@ -81,32 +88,20 @@ Future<void> googleSignOut() async {
 }
 
 String formatDate(DateTime? date) {
-    if (date == null) return 'Unknown date';
-    return DateFormat('dd MMMM yyyy').format(date.toLocal());
-  }
-
-
-
-
-
-
-
-
-
+  if (date == null) return 'Unknown date';
+  return DateFormat('dd MMMM yyyy').format(date.toLocal());
+}
 
 List<Post> parsePosts(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
   return parsed.map<Post>((json) => Post.fromJson(json)).toList();
 }
 
-
 Future<void> pickImage(ValueNotifier<String> imageNotifier) async {
-    final ImagePicker picker = ImagePicker();
-    final XFile? pickedFile =
-        await picker.pickImage(source: ImageSource.gallery);
+  final ImagePicker picker = ImagePicker();
+  final XFile? pickedFile = await picker.pickImage(source: ImageSource.gallery);
 
-    if (pickedFile != null) {
-      imageNotifier.value = pickedFile.path;
-    }
+  if (pickedFile != null) {
+    imageNotifier.value = pickedFile.path;
   }
-
+}

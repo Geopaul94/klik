@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/custome_linear%20colorgradient.dart';
+import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:klik/presentaion/pages/authentication/login/login_page.dart';
 import 'package:klik/presentaion/pages/bottomnavBAr/bottomNavBar.dart';
 
@@ -59,7 +60,12 @@ class _SplashScreenState extends State<SplashScreen> {
 Future<void> checkUserLogin(context) async {
   final preferences = await SharedPreferences.getInstance();
   final userLoggedIn = preferences.get(authKey);
-  debugPrint(userLoggedIn.toString());
+  debugPrint("  splash screen checking the userloggedin           ${userLoggedIn.toString()}");
+
+
+debugPrint("getuserid =====      ${getUserId.toString()}");
+
+
   if (userLoggedIn == null || userLoggedIn == false ) {
     await Future.delayed(const Duration(seconds: 6));
     Navigator.of(context).pushReplacement(MaterialPageRoute(
