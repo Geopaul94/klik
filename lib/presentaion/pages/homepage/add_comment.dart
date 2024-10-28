@@ -7,8 +7,8 @@ import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:klik/presentaion/bloc/comment_bloc/comment_post/comment_post_bloc.dart';
 import 'package:klik/presentaion/bloc/comment_bloc/delete_comment_bloc/delete_comment_bloc.dart';
 import 'package:klik/presentaion/bloc/comment_bloc/getAllComment/get_all_comment_bloc.dart';
-import 'package:klik/presentaion/pages/homepage/homepage.dart';
 import 'package:intl/intl.dart';
+
 
 class AddComment extends StatefulWidget {
   final String profilePic;
@@ -17,15 +17,17 @@ class AddComment extends StatefulWidget {
   final String id;
   final VoidCallback onCommentAdded;
   final VoidCallback onCommentDeleted;
-  const AddComment({
-    super.key,
-    required this.profilePic,
-    required this.userName,
-    required this.comments,
-    required this.id,
-    required this.onCommentAdded,
-    required this.onCommentDeleted,
-  });
+  final int? commentsCount;
+
+  const AddComment(
+      {super.key,
+      required this.profilePic,
+      required this.userName,
+      required this.comments,
+      required this.id,
+      required this.onCommentAdded,
+      required this.onCommentDeleted,
+      this.commentsCount});
 
   @override
   _AddCommentState createState() => _AddCommentState();

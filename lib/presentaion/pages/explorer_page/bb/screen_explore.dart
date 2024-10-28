@@ -1,3 +1,6 @@
+
+
+
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:klik/application/core/constants/constants.dart';
@@ -138,6 +141,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/customeAppbar_row.dart';
 import 'package:klik/domain/model/comment_model.dart';
+import 'package:klik/domain/model/explore_posts_model.dart';
+import 'package:klik/domain/model/postmodel.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:klik/presentaion/bloc/comment_bloc/getAllComment/get_all_comment_bloc.dart';
 import 'package:klik/presentaion/bloc/commentcount_bloc/comment_count_bloc.dart';
@@ -149,7 +154,12 @@ import 'package:klik/presentaion/pages/profile_page/widgets/loading_animation_an
 import 'package:shimmer/shimmer.dart';
 
 class ScreenExplore extends StatelessWidget {
-  ScreenExplore({super.key});
+
+
+final List<ExplorePostModel> posts; // Use your actual model type
+  final int startIndex;
+
+  ScreenExplore({super.key, required this.posts, required this.startIndex});
   TextEditingController commentController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
   final List<Comment> _comments = [];
@@ -159,7 +169,7 @@ class ScreenExplore extends StatelessWidget {
     var media = MediaQuery.of(context).size;
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-    
+      List<ExplorePostModel> displayPosts = posts.sublist(startIndex);
     return Scaffold(
       appBar: CustomeAppbarRow(
         height: height,
@@ -175,8 +185,8 @@ class ScreenExplore extends StatelessWidget {
             if (state is ExplorerpostSuccesstate) {
               if (state.posts.isNotEmpty) {
                 return ListView.builder(
-                  itemCount: state.posts.length,
-                  itemBuilder: (context, index) {
+                  itemCount: displayPosts.length,
+                  itemBuilder: (context, index) {final post = displayPosts[index];
                     return Container(
                       margin: const EdgeInsets.symmetric(vertical: 10), // Gap between each item
                       padding: const EdgeInsets.all(8), // Padding inside the container
@@ -184,16 +194,20 @@ class ScreenExplore extends StatelessWidget {
                         border: Border.all(color:green,width: .2), // Grey border for each item
                         borderRadius: BorderRadius.circular(8), // Optional: rounded corners
                       ),
+
+
+
+
                       child: ExplorePageMainTile(
-                        media: media,
-                        mainImage: state.posts[index].image,
-                        profileImage: state.posts[index].userId.profilePic,
-                        userName: state.posts[index].userId.userName,
-                        postTime: formatDate(state.posts[index].createdAt),
-                        description: state.posts[index].description,
-                        likeCount: state.posts[index].likes.length.toString(),
-                        commentCount: '',
-                        index: index,
+                       media: media,
+                    mainImage: post.image,
+                    profileImage: post.userId.profilePic,
+                    userName: post.userId.userName,
+                    postTime: formatDate(post.createdAt),
+                    description: post.description,
+                    likeCount: post.likes.length.toString(),
+                    commentCount:'',
+                    index: index + startIndex, // Adjusted for original 
                         removeSaved: () async {},
                         statesaved: state,
                         likeButtonPressed: () {},
@@ -202,10 +216,11 @@ class ScreenExplore extends StatelessWidget {
                               postId: state.posts[index].id.toString()));
 
                           AddComment(
-                            profilePic: state.posts[index].userId.profilePic,
-                            userName: state.posts[index].userId.userName,
+                            profilePic: state.posts[index + startIndex].userId.profilePic,
+                            userName: state.posts[index + startIndex].userId.userName,
                             comments: _comments,
-                            id: state.posts[index].userId.id,
+                  
+                            id: state.posts[index + startIndex].userId.id,
                             onCommentAdded: () {
                               context
                                   .read<CommentCountBloc>()
@@ -219,9 +234,12 @@ class ScreenExplore extends StatelessWidget {
                           );
 
                           context.read<GetCommentsBloc>().add(CommentsFetchEvent(
-                              postId: state.posts[index].id.toString()));
+                              postId: state.posts[index + startIndex].id.toString()));
+
+                              
                         },
                         commentes: _comments,
+                      
                       ),
                     );
                   },

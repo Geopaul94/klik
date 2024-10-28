@@ -54,12 +54,8 @@ class _HomePageState extends State<HomePage> {
 
    UserRepo.fetchUserPostsOther(userId: currentuserId);
 
-    if (currentuserId != null) {
-      UserRepo.fetchUserPostsOther(userId: currentuserId!);
-    } else {
-      print("Error: currentUser is null");
+    UserRepo.fetchUserPostsOther(userId: currentuserId!);
     }
-  }
 
   @override
   Widget build(BuildContext context) {

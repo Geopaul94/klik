@@ -7,6 +7,7 @@ import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/errorstate_widget.dart';
 import 'package:klik/presentaion/bloc/explorerposts_bloc/explorerpost_bloc.dart';
 import 'package:klik/presentaion/bloc/search_user_bloc/explore_page_search_users_bloc.dart';
+import 'package:klik/presentaion/pages/explorer_page/bb/imagedetailed_page.dart';
 import 'package:klik/presentaion/pages/explorer_page/bb/screen_explore.dart';
 import 'package:klik/presentaion/pages/profile_page/CustomeListTile.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/exploring_user_profile.dart';
@@ -28,13 +29,43 @@ Widget postsGridViewWidget(ExplorerpostSuccesstate state, Size media,
       itemBuilder: (context, index) {
         final post = state.posts[index];
         return GestureDetector(
-          onTap: () {
+          // onTap: () {
+          //   Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => ScreenExplore(),
+          //       ));
+          // },
+
+  onTap: () {
+            // Navigate to ScreenExplore and pass posts and tapped index
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ScreenExplore(),
-                ));
+              context,
+              MaterialPageRoute(
+                builder: (context) => ScreenExplore(
+                 posts: state.posts, // Pass entire list of posts
+                  startIndex: index, // Pass the tapped index
+                ),
+              ),
+            );
           },
+
+
+
+
+
+
+
+
+          //  onTap: () {
+          //   // Navigate to the ImageDetailPage and pass the mainImage URL
+          //   Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //       builder: (context) => ImageDetailPage(imageUrl: post.image), // Pass the selected image URL
+          //     ),
+          //   );
+          // },
           child: Padding(
             padding: const EdgeInsets.all(4.0),
             child: ClipRRect(

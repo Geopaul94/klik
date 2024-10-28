@@ -41,7 +41,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
             case 401:
               emit(SignupErrorState(
                   error:
-                      "Unauthorized access. Please check your credentials."));
+                      "You alredy have an  account with the same email id , so try to log in."));
               break;
             case 403:
               emit(SignupErrorState(

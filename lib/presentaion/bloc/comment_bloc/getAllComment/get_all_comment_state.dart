@@ -11,11 +11,14 @@ final class GetCommentsInitial extends GetCommentsState {}
 
 final class GetCommentsLoadingState extends GetCommentsState {}
 
-final class GetCommentsSuccsfulState extends GetCommentsState {
+class GetCommentsSuccsfulState extends GetCommentsState {
   final List<Comment> comments;
+  final int commentsCount; // Add this property
 
-  GetCommentsSuccsfulState({required this.comments});
+  GetCommentsSuccsfulState({required this.comments})
+      : commentsCount = comments.length; // Initialize commentsCount
 }
+
 
 final class GetCommentsServerErrorState extends GetCommentsState {
   final String error;

@@ -5,7 +5,6 @@ import 'package:klik/presentaion/bloc/add_message/add_message_bloc.dart';
 import 'package:klik/presentaion/bloc/conversation_bloc/conversation_bloc.dart';
 import 'package:klik/presentaion/bloc/fetchallconversation_bloc/fetch_all_conversations_bloc.dart';
 import 'package:klik/services/firebase/firebase_options.dart';
-import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:klik/presentaion/bloc/Connectivity/connectivity_bloc.dart';
 import 'package:klik/presentaion/bloc/add_post/add_post_bloc.dart';
 import 'package:klik/presentaion/bloc/commentcount_bloc/comment_count_bloc.dart';
@@ -33,7 +32,7 @@ import 'package:klik/presentaion/bloc/search_user_bloc/explore_page_search_users
 import 'package:klik/presentaion/bloc/signup/signup_bloc.dart';
 import 'package:klik/presentaion/bloc/signupotp/signup_otp_bloc.dart';
 import 'package:klik/presentaion/bloc/suggessions_bloc/suggessions_bloc.dart';
-import 'package:klik/presentaion/bloc/testbloc/teastbloc_bloc.dart';
+
 import 'package:klik/presentaion/bloc/follow_unfollow_user_bloc/unfollow_user_bloc.dart';
 import 'package:klik/presentaion/pages/homepage/homepage.dart';
 import 'package:klik/presentaion/pages/splashscreen/splashscreen.dart';
@@ -43,8 +42,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-
-
 
   runApp(const MyApp());
 }
@@ -74,7 +71,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => GetfollowersPostBloc()),
         BlocProvider(create: (context) => EditUserProfileBloc()),
         BlocProvider(create: (context) => SuggessionsBloc()),
-        BlocProvider(create: (context) => FollowersPostBloc()),
         BlocProvider(create: (context) => UnfollowUserBloc()),
         BlocProvider(create: (context) => CommentPostBloc()),
         BlocProvider(create: (context) => DeleteCommentBloc()),
@@ -86,8 +82,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ExplorerpostBloc()),
         BlocProvider(create: (context) => ConversationBloc()),
         BlocProvider(create: (context) => ExplorePageSearchUsersBloc()),
-  BlocProvider(create: (context) =>  FetchAllConversationsBloc()),
-       BlocProvider(create: (context) =>   AddMessageBloc()),
+        BlocProvider(create: (context) => FetchAllConversationsBloc()),
+        BlocProvider(create: (context) => AddMessageBloc()),
         BlocProvider(
             create: (context) =>
                 CommentCountBloc(int.tryParse(commmentcount!) ?? 0)),

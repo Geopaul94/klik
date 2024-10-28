@@ -7,11 +7,9 @@ import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:klik/presentaion/bloc/add_message/add_message_bloc.dart';
 import 'package:klik/presentaion/bloc/conversation_bloc/conversation_bloc.dart';
 import 'package:klik/presentaion/bloc/fetchallconversation_bloc/fetch_all_conversations_bloc.dart';
-import 'package:klik/presentaion/pages/homepage/homepage.dart';
 import 'package:klik/presentaion/pages/message_page.dart/chat/date_divider.dart';
 import 'package:klik/presentaion/pages/message_page.dart/widgets/messageloading_shimmer.dart';
 
-import 'package:klik/presentaion/pages/profile_page/my_post_delete_edit/my_post_page.dart';
 import 'package:klik/services/socket/socket.dart';
 
 class ChatScreen extends StatefulWidget {

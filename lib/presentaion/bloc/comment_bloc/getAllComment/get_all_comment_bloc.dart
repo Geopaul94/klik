@@ -48,9 +48,13 @@ class GetCommentsBloc extends Bloc<GetCommentsEvent, GetCommentsState> {
 
   if (result.statusCode == 200) {
     final responseBody = await jsonDecode(result.body);
+  
     List<Comment> comments = List<Comment>.from(responseBody['comments']
         .map((commentJson) => Comment.fromJson(commentJson)));
     emit(GetCommentsSuccsfulState(comments: comments));
+
+
+      int commentsCount=comments.length;
   } else if (result.statusCode == 500) {
     emit(GetCommentsServerErrorState(error: 'Something went wrong'));
   }
