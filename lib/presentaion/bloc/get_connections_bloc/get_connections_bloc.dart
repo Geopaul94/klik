@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 
-import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'package:klik/domain/repository/user_repo/user_repo.dart';
 
@@ -25,8 +25,26 @@ class GetConnectionsBloc
         await UserRepo.getConnections(userId: event.userId);
     if (response.statusCode == 200) {
       final responseBody = jsonDecode(response.body);
+
+
+     
       final int followersCount = responseBody['followersCount'];
+
+
+
+
       final int followingCount = responseBody['followingCount'];
+
+
+
+ if (kDebugMode) {
+        print(" GetConnectionsBloc           11111111111111111111111111 ==========${followersCount}");
+     print(" GetConnectionsBloc           11111111111111111111111111 ==========${followingCount}");
+
+      }
+
+
+
       emit(GetConnectionsSuccesfulState(
           followersCount: followersCount, followingsCount: followingCount));
     } else {

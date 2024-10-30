@@ -208,6 +208,8 @@ class UserRepo {
 
 
       checkStatusCode(response.statusCode);
+
+      
      log('Status code: ${response.statusCode}');
       return response;
     } catch (e) {

@@ -5,6 +5,7 @@ import 'package:klik/domain/model/all_message_model.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:klik/main.dart';
 import 'package:klik/presentaion/bloc/conversation_bloc/conversation_bloc.dart';
+import 'package:klik/presentaion/bloc/fetchallconversation_bloc/fetch_all_conversations_bloc.dart';
 
 import 'package:socket_io_client/socket_io_client.dart' as io;
 
@@ -21,6 +22,8 @@ class SocketService {
       //  '43.205.209.18',
     io.OptionBuilder()
         .setTransports(['websocket'])
+        
+        // .setTimeout(5000) 
         .disableAutoConnect()
         .build(),
   );
@@ -56,9 +59,9 @@ class SocketService {
               .read<ConversationBloc>()
               .add(AddNewMessageEvent(message: message));
         }
-        //   context
-        //       .read<FetchAllConversationsBloc>()
-        //       .add(AllConversationsInitialFetchEvent());
+          context
+              .read<FetchAllConversationsBloc>()
+              .add(AllConversationsInitialFetchEvent());
         context
             .read<ConversationBloc>()
             .add(AddNewMessageEvent(message: message));

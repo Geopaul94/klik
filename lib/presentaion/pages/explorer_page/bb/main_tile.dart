@@ -291,6 +291,19 @@ class ExplorePageMainTile extends StatelessWidget {
     final post = statesaved.posts[index];
 
     return GestureDetector(
+ onTap: () {
+            
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ImageDetailPage(imageUrl: post.image), 
+              ),
+            );
+          },
+
+
+
+
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

@@ -60,52 +60,52 @@ class _ChatScreenState extends State<ChatScreen> {
           onPressed: () => Navigator.of(context).pop(),
           icon: ShaderMask(
             shaderCallback: (bounds) => const LinearGradient(
-              colors: [Colors.green, Colors.blue], // Gradient colors
+              colors: [Colors.green, Colors.blue], 
             ).createShader(bounds),
             child: const Icon(
               CupertinoIcons.back,
-              size: 24, // Adjust size as needed
-              color: Colors.white, // Set to white to see the gradient
+              size: 24,
+              color: Colors.white, 
             ),
           ),
         ),
         title: Row(
           mainAxisAlignment:
-              MainAxisAlignment.spaceBetween, // Align children horizontally
+              MainAxisAlignment.spaceBetween, 
           children: [
             const SizedBox(
-                width: 10), // Add some space between the icon and the username
+                width: 10), 
             Expanded(
               child: Align(
-                alignment: Alignment.center, // Center the username horizontally
+                alignment: Alignment.center, 
                 child: ShaderMask(
                   shaderCallback: (bounds) => const LinearGradient(
-                    colors: [Colors.green, Colors.blue], // Gradient colors
+                    colors: [Colors.green, Colors.blue], 
                   ).createShader(bounds),
                   child: Text(
                     widget.username,
                     style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.w300,
-                      color: Colors.white, // Set to white to see the gradient
+                      color: Colors.white, 
                     ),
                   ),
                 ),
               ),
             ),
             Container(
-              width: 50, // Adjust size to be larger than the CircleAvatar
-              height: 50, // Adjust size to be larger than the CircleAvatar
+              width: 50, 
+              height: 50, 
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
-                  color: Colors.green, // Border color
-                  width: 1, // Border width
+                  color: Colors.green, 
+                  width: 1,
                 ),
               ),
               child: CircleAvatar(
                 radius:
-                    25, // This should be half of the Container's width/height
+                    25, 
                 backgroundImage: NetworkImage(widget.profilepic),
               ),
             ),
@@ -114,7 +114,7 @@ class _ChatScreenState extends State<ChatScreen> {
       ),
       body: Container(
         color: const Color.fromARGB(
-            255, 27, 26, 26), // Set background color to white
+            255, 27, 26, 26), 
         child: Form(
           key: _formkey,
           child: Column(
