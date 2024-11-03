@@ -49,8 +49,8 @@ dependencies:
   intl: ^0.19.0
   multi_bloc_builder: ^1.0.0
   shared_preferences: ^2.3.1
-  firebase_core: ^2.24.2
-  firebase_auth: ^4.16.0
+  firebase_core: ^3.2.0
+  firebase_auth: ^5.1.2
   google_sign_in: ^6.2.1
   splash_screen_view: ^3.0.0
   tbib_splash_screen: ^0.0.1
@@ -59,6 +59,7 @@ dependencies:
   json_annotation: ^4.9.0
   build_runner: ^2.4.11
   cached_network_image: ^3.3.1
+  cached_network_image_web: 1.1.1
   shimmer: ^3.0.0
   page_transition: ^2.1.0
   readmore: ^3.0.0
@@ -80,6 +81,7 @@ dependencies:
   image_cropper: ^8.0.2
   crop_image: ^1.0.13
   permission_handler: ^11.3.1
+  
   
   
 

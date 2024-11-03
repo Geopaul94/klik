@@ -472,8 +472,37 @@ class _ChatListScreenState extends State<ChatListScreen> {
     final difference = now.difference(istTime);
 
     if (difference.inDays == 0) {
-      return '${istTime.hour.toString().padLeft(2, '0')}:${istTime.minute.toString().padLeft(2, '0')}';
-    } else if (difference.inDays == 1) {
+
+
+int hour = istTime.hour;
+
+      String period = 'AM';
+
+      
+
+      if (hour >= 12) {
+
+        period = 'PM';
+
+        if (hour > 12) {
+
+          hour -= 12;
+
+        }
+
+      }
+
+      if (hour == 0) {
+
+        hour = 12;
+
+      }
+
+
+
+       return '${hour.toString().padLeft(2, '0')}:${istTime.minute.toString().padLeft(2, '0')} $period';
+
+   } else if (difference.inDays == 1) {
       return 'Yesterday';
     } else {
       return '${difference.inDays} days ago';

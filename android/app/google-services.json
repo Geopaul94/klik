@@ -2,17 +2,22 @@
   "project_info": {
     "project_number": "576263923687",
     "project_id": "klik-4e0ed",
-    "storage_bucket": "klik-4e0ed.appspot.com"
+    "storage_bucket": "klik-4e0ed.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:576263923687:android:fa9a52d3e7e4ecec5bbf42",
+        "mobilesdk_app_id": "1:576263923687:android:b127215912af53e35bbf42",
         "android_client_info": {
-          "package_name": "com.example.klikq"
+          "package_name": "com.example.klik"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "576263923687-vl93ltk33fmkcto3iv51msug22fdicju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyBpNyNKjNiBMWxaUpTu5F9VeNNtYed7Gco"
@@ -20,7 +25,63 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "576263923687-vl93ltk33fmkcto3iv51msug22fdicju.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "576263923687-p2qv9mutefhg9a37tch5413fjvoslnhm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.klikq"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:576263923687:android:fa9a52d3e7e4ecec5bbf42",
+        "android_client_info": {
+          "package_name": "com.example.klikq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "576263923687-16hv9qndo5u9n0o2vq777id7k96u6a06.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.klikq",
+            "certificate_hash": "2a223fb0b55df53c5c7173a71123c120615e5e44"
+          }
+        },
+        {
+          "client_id": "576263923687-vl93ltk33fmkcto3iv51msug22fdicju.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpNyNKjNiBMWxaUpTu5F9VeNNtYed7Gco"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "576263923687-vl93ltk33fmkcto3iv51msug22fdicju.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "576263923687-p2qv9mutefhg9a37tch5413fjvoslnhm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.klikq"
+              }
+            }
+          ]
         }
       }
     }

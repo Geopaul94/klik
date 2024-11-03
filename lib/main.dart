@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:klik/firebase_options.dart';
 import 'package:klik/presentaion/bloc/add_message/add_message_bloc.dart';
 import 'package:klik/presentaion/bloc/conversation_bloc/conversation_bloc.dart';
 import 'package:klik/presentaion/bloc/fetchallconversation_bloc/fetch_all_conversations_bloc.dart';
-import 'package:klik/services/firebase/firebase_options.dart';
+
 import 'package:klik/presentaion/bloc/Connectivity/connectivity_bloc.dart';
 import 'package:klik/presentaion/bloc/add_post/add_post_bloc.dart';
 import 'package:klik/presentaion/bloc/commentcount_bloc/comment_count_bloc.dart';
