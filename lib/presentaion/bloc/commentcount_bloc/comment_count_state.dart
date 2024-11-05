@@ -7,16 +7,16 @@ sealed class CommentCountState {
 
    final int commentCount;
 
-  CommentCountState(this.commentCount);
+  const CommentCountState(this.commentCount);
 }
 
 
 
 
 class CommentCountInitialState extends CommentCountState {
-  CommentCountInitialState(int initialCount) : super(initialCount);
+  const CommentCountInitialState(super.initialCount);
 }
 
 class CommentCountUpdatedState extends CommentCountState {
-  CommentCountUpdatedState(int updatedCount) : super(updatedCount);
+  const CommentCountUpdatedState(super.updatedCount);
 }

@@ -253,92 +253,157 @@ class _HomPage_cardState extends State<HomPage_card> {
   }
 
 
-  row_Bottom_icons(double height, BuildContext context) {
-    return MultiBlocBuilder(
-      blocs: [
-        context.watch<CommentPostBloc>(),
-        context.watch<FetchSavedPostsBloc>(),
-        context.watch<SaveUnsaveBloc>(),
-        context.watch<LikeUnlikeBloc>(),
-        context.watch<CommentCountBloc>(),
-      ],
-      builder: (context, states) {
-        var state2 = states[1]; // FetchSavedPostsBloc state
-        var commentCountState = states[4];
-        if (state2 is FetchSavedPostsSuccesfulState) {
-          posts = state2.posts;
-        }
+  // row_Bottom_icons(double height, BuildContext context) {
+  //   return MultiBlocBuilder(
+  //     blocs: [
+  //       context.watch<CommentPostBloc>(),
+  //       context.watch<FetchSavedPostsBloc>(),
+  //       context.watch<SaveUnsaveBloc>(),
+  //       context.watch<LikeUnlikeBloc>(),
+  //       context.watch<CommentCountBloc>(),
+  //     ],
+  //     builder: (context, states) {
+  //       var state2 = states[1]; // FetchSavedPostsBloc state
+  //       var commentCountState = states[4];
+  //       if (state2 is FetchSavedPostsSuccesfulState) {
+  //         posts = state2.posts;
+  //       }
 
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                // Custom Like Button
+  //       return Row(
+  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //         children: [
+  //           Row(
+  //             children: [
+  //               // Custom Like Button
 
-                CustomLikeButton(
-                  postId: widget.HomePagePosts.id,
-                  likes: widget.HomePagePosts.likes,
-                  userId: userdetails.id,
-                ),
+  //               CustomLikeButton(
+  //                 postId: widget.HomePagePosts.id,
+  //                 likes: widget.HomePagePosts.likes,
+  //                 userId: userdetails.id,
+  //               ),
 
-                // Comment Section
+  //               // Comment Section
 
-                Row(
-                  children: [
-                    IconButton(
-                      icon: Icon(
-                        CupertinoIcons.bubble_left,
-                        color: Colors.white,
-                        size: height * 0.03,
-                      ),
-                      onPressed: () async {
-                        String userName =
-                            widget.HomePagePosts.userId.userName.toString();
-                        String profilePic =
-                            widget.HomePagePosts.userId.profilePic.toString();
+  //               Row(
+  //                 children: [
+  //                   IconButton(
+  //                     icon: Icon(
+  //                       CupertinoIcons.bubble_left,
+  //                       color: Colors.white,
+  //                       size: height * 0.03,
+  //                     ),
+  //                     onPressed: () async {
+  //                       String userName =
+  //                           widget.HomePagePosts.userId.userName.toString();
+  //                       String profilePic =
+  //                           widget.HomePagePosts.userId.profilePic.toString();
 
-                        debugPrint(profilePic);
+  //                       debugPrint(profilePic);
 
-                        await showModalBottomSheet(
-                          context: context,
-                          builder: (context) => AddComment(
-                            profilePic: profilePic,
-                            userName: userName,
-                            comments: comments,
-                            id: widget.HomePagePosts.id,
-                            onCommentAdded: () {
+  //                       await showModalBottomSheet(
+  //                         context: context,
+  //                         builder: (context) => AddComment(
+  //                           profilePic: profilePic,
+  //                           userName: userName,
+  //                           comments: comments,
+  //                           id: widget.HomePagePosts.id,
+  //                           onCommentAdded: () {
                           
-                              context
-                                  .read<CommentCountBloc>()
-                                  .add(IncrementCommentCount());
-                            },
-                            onCommentDeleted: () {
+  //                             context
+  //                                 .read<CommentCountBloc>()
+  //                                 .add(IncrementCommentCount());
+  //                           },
+  //                           onCommentDeleted: () {
                         
-                              context
-                                  .read<CommentCountBloc>()
-                                  .add(DecrementCommentCount());
-                            },
-                          ),
-                        );
-                      },
-                    ),
-                    Text(
-                      (commentCountState is CommentCountState)
-                          ? commentCountState.commentCount.toString()
-                          : widget.HomePagePosts.commentCount
-                              .toString(), 
-                      style: const TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
-              ],
+  //                             context
+  //                                 .read<CommentCountBloc>()
+  //                                 .add(DecrementCommentCount());
+  //                           },
+  //                         ),
+  //                       );
+  //                     },
+  //                   ),
+  //                   Text(
+  //                     (commentCountState is CommentCountState)
+  //                         ? commentCountState.commentCount.toString()
+  //                         : widget.HomePagePosts.  commentCount
+  //                             .toString(), 
+  //                     style: const TextStyle(color: Colors.white),
+  //                   ),
+  //                 ],
+  //               ),
+  //             ],
+  //           ),
+  //           saveIcon(context)
+
+
+
+
+
+
+
+ Row row_Bottom_icons(double height, BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          children: [
+            CustomLikeButton(
+              postId: widget.HomePagePosts.id,
+              likes: widget.HomePagePosts.likes,
+              userId: userdetails.id,
             ),
-            saveIcon(context)
+            IconButton(
+              icon: Icon(
+                CupertinoIcons.bubble_left,
+                color: Colors.white,
+                size: height * 0.03,
+              ),
+              onPressed: () async {
+                String userName = widget.HomePagePosts.userId.userName.toString();
+                String profilePic = widget.HomePagePosts.userId.profilePic.toString();
+
+                await showModalBottomSheet(
+                  context: context,
+                  builder: (context) => AddComment(
+                    profilePic: profilePic,
+                    userName: userName,
+                    comments: comments,
+                    id: widget.HomePagePosts.id,
+                    onCommentAdded: () {
+                      setState(() {
+                        widget.HomePagePosts.commentCount++; // Increment only for this post
+                      });
+                    },
+                    onCommentDeleted: () {
+                      setState(() {
+                        widget.HomePagePosts.commentCount--; // Decrement only for this post
+                      });
+                    },
+                  ),
+                );
+              },
+            ),
+            Text(
+              widget.HomePagePosts.commentCount.toString(), // Use local comment count
+              style: const TextStyle(color: Colors.white),
+            ),
+          ],
+        ),
+        saveIcon(context),
+
+
+
+
+
+
+
+
+
           ],
         );
-      },
-    );
+    //  },
+   // );
   }
 
   IconButton saveIcon(BuildContext context) {
