@@ -10,12 +10,9 @@ import 'package:klik/domain/model/comment_model.dart';
 import 'package:klik/domain/model/saved_post_model.dart';
 import 'package:klik/domain/repository/user_repo/user_repo.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
-import 'package:klik/presentaion/bloc/comment_bloc/comment_post/comment_post_bloc.dart';
 import 'package:klik/presentaion/bloc/comment_bloc/getAllComment/get_all_comment_bloc.dart';
-import 'package:klik/presentaion/bloc/commentcount_bloc/comment_count_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
 import 'package:klik/presentaion/bloc/get_followers_post_bloc/getfollowers_post_bloc.dart';
-import 'package:klik/presentaion/bloc/like_unlike/like_unlike_bloc.dart';
 import 'package:klik/presentaion/bloc/save_unsave_bloc/save_unsave_bloc.dart';
 import 'package:klik/presentaion/pages/homepage/add_comment.dart';
 import 'package:klik/presentaion/pages/homepage/like_button.dart';
@@ -23,7 +20,6 @@ import 'package:klik/presentaion/pages/homepage/suggession_page.dart';
 import 'package:klik/presentaion/pages/profile_page/profile_page.dart';
 import 'package:klik/services/socket/socket.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:multi_bloc_builder/multi_bloc_builder.dart';
 
 
 
@@ -54,7 +50,7 @@ class _HomePageState extends State<HomePage> {
 
    UserRepo.fetchUserPostsOther(userId: currentuserId);
 
-    UserRepo.fetchUserPostsOther(userId: currentuserId!);
+    UserRepo.fetchUserPostsOther(userId: currentuserId);
     }
 
   @override

@@ -38,8 +38,8 @@ class GetConnectionsBloc
 
 
  if (kDebugMode) {
-        print(" GetConnectionsBloc           11111111111111111111111111 ==========${followersCount}");
-     print(" GetConnectionsBloc           11111111111111111111111111 ==========${followingCount}");
+        print(" GetConnectionsBloc           11111111111111111111111111 ==========$followersCount");
+     print(" GetConnectionsBloc           11111111111111111111111111 ==========$followingCount");
 
       }
 

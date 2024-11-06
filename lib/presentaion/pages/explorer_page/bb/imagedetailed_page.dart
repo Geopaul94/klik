@@ -4,7 +4,7 @@ import 'package:klik/application/core/widgets/customeAppbar_row.dart';
 class ImageDetailPage extends StatelessWidget {
   final String imageUrl;
 
-  const ImageDetailPage({Key? key, required this.imageUrl}) : super(key: key);
+  const ImageDetailPage({super.key, required this.imageUrl});
 
   @override
   Widget build(BuildContext context) { final width = MediaQuery.of(context).size.width;

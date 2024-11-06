@@ -1,6 +1,3 @@
-
-
-
 // import 'package:flutter/material.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:klik/application/core/constants/constants.dart';
@@ -118,31 +115,12 @@
 //   }
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/customeAppbar_row.dart';
 import 'package:klik/domain/model/comment_model.dart';
 import 'package:klik/domain/model/explore_posts_model.dart';
-import 'package:klik/domain/model/postmodel.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
 import 'package:klik/presentaion/bloc/comment_bloc/getAllComment/get_all_comment_bloc.dart';
 import 'package:klik/presentaion/bloc/commentcount_bloc/comment_count_bloc.dart';
@@ -154,9 +132,7 @@ import 'package:klik/presentaion/pages/profile_page/widgets/loading_animation_an
 import 'package:shimmer/shimmer.dart';
 
 class ScreenExplore extends StatelessWidget {
-
-
-final List<ExplorePostModel> posts; // Use your actual model type
+  final List<ExplorePostModel> posts; // Use your actual model type
   final int startIndex;
 
   ScreenExplore({super.key, required this.posts, required this.startIndex});
@@ -169,7 +145,7 @@ final List<ExplorePostModel> posts; // Use your actual model type
     var media = MediaQuery.of(context).size;
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
-      List<ExplorePostModel> displayPosts = posts.sublist(startIndex);
+    List<ExplorePostModel> displayPosts = posts.sublist(startIndex);
     return Scaffold(
       appBar: CustomeAppbarRow(
         height: height,
@@ -186,40 +162,45 @@ final List<ExplorePostModel> posts; // Use your actual model type
               if (state.posts.isNotEmpty) {
                 return ListView.builder(
                   itemCount: displayPosts.length,
-                  itemBuilder: (context, index) {final post = displayPosts[index];
+                  itemBuilder: (context, index) {
+                    final post = displayPosts[index];
                     return Container(
-                      margin: const EdgeInsets.symmetric(vertical: 10), // Gap between each item
-                      padding: const EdgeInsets.all(8), // Padding inside the container
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 10), // Gap between each item
+                      padding: const EdgeInsets.all(
+                          8), // Padding inside the container
                       decoration: BoxDecoration(
-                        border: Border.all(color:green,width: .2), // Grey border for each item
-                        borderRadius: BorderRadius.circular(8), // Optional: rounded corners
+                        border: Border.all(
+                            color: green,
+                            width: .2), // Grey border for each item
+                        borderRadius: BorderRadius.circular(
+                            8), // Optional: rounded corners
                       ),
 
-
-
-
                       child: ExplorePageMainTile(
-                       media: media,
-                    mainImage: post.image,
-                    profileImage: post.userId.profilePic,
-                    userName: post.userId.userName,
-                    postTime: formatDate(post.createdAt),
-                    description: post.description,
-                    likeCount: post.likes.length.toString(),
-                    commentCount:'',
-                    index: index + startIndex, // Adjusted for original 
+                        media: media,
+                        mainImage: post.image,
+                        profileImage: post.userId.profilePic,
+                        userName: post.userId.userName,
+                        postTime: formatDate(post.createdAt),
+                        description: post.description,
+                        likeCount: post.likes.length.toString(),
+                        commentCount: '',
+                        index: index + startIndex, // Adjusted for original
                         removeSaved: () async {},
                         statesaved: state,
                         likeButtonPressed: () {},
                         commentButtonPressed: () {
-                          context.read<GetCommentsBloc>().add(CommentsFetchEvent(
-                              postId: state.posts[index].id.toString()));
+                          context.read<GetCommentsBloc>().add(
+                              CommentsFetchEvent(
+                                  postId: state.posts[index].id.toString()));
 
                           AddComment(
-                            profilePic: state.posts[index + startIndex].userId.profilePic,
-                            userName: state.posts[index + startIndex].userId.userName,
+                            profilePic: state
+                                .posts[index + startIndex].userId.profilePic,
+                            userName:
+                                state.posts[index + startIndex].userId.userName,
                             comments: _comments,
-                  
                             id: state.posts[index + startIndex].userId.id,
                             onCommentAdded: () {
                               context
@@ -233,13 +214,12 @@ final List<ExplorePostModel> posts; // Use your actual model type
                             },
                           );
 
-                          context.read<GetCommentsBloc>().add(CommentsFetchEvent(
-                              postId: state.posts[index + startIndex].id.toString()));
-
-                              
+                          context.read<GetCommentsBloc>().add(
+                              CommentsFetchEvent(
+                                  postId: state.posts[index + startIndex].id
+                                      .toString()));
                         },
                         commentes: _comments,
-                      
                       ),
                     );
                   },

@@ -337,7 +337,7 @@ class AddComment extends StatefulWidget {
   final int commentsCount;
 
   const AddComment({
-    Key? key,
+    super.key,
     required this.profilePic,
     required this.userName,
     required this.comments,
@@ -345,7 +345,7 @@ class AddComment extends StatefulWidget {
     required this.onCommentAdded,
     required this.onCommentDeleted,
     this.commentsCount = 0, // Default to 0 if not provided
-  }) : super(key: key);
+  });
 
   @override
   _AddCommentState createState() => _AddCommentState();

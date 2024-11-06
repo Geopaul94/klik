@@ -7,7 +7,6 @@ import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/application/core/widgets/errorstate_widget.dart';
 import 'package:klik/presentaion/bloc/explorerposts_bloc/explorerpost_bloc.dart';
 import 'package:klik/presentaion/bloc/search_user_bloc/explore_page_search_users_bloc.dart';
-import 'package:klik/presentaion/pages/explorer_page/bb/imagedetailed_page.dart';
 import 'package:klik/presentaion/pages/explorer_page/bb/screen_explore.dart';
 import 'package:klik/presentaion/pages/profile_page/CustomeListTile.dart';
 import 'package:klik/presentaion/pages/profile_page/widgets/exploring_user_profile.dart';

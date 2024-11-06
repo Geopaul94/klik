@@ -13,10 +13,13 @@ import 'package:klik/domain/model/comment_model.dart';
 
 import 'package:klik/domain/model/my_post_model.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
+import 'package:klik/presentaion/bloc/commentcount_bloc/comment_count_bloc.dart';
 
 import 'package:klik/presentaion/bloc/fetch_my_post/fetch_my_post_bloc.dart';
+import 'package:klik/presentaion/bloc/like_unlike/like_unlike_bloc.dart';
 
 import 'package:klik/presentaion/bloc/login_user_details/login_user_details_bloc.dart';
+import 'package:klik/presentaion/pages/homepage/add_comment.dart';
 import 'package:klik/presentaion/pages/profile_page/my_post_delete_edit/screen_update_user_post.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -124,8 +127,6 @@ class Myposts_card extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
 
@@ -187,46 +188,94 @@ class Myposts_card extends StatelessWidget {
               ),
             ),
 
-            bottom_raw_card(height),
+            // bottom_raw_card(height),
+
+            BlocBuilder<LikeUnlikeBloc, LikeUnlikeState>(
+              builder: (context, state) {
+                bool isLiked = post.likes!.contains(currentuserId);
+                int currentLikeCount = post.likes!.length;
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            if (isLiked) {
+                              context.read<LikeUnlikeBloc>().add(
+                                    onUserUnlikeButtonPressedEvent(
+                                        postId: post.id!),
+                                  );
+                              post.likes?.remove(
+                                  currentuserId); 
+                            } else {
+                              context.read<LikeUnlikeBloc>().add(
+                                    onUserLikeButtonPressedEvent(
+                                        postId: post.id!),
+                                  );
+                              post.likes!
+                                  .add(currentuserId); 
+                            }
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Icon(
+                              isLiked ? Icons.favorite : Icons.favorite_border,
+                              color: isLiked
+                                  ? Colors.red
+                                  : Colors.green, 
+                            ),
+                          ),
+                        ),
+                        Text(
+                          '$currentLikeCount ',
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            CupertinoIcons.bubble_left,
+                            color: Colors.white,
+                            size: height * 0.03,
+                          ),
+                          onPressed: () async {
+                            await showModalBottomSheet(
+                              context: context,
+                              builder: (context) => AddComment(
+                                profilePic: post.userId!.profilePic.toString(),
+                                userName: post.userId!.userName.toString(),
+                                comments: _comments,
+                                id: post.id.toString(),
+                                onCommentAdded: () {
+                                  context
+                                      .read<CommentCountBloc>()
+                                      .add(IncrementCommentCount());
+                                },
+                                onCommentDeleted: () {
+                                  context
+                                      .read<CommentCountBloc>()
+                                      .add(DecrementCommentCount());
+                                },
+                              ),
+                            );
+                          },
+                        ),
+                        Text("${_comments.length}")
+                      ],
+                    ),
+                  ],
+                );
+              },
+            ),
           ],
         ),
       ),
     );
   }
 
-  Row bottom_raw_card(double height) {
-    return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  IconButton(
-                    icon: Icon(
-                      CupertinoIcons.heart,
-                      color: Colors.red,
-                      size: height * 0.03,
-                    ),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Icon(
-                      CupertinoIcons.bubble_left,
-                      color: Colors.white,
-                      size: height * 0.03,
-                    ),
-                    onPressed: () {
+  // Row bottom_raw_card(double height) {
 
-
-
-                      
-                    },
-                  ),
-                ],
-              ),
-             
-            ],
-          );
-  }
+  // }
 
   void showPopupMenu(BuildContext context, Offset tapPosition, String postId) {
     showMenu(
