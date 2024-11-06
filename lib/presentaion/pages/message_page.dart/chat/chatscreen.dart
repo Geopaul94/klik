@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:klik/application/core/constants/constants.dart';
 import 'package:klik/domain/model/all_message_model.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
@@ -130,6 +131,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     }
                     if (state is GetAllMessagesSuccesfulState) {
                       List<DateTime> dates = [];
+                      List<DateTime>time=[];
                       List<List<AllMessagesModel>> messagesByDate = [];
                       for (var message in state.messagesList) {
                         DateTime date = DateTime(
@@ -155,7 +157,7 @@ class _ChatScreenState extends State<ChatScreen> {
                             children: [
                               DateDivider(date: dates[index]),
                               ...messagesByDate[index]
-                                  .map((message) => getMessageCard(message)),
+                                  .map((message) => getMessageCard(message, )),
                             ],
                           );
                         },
@@ -268,39 +270,169 @@ class _ChatScreenState extends State<ChatScreen> {
     );
   }
 
-  Widget getMessageCard(AllMessagesModel message) {
-    // changed here  bool isSender = message.senderId ==logginedUserId;
+//   Widget getMessageCard(AllMessagesModel message ,AllMessagesModel  DateTime) {
+//     // changed here  bool isSender = message.senderId ==logginedUserId;
 
-    bool isSender = message.senderId == currentuserId;
+//     bool isSender = message.senderId == currentuserId;
 
-    //  ;
+//     //  ;
 
-    // Check if the current user is the sender
+//     // Check if the current user is the sender
 
-    return Align(
-      alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-        padding: const EdgeInsets.all(10),
-        constraints: BoxConstraints(
-          maxWidth: MediaQuery.of(context).size.width * 0.75,
-        ),
-        decoration: BoxDecoration(
-          color: isSender ? green : Colors.grey[200],
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(isSender ? 12 : 0),
-            topRight: Radius.circular(isSender ? 0 : 12),
-            bottomLeft: const Radius.circular(12),
-            bottomRight: const Radius.circular(12),
+//     return Align(
+//       alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
+//       child: Container(
+//         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+//         padding: const EdgeInsets.all(10),
+//         constraints: BoxConstraints(
+//           maxWidth: MediaQuery.of(context).size.width * 0.75,
+//         ),
+//         decoration: BoxDecoration(
+//           color: isSender ? green : Colors.grey[200],
+//           borderRadius: BorderRadius.only(
+//             topLeft: Radius.circular(isSender ? 12 : 0),
+//             topRight: Radius.circular(isSender ? 0 : 12),
+//             bottomLeft: const Radius.circular(12),
+//             bottomRight: const Radius.circular(12),
+//           ),
+//         ),
+//         child: Text(
+//           message.text,
+//           style: TextStyle(
+//             color: isSender ? Colors.white : Colors.black,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+
+
+
+Widget getMessageCard(AllMessagesModel message) {
+  bool isSender = message.senderId == currentuserId;
+
+  // Convert the message creation time to the local time zone
+  DateTime localTime = message.createdAt.toLocal();
+
+  // Format the message creation time (e.g., 02:15 PM)
+  String formattedTime = DateFormat('hh:mm a').format(localTime);
+
+  return Column(
+    crossAxisAlignment: isSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+    children: [
+      Align(
+        alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          padding: const EdgeInsets.all(10),
+          constraints: BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width * 0.75,
           ),
-        ),
-        child: Text(
-          message.text,
-          style: TextStyle(
-            color: isSender ? Colors.white : Colors.black,
+          decoration: BoxDecoration(
+            color: isSender ? Colors.green : Colors.grey[200],
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(isSender ? 12 : 0),
+              topRight: Radius.circular(isSender ? 0 : 12),
+              bottomLeft: const Radius.circular(12),
+              bottomRight: const Radius.circular(12),
+            ),
+          ),
+          child: Text(
+            message.text,
+            style: TextStyle(
+              color: isSender ? Colors.white : Colors.black,
+            ),
           ),
         ),
       ),
-    );
-  }
+      // Add the time below the message container
+      Padding(
+        padding: const EdgeInsets.only(right: 12, left: 12),
+        child: Align(
+          alignment: isSender ? Alignment.centerRight : Alignment.centerLeft,
+          child: Text(
+            formattedTime,
+            style: const TextStyle(
+              color: Colors.grey,  // Grey color for the time
+              fontSize: 8,        // Font size 10 for the time
+            ),
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
+
+
+
+// Widget getMessageCard(AllMessagesModel message) {
+//   bool isSender = message.senderId == currentuserId;
+
+//   // Convert the message creation time to the local time zone
+//   DateTime localTime = message.createdAt.toLocal();
+
+//   // Format the message creation time (e.g., 02:15 PM)
+//   String formattedTime = DateFormat('hh:mm a').format(localTime);
+
+//   return Row(
+//     mainAxisAlignment:
+//         isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
+//     crossAxisAlignment: CrossAxisAlignment.center,
+//     children: [
+//       // Display time on the left side for receiver
+//       if (!isSender)
+//         Padding(
+//           padding: const EdgeInsets.only(left: 8.0),
+//           child: Text(
+//             formattedTime,
+//             style: TextStyle(
+//               color: Colors.grey,  // Grey color for the time
+//               fontSize: 10,        // Font size 10 for the time
+//             ),
+//           ),
+//         ),
+      
+//       // Message Container
+//       Container(
+//         margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+//         padding: const EdgeInsets.all(10),
+//         constraints: BoxConstraints(
+//           maxWidth: MediaQuery.of(context).size.width * 0.75,
+//         ),
+//         decoration: BoxDecoration(
+//           color: isSender ? Colors.green : Colors.grey[200],
+//           borderRadius: BorderRadius.only(
+//             topLeft: Radius.circular(isSender ? 12 : 0),
+//             topRight: Radius.circular(isSender ? 0 : 12),
+//             bottomLeft: const Radius.circular(12),
+//             bottomRight: const Radius.circular(12),
+//           ),
+//         ),
+//         child: Text(
+//           message.text,
+//           style: TextStyle(
+//             color: isSender ? Colors.white : Colors.black,
+//           ),
+//         ),
+//       ),
+
+//       // Display time on the right side for sender
+//       if (isSender)
+//         Padding(
+//           padding: const EdgeInsets.only(left: 8.0),
+//           child: Text(
+//             formattedTime,
+//             style: TextStyle(
+//               color: Colors.grey,  // Grey color for the time
+//               fontSize: 10,        // Font size 10 for the time
+//             ),
+//           ),
+//         ),
+//     ],
+//   );
+// }
+
 }
