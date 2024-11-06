@@ -10,9 +10,12 @@ import 'package:klik/domain/model/comment_model.dart';
 import 'package:klik/domain/model/saved_post_model.dart';
 import 'package:klik/domain/repository/user_repo/user_repo.dart';
 import 'package:klik/infrastructure/functions/serUserloggedin.dart';
+import 'package:klik/presentaion/bloc/comment_bloc/comment_post/comment_post_bloc.dart';
 import 'package:klik/presentaion/bloc/comment_bloc/getAllComment/get_all_comment_bloc.dart';
+import 'package:klik/presentaion/bloc/commentcount_bloc/comment_count_bloc.dart';
 import 'package:klik/presentaion/bloc/fetch_saved_posts/fetch_saved_posts_bloc.dart';
 import 'package:klik/presentaion/bloc/get_followers_post_bloc/getfollowers_post_bloc.dart';
+import 'package:klik/presentaion/bloc/like_unlike/like_unlike_bloc.dart';
 import 'package:klik/presentaion/bloc/save_unsave_bloc/save_unsave_bloc.dart';
 import 'package:klik/presentaion/pages/homepage/add_comment.dart';
 import 'package:klik/presentaion/pages/homepage/like_button.dart';
@@ -20,6 +23,7 @@ import 'package:klik/presentaion/pages/homepage/suggession_page.dart';
 import 'package:klik/presentaion/pages/profile_page/profile_page.dart';
 import 'package:klik/services/socket/socket.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:multi_bloc_builder/multi_bloc_builder.dart';
 
 
 
@@ -249,194 +253,244 @@ class _HomPage_cardState extends State<HomPage_card> {
   }
 
 
-  // row_Bottom_icons(double height, BuildContext context) {
-  //   return MultiBlocBuilder(
-  //     blocs: [
-  //       context.watch<CommentPostBloc>(),
-  //       context.watch<FetchSavedPostsBloc>(),
-  //       context.watch<SaveUnsaveBloc>(),
-  //       context.watch<LikeUnlikeBloc>(),
-  //       context.watch<CommentCountBloc>(),
-  //     ],
-  //     builder: (context, states) {
-  //       var state2 = states[1]; // FetchSavedPostsBloc state
-  //       var commentCountState = states[4];
-  //       if (state2 is FetchSavedPostsSuccesfulState) {
-  //         posts = state2.posts;
-  //       }
 
-  //       return Row(
-  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //         children: [
-  //           Row(
-  //             children: [
-  //               // Custom Like Button
 
-  //               CustomLikeButton(
-  //                 postId: widget.HomePagePosts.id,
-  //                 likes: widget.HomePagePosts.likes,
-  //                 userId: userdetails.id,
-  //               ),
 
-  //               // Comment Section
+//  Row row_Bottom_icons(double height, BuildContext context) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//       children: [
+//         Row(
+//           children: [
+//             CustomLikeButton(
+//               postId: widget.HomePagePosts.id,
+//               likes: widget.HomePagePosts.likes,
+//               userId: userdetails.id,
+//             ),
+//             IconButton(
+//               icon: Icon(
+//                 CupertinoIcons.bubble_left,
+//                 color: Colors.white,
+//                 size: height * 0.03,
+//               ),
+//               onPressed: () async {
+//                 String userName = widget.HomePagePosts.userId.userName.toString();
+//                 String profilePic = widget.HomePagePosts.userId.profilePic.toString();
 
-  //               Row(
-  //                 children: [
-  //                   IconButton(
-  //                     icon: Icon(
-  //                       CupertinoIcons.bubble_left,
-  //                       color: Colors.white,
-  //                       size: height * 0.03,
-  //                     ),
-  //                     onPressed: () async {
-  //                       String userName =
-  //                           widget.HomePagePosts.userId.userName.toString();
-  //                       String profilePic =
-  //                           widget.HomePagePosts.userId.profilePic.toString();
-
-  //                       debugPrint(profilePic);
-
-  //                       await showModalBottomSheet(
-  //                         context: context,
-  //                         builder: (context) => AddComment(
-  //                           profilePic: profilePic,
-  //                           userName: userName,
-  //                           comments: comments,
-  //                           id: widget.HomePagePosts.id,
-  //                           onCommentAdded: () {
-                          
-  //                             context
-  //                                 .read<CommentCountBloc>()
-  //                                 .add(IncrementCommentCount());
-  //                           },
-  //                           onCommentDeleted: () {
-                        
-  //                             context
-  //                                 .read<CommentCountBloc>()
-  //                                 .add(DecrementCommentCount());
-  //                           },
-  //                         ),
-  //                       );
-  //                     },
-  //                   ),
-  //                   Text(
-  //                     (commentCountState is CommentCountState)
-  //                         ? commentCountState.commentCount.toString()
-  //                         : widget.HomePagePosts.  commentCount
-  //                             .toString(), 
-  //                     style: const TextStyle(color: Colors.white),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ],
-  //           ),
-  //           saveIcon(context)
+//                 await showModalBottomSheet(
+//                   context: context,
+//                   builder: (context) => AddComment(
+//                     profilePic: profilePic,
+//                     userName: userName,
+//                     comments: comments,
+//                     id: widget.HomePagePosts.id,
+//                     onCommentAdded: () {
+//                       setState(() {
+//                         widget.HomePagePosts.commentCount++; // Increment only for this post
+//                       });
+//                     },
+//                     onCommentDeleted: () {
+//                       setState(() {
+//                         widget.HomePagePosts.commentCount--; // Decrement only for this post
+//                       });
+//                     },
+//                   ),
+//                 );
+//               },
+//             ),
+//             Text(
+//               widget.HomePagePosts.commentCount.toString(), // Use local comment count
+//               style: const TextStyle(color: Colors.white),
+//             ),
+//           ],
+//         ),
+//        // saveIcon(context),
 
 
 
 
 
+// BlocBuilder<SaveUnsaveBloc, SaveUnsaveState>(
+//   builder: (context, state) {
+//     // Determine if the post is already saved based on the current Bloc state
+//     bool isAlreadySaved = posts.any(
+//       (element) => element.postId.id == widget.HomePagePosts.id,
+//     );
+
+//     if (state is SavePostSuccessfullState && state.post == widget.HomePagePosts.id) {
+//       isAlreadySaved = true;
+//     } else if (state is RemoveSavedPostSuccessfulState && state.post == widget.HomePagePosts.id) {
+//       isAlreadySaved = false;
+//     }
+
+//     return IconButton(
+//       onPressed: () async {
+//         if (isAlreadySaved) {
+//           // Dispatch the unsave event
+//           context.read<SaveUnsaveBloc>().add(OnUserRemoveSavedPost(
+//                 postId: widget.HomePagePosts.id.toString(),
+//               ));
+//         } else {
+//           // Dispatch the save event
+//           context.read<SaveUnsaveBloc>().add(OnUserSavePost(
+//                 postId: widget.HomePagePosts.id.toString(),
+//               ));
+//         }
+//       },
+//       icon: Icon(
+//         isAlreadySaved ? CupertinoIcons.bookmark_fill : CupertinoIcons.bookmark,
+//         color: blue,
+//         size: 25,
+//       ),
+//     );
+//   },
+// )
 
 
- Row row_Bottom_icons(double height, BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
+
+
+row_Bottom_icons(double height, BuildContext context) {
+    return MultiBlocBuilder(
+      blocs: [
+        context.watch<CommentPostBloc>(),
+        context.watch<FetchSavedPostsBloc>(),
+        context.watch<SaveUnsaveBloc>(),
+        context.watch<LikeUnlikeBloc>(),
+        context.watch<CommentCountBloc>(),
+      ],
+      builder: (context, states) {
+        var state2 = states[1]; // FetchSavedPostsBloc state
+        var commentCountState = states[4];
+
+        if (state2 is FetchSavedPostsSuccesfulState) {
+          posts = state2.posts;
+        }
+
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            CustomLikeButton(
-              postId: widget.HomePagePosts.id,
-              likes: widget.HomePagePosts.likes,
-              userId: userdetails.id,
-            ),
-            IconButton(
-              icon: Icon(
-                CupertinoIcons.bubble_left,
-                color: Colors.white,
-                size: height * 0.03,
-              ),
-              onPressed: () async {
-                String userName = widget.HomePagePosts.userId.userName.toString();
-                String profilePic = widget.HomePagePosts.userId.profilePic.toString();
+            Row(
+              children: [
+                // Custom Like Button
+                CustomLikeButton(
+                  postId: widget.HomePagePosts.id,
+                  likes: widget.HomePagePosts.likes,
+                  userId: userdetails.id,
+                ),
 
-                await showModalBottomSheet(
-                  context: context,
-                  builder: (context) => AddComment(
-                    profilePic: profilePic,
-                    userName: userName,
-                    comments: comments,
-                    id: widget.HomePagePosts.id,
-                    onCommentAdded: () {
-                      setState(() {
-                        widget.HomePagePosts.commentCount++; // Increment only for this post
-                      });
-                    },
-                    onCommentDeleted: () {
-                      setState(() {
-                        widget.HomePagePosts.commentCount--; // Decrement only for this post
-                      });
-                    },
-                  ),
-                );
-              },
+                // Comment Section
+                Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(
+                        CupertinoIcons.bubble_left,
+                        color: Colors.white,
+                        size: height * 0.03,
+                      ),
+                      onPressed: () async {
+                        String userName =
+                            widget.HomePagePosts.userId.userName.toString();
+                        String profilePic =
+                            widget.HomePagePosts.userId.profilePic.toString();
+
+                        debugPrint(profilePic);
+
+                        await showModalBottomSheet(
+                          context: context,
+                          builder: (context) => AddComment(
+                            profilePic: profilePic,
+                            userName: userName,
+                            comments: comments,
+                            id: widget.HomePagePosts.id,
+                            onCommentAdded: () {
+                              context
+                                  .read<CommentCountBloc>()
+                                  .add(IncrementCommentCount());
+                            },
+                            onCommentDeleted: () {
+                              context
+                                  .read<CommentCountBloc>()
+                                  .add(DecrementCommentCount());
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                    Text(
+                      (commentCountState is CommentCountState)
+                          ? commentCountState.commentCount.toString()
+                          : widget.HomePagePosts.commentCount.toString(),
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            Text(
-              widget.HomePagePosts.commentCount.toString(), // Use local comment count
-              style: const TextStyle(color: Colors.white),
-            ),
+            saveIcon(context),
           ],
-        ),
-       // saveIcon(context),
-
-
-
-
-
-BlocBuilder<SaveUnsaveBloc, SaveUnsaveState>(
-  builder: (context, state) {
-    // Determine if the post is already saved based on the current Bloc state
-    bool isAlreadySaved = posts.any(
-      (element) => element.postId.id == widget.HomePagePosts.id,
+        );
+      },
     );
+  }
 
-    if (state is SavePostSuccessfullState && state.post == widget.HomePagePosts.id) {
-      isAlreadySaved = true;
-    } else if (state is RemoveSavedPostSuccessfulState && state.post == widget.HomePagePosts.id) {
-      isAlreadySaved = false;
-    }
-
+  IconButton saveIcon(BuildContext context) {
     return IconButton(
       onPressed: () async {
+        bool isAlreadySaved = posts.any(
+          (element) => element.postId.id == widget.HomePagePosts.id,
+        );
+
         if (isAlreadySaved) {
-          // Dispatch the unsave event
           context.read<SaveUnsaveBloc>().add(OnUserRemoveSavedPost(
                 postId: widget.HomePagePosts.id.toString(),
               ));
+
+          posts.removeWhere(
+            (element) => element.postId.id == widget.HomePagePosts.id,
+          );
+
+          print("Post removed: ${widget.HomePagePosts.id}");
         } else {
-          // Dispatch the save event
+          // If the post is not saved, add it to the saved list
+          posts.add(SavedPostModel(
+            userId: widget.HomePagePosts.userId.id.toString(),
+            postId: PostId(
+              id: widget.HomePagePosts.id.toString(),
+              userId: UserIdSavedPost.fromJson(
+                  widget.HomePagePosts.userId.toJson()),
+              image: widget.HomePagePosts.image.toString(),
+              description: widget.HomePagePosts.description.toString(),
+              likes: widget.HomePagePosts.likes,
+              hidden: widget.HomePagePosts.hidden,
+              blocked: widget.HomePagePosts.blocked,
+              tags: widget.HomePagePosts.tags,
+              date: widget.HomePagePosts.createdAt,
+              createdAt: widget.HomePagePosts.createdAt,
+              updatedAt: widget.HomePagePosts.updatedAt,
+              v: widget.HomePagePosts.v,
+              taggedUsers: widget.HomePagePosts.taggedUsers,
+            ),
+            createdAt: DateTime.now(),
+            updatedAt: DateTime.now(),
+            v: widget.HomePagePosts.v,
+          ));
+
+          // Add the post to the backend
           context.read<SaveUnsaveBloc>().add(OnUserSavePost(
                 postId: widget.HomePagePosts.id.toString(),
               ));
         }
       },
       icon: Icon(
-        isAlreadySaved ? CupertinoIcons.bookmark_fill : CupertinoIcons.bookmark,
+        posts.any((element) => element.postId.id == widget.HomePagePosts.id)
+            ? CupertinoIcons.bookmark_fill
+            : CupertinoIcons.bookmark,
         color: blue,
         size: 25,
       ),
     );
-  },
-)
-
-
-
-
-
-
-
-
-          ],
-        );
+  
+        
     //  },
    // );
   }
